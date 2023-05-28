@@ -1,13 +1,26 @@
 var app = angular.module("myapp", ["ngRoute"]);
 
-app.config(function($routeProvider){
+app.config(function($routeProvider, $locationProvider){
 	$routeProvider
-	.when("", {
-		templateUrl: "/assets/admin/index.html"
+	.when("/", {
+		templateUrl: "/assets/admin/layout/home.html"
+	})
+	.when("/campaign-management", {
+		templateUrl: "/assets/admin/layout/campaign-management.html"
+	})
+	.when("/student-support", {
+		templateUrl: "/assets/admin/layout/student-support.html"
+	})
+	.when("/account-management", {
+		templateUrl: "/assets/admin/layout/account-management.html"
+	})
+	.when("/data-management", {
+		templateUrl: "/assets/admin/layout/data-management.html"
 	})
 	.otherwise({
-		redirectTo: ""
+		redirectTo: "/"
 	});
+	$locationProvider.html5Mode(true);
 });
 
 app.run(function ($rootScope) {
