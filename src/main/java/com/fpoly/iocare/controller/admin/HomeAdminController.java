@@ -34,4 +34,10 @@ public class HomeAdminController {
 	public String dataManagement() {
 		return "admin/index";
 	}
+	
+	/*--url: Quản lý phân quyền--*/
+	@RequestMapping("/authority-management")
+	public String authorityManagement() {
+		return "admin/index";
+	}
 }

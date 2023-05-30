@@ -64,6 +64,168 @@ app.controller('viewmore', function($scope) {
       thoiGianChamSoc: ''
     },
     {
+      loaiChiendich: 'Project Fireball',
+      maSinhVien: '01/01/2021',
+      lyDo: '31/06/2021',
+      dienGiai: 'Cancelled',
+      phanLoai: 'William Harris',
+      nhanSu: '',
+      thoiGianChamSoc: ''
+    },
+    {
+      loaiChiendich: 'Project Fireball',
+      maSinhVien: '01/01/2021',
+      lyDo: '31/06/2021',
+      dienGiai: 'Cancelled',
+      phanLoai: 'William Harris',
+      nhanSu: '',
+      thoiGianChamSoc: ''
+    },
+    {
+      loaiChiendich: 'Project Fireball',
+      maSinhVien: '01/01/2021',
+      lyDo: '31/06/2021',
+      dienGiai: 'Cancelled',
+      phanLoai: 'William Harris',
+      nhanSu: '',
+      thoiGianChamSoc: ''
+    },
+    {
+      loaiChiendich: 'Project Fireball',
+      maSinhVien: '01/01/2021',
+      lyDo: '31/06/2021',
+      dienGiai: 'Cancelled',
+      phanLoai: 'William Harris',
+      nhanSu: '',
+      thoiGianChamSoc: ''
+    },
+    {
+      loaiChiendich: 'Project Fireball',
+      maSinhVien: '01/01/2021',
+      lyDo: '31/06/2021',
+      dienGiai: 'Cancelled',
+      phanLoai: 'William Harris',
+      nhanSu: '',
+      thoiGianChamSoc: ''
+    },
+    {
+      loaiChiendich: 'Project Fireball',
+      maSinhVien: '01/01/2021',
+      lyDo: '31/06/2021',
+      dienGiai: 'Cancelled',
+      phanLoai: 'William Harris',
+      nhanSu: '',
+      thoiGianChamSoc: ''
+    },
+    {
+      loaiChiendich: 'Project Fireball',
+      maSinhVien: '01/01/2021',
+      lyDo: '31/06/2021',
+      dienGiai: 'Cancelled',
+      phanLoai: 'William Harris',
+      nhanSu: '',
+      thoiGianChamSoc: ''
+    },
+    {
+      loaiChiendich: 'Project Fireball',
+      maSinhVien: '01/01/2021',
+      lyDo: '31/06/2021',
+      dienGiai: 'Cancelled',
+      phanLoai: 'William Harris',
+      nhanSu: '',
+      thoiGianChamSoc: ''
+    },
+    {
+      loaiChiendich: 'Project Fireball',
+      maSinhVien: '01/01/2021',
+      lyDo: '31/06/2021',
+      dienGiai: 'Cancelled',
+      phanLoai: 'William Harris',
+      nhanSu: '',
+      thoiGianChamSoc: ''
+    },
+    {
+      loaiChiendich: 'Project Fireball',
+      maSinhVien: '01/01/2021',
+      lyDo: '31/06/2021',
+      dienGiai: 'Cancelled',
+      phanLoai: 'William Harris',
+      nhanSu: '',
+      thoiGianChamSoc: ''
+    },
+    {
+      loaiChiendich: 'Project Fireball',
+      maSinhVien: '01/01/2021',
+      lyDo: '31/06/2021',
+      dienGiai: 'Cancelled',
+      phanLoai: 'William Harris',
+      nhanSu: '',
+      thoiGianChamSoc: ''
+    },
+    {
+      loaiChiendich: 'Project Fireball',
+      maSinhVien: '01/01/2021',
+      lyDo: '31/06/2021',
+      dienGiai: 'Cancelled',
+      phanLoai: 'William Harris',
+      nhanSu: '',
+      thoiGianChamSoc: ''
+    },
+    {
+      loaiChiendich: 'Project Fireball',
+      maSinhVien: '01/01/2021',
+      lyDo: '31/06/2021',
+      dienGiai: 'Cancelled',
+      phanLoai: 'William Harris',
+      nhanSu: '',
+      thoiGianChamSoc: ''
+    },
+    {
+      loaiChiendich: 'Project Fireball',
+      maSinhVien: '01/01/2021',
+      lyDo: '31/06/2021',
+      dienGiai: 'Cancelled',
+      phanLoai: 'William Harris',
+      nhanSu: '',
+      thoiGianChamSoc: ''
+    },
+    {
+      loaiChiendich: 'Project Fireball',
+      maSinhVien: '01/01/2021',
+      lyDo: '31/06/2021',
+      dienGiai: 'Cancelled',
+      phanLoai: 'William Harris',
+      nhanSu: '',
+      thoiGianChamSoc: ''
+    },
+    {
+      loaiChiendich: 'Project Fireball',
+      maSinhVien: '01/01/2021',
+      lyDo: '31/06/2021',
+      dienGiai: 'Cancelled',
+      phanLoai: 'William Harris',
+      nhanSu: '',
+      thoiGianChamSoc: ''
+    },
+    {
+      loaiChiendich: 'Project Fireball',
+      maSinhVien: '01/01/2021',
+      lyDo: '31/06/2021',
+      dienGiai: 'Cancelled',
+      phanLoai: 'William Harris',
+      nhanSu: '',
+      thoiGianChamSoc: ''
+    },
+    {
+      loaiChiendich: 'Project Fireball',
+      maSinhVien: '01/01/2021',
+      lyDo: '31/06/2021',
+      dienGiai: 'Cancelled',
+      phanLoai: 'William Harris',
+      nhanSu: '',
+      thoiGianChamSoc: ''
+    },
+    {
       loaiChiendich: 'Project Apollo',
       maSinhVien: '01/01/2021',
       lyDo: '31/06/2021',

@@ -18,13 +18,12 @@
 	
 	<base href="/">
 	<link href="/assets/admin/css/app.css" rel="stylesheet">
+
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 	
 	<!-- Link AngularJs framework -->
 	<script src="/assets/admin/js/angular.min.js"></script>
 	<script src="/assets/admin/js/angular-route.js"></script>
-
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 	
 </head>
 
@@ -54,25 +53,33 @@
               				<span class="align-middle">Quản lý chiến dịch</span>
             			</a>
 					</li>
-					
-					<li class="sidebar-item" ng-class="{ active: isActive('/student-support')}">
-						<a class="sidebar-link" href="/student-support" ng-click="setActive('/student-support')">
-             	 			<i class="align-middle" data-feather="user"></i>
-             	 			<span class="align-middle">Chăm sóc sinh viên</span>
-            			</a>
+				
+					<li class="sidebar-header">
+						Quản lý tài khoản
 					</li>
 
 					<li class="sidebar-item" ng-class="{ active: isActive('/account-management')}">
 						<a class="sidebar-link" href="/account-management" ng-click="setActive('/account-management')">
               				<i class="align-middle" data-feather="log-in"></i>
-              				<span class="align-middle">Quản lý tài khoản</span>
+              				<span class="align-middle">Tạo tài khoản</span>
             			</a>
+					</li>
+					
+					<li class="sidebar-item" ng-class="{ active: isActive('/authority-management')}">
+						<a class="sidebar-link" href="/authority-management" ng-click="setActive('/authority-management')">
+              				<i class="align-middle" data-feather="log-in"></i>
+              				<span class="align-middle">Phân quyền</span>
+            			</a>
+					</li>
+					
+					<li class="sidebar-header">
+						Quản lý dữ liệu
 					</li>
 
 					<li class="sidebar-item" ng-class="{ active: isActive('/data-management')}">
 						<a class="sidebar-link" href="/data-management" ng-click="setActive('/data-management')">
               				<i class="align-middle" data-feather="book"></i>
-              				<span class="align-middle">Quản lý data</span>
+              				<span class="align-middle">Phân công công việc</span>
             			</a>
 					</li>
 				</ul>
@@ -129,8 +136,6 @@
 	<script src="/assets/admin/js/webapp.js"></script>
 	<script src="/assets/admin/js/sidebar.js"></script>
 	<script src="/assets/admin/js/viewmore.js"></script>
-	
-
 
 </body>
 
