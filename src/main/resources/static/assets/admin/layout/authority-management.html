@@ -9,14 +9,58 @@
 				<thead>
 					<tr>
 						<th></th>
-						<th ng-repeat="role in roles"></th>
+						<th>Admin</th>
+						<th>User1</th>
+						<th>User2</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="acc in admins">
-						<td></td>
-						<td ng-repeat="role in roles">
-							<input ng-checked="authority_of(acc, role)" ng-click="authority_changed(acc, role)" type="checkbox" />
+					<tr>
+						<td>Tommy Shelby</td>
+						<td>
+							<input type="checkbox" />
+						</td>
+						<td>
+							<input type="checkbox" />
+						</td>
+						<td>
+							<input type="checkbox" />
+						</td>
+					</tr>
+					<tr>
+						<td>Grace Burgess</td>
+						<td>
+							<input type="checkbox" />
+						</td>
+						<td>
+							<input type="checkbox" />
+						</td>
+						<td>
+							<input type="checkbox" />
+						</td>
+					</tr>
+					<tr>
+						<td>John Shelby</td>
+						<td>
+							<input type="checkbox" />
+						</td>
+						<td>
+							<input type="checkbox" />
+						</td>
+						<td>
+							<input type="checkbox" />
+						</td>
+					</tr>
+					<tr>
+						<td>Arthur Shelby</td>
+						<td>
+							<input type="checkbox" />
+						</td>
+						<td>
+							<input type="checkbox" />
+						</td>
+						<td>
+							<input type="checkbox" />
 						</td>
 					</tr>
 				</tbody>
