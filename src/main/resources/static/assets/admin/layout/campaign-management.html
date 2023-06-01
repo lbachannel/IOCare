@@ -1,10 +1,5 @@
 <div class="container-fluid p-0">
 	<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-		<li class="nav-item" role="presentation">
-			<button class="btn btn-light active" id="pills-home-tab" data-bs-toggle="pill"
-				data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home"
-				aria-selected="false">Quản lí chiến dịch</button>
-		</li>
 
 		<li class="nav-item" role="presentation">
 			<button class="btn btn-light" id="pills-create-semesters-tab" data-bs-toggle="pill"
@@ -16,6 +11,11 @@
 			<button class="btn btn-light" id="pills-create-campains-tab" data-bs-toggle="pill"
 				data-bs-target="#pills-create-campains" type="button" role="tab" aria-controls="pills-create-campains"
 				aria-selected="false">Tạo chiến dịch</button>
+		</li>
+		<li class="nav-item" role="presentation">
+			<button class="btn btn-light active" id="pills-home-tab" data-bs-toggle="pill"
+				data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home"
+				aria-selected="false">Quản lí chiến dịch</button>
 		</li>
 	</ul>
 	
@@ -284,14 +284,14 @@
 								<div class="form-group col-md-6 mb-3">
 									<label>Mã học kì: </label>
 									<div class="mb-3 mt-1">
-										<input type="text" class="form-control" readonly>
+										<input type="text" class="form-control">
 						            </div>
 								</div>
 								
 								<div class="form-group col-md-6 mb-3">
 									<label>Tên học kì:  </label>
 									<div class="mb-3 mt-1">
-										<input type="text" class="form-control" readonly>
+										<input type="text" class="form-control">
 						            </div>
 								</div>
 								
@@ -309,14 +309,49 @@
 						            </div>
 								</div>
 								
-								<div class="form-group col-md-12 col-lg-12" style="display: flex; justify-content: center;">
-									<button class="btn mb-3 btn-light" style="width: 35%;">
+								<div class="form-group col-md-12 col-lg-12" justify-content: center;">
+									<button class="btn mb-3 btn-light">
 										 Tạo học kì
+									</button>
+									
+									<button class="btn mb-3 btn-light">
+										 Sửa
 									</button>
 								</div>
 							</div>
 						</div>
 					</div>
+					
+					<div class="form-group col-md-12 mb-3">
+						<div class="form-group col-md-12 mb-3">
+							<div class="card flex-fill">
+								<table class="table table-hover my-0">
+									<thead>
+										<tr>
+											<th>Mã học kì</th>
+											<th class="d-none d-xl-table-cell">Tên học kì</th>
+											<th class="d-none d-xl-table-cell">Ngày bắt đầu</th>
+											<th class="d-none d-xl-table-cell">Ngày kết thúc</th>
+											<th class="d-none d-xl-table-cell">Chỉnh sửa</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>Project Apollo</td>
+											<td><span class="badge bg-success">Done</span></td>
+											<td><span class="badge bg-success">Done</span></td>
+											<td><span class="badge bg-success">Done</span></td>
+											<td>
+												<button class="btn btn-light m-3">Edit</button>
+												<button class="btn btn-light">Delete</button>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					
 				</div>
 		    </div>
 	    
