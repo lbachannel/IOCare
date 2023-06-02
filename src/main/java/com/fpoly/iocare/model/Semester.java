@@ -21,7 +21,7 @@ public class Semester {
 	@Column(name = "Semesterid")
 	private String semesterId;
 	
-	@Column(name = "SemesterName")
+	@Column(name = "Semestername")
 	private String semesterName;
 	
 	@Column(name = "Starttime")
