@@ -15,13 +15,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "ReasonFees")
-public class ReasonFees {
+@Table(name = "ReasonAbsenteeisms")
+public class ReasonAbsenteeism {
     @Id
-    @Column(name = "Reasonfeeid")
+    @Column(name = "Reasonabsenteeismid")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int reasonFeeId;
+    private int reasonAbsenteeismId;
     
-    @Column(name = "Reasonfeename")
-    private String reasonFeeName;
+    @Column(name = "Reasonabsenteeismname")
+    private String reasonAbsenteeismName;
 }
