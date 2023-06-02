@@ -103,31 +103,49 @@
 		<div class="col-md-12 col-lg-12">
 			<div class="card card-primary shadow">
 				<div class="card-body row">
-				<div class="form-group col-md-4 mb-4">
-						<label>Học kỳ</label>
+					<div class="form-group col-md-3 mb-4">
+					
+						<label>Học kỳ: </label>
 						<div class="mb-3 mt-1">
-							<select class="form-select">
+								<select class="form-select">
 				                <option ng-repeat="x in categories" ng-value="x.categoryId">{{x.categoryId}}</option>
 				            </select>
 			            </div>
+				
 					</div>
-					<div class="form-group col-md-4 mb-4">
-						<label>Loại chiến dịch: </label>
-						<div class="mb-3 mt-1">
-							<select class="form-select">
+					<div class="form-group col-md-3 mb-4">				
+						<div class="mb-3">
+						  <label for="formFileDisabled" class="form-label">Loại chiến dịch: </label>
+						  <select class="form-select">
 				                <option></option>
 				            </select>
-			            </div>
+						</div>		
 					</div>
+					
 					<div class="form-group col-md-4">
-						<label for="title">Nhập file excel</label>
-						<div class="custom-file mb-4">
+						
+						<div class="mb-3">
+						  <label for="formFileDisabled" class="form-label">Nhập file excel</label>
+						  <input class="form-control" type="file" id="image">
+						</div>
+						
+						<!-- <div class="custom-file mb-4">
 	                    	<label for="image" class="custom-file-label">{{form.productImage}}</label>
 	                        <input id="image" type="file" class="form-control ">
-	                    </div>	
-	                    	<button class="btn mb-3 btn-light"  >Save</button>				
+	                    </div>		 -->		
 					</div>	
-							<table id="myTable" class="table table-hover my-0">
+					
+					<div class="form-group col-md-2 mb-4">
+						<label for="title">Hành động</label>
+						<div class="custom-file mb-4 pt-2">
+							<button class="btn mb-3 btn-light">Put</button>	
+							<button class="btn mb-3 btn-light">Save</button>	
+						</div>	
+					</div>
+					
+				</div>	
+				
+				<table id="myTable" class="table table-hover my-0">
 					<thead>
 						<tr>
 							<th>Loại chiến dịch</th>
@@ -153,8 +171,7 @@
 					     </tr>
 						
 					</tbody>
-				</table>	
-				</div>				
+				</table>			
 			</div>
 		</div>
 	</div>
@@ -192,6 +209,56 @@
 					</thead>
 					<tbody>
 						<tr>
+					        <td>a</td>
+					        <td class="d-none d-xl-table-cell">a</td>
+					        <td><span class="badge bg-success">Done</span></td>
+					        <td class="d-none d-md-table-cell">a</td>
+					        <td class="d-none d-md-table-cell">a</td>
+					        <td class="d-none d-md-table-cell">a</td>
+					        <td class="d-none d-md-table-cell">a</td>
+					        <td class="d-none d-md-table-cell"><button class="btn mb-3 btn-light" style="width: 100%; margin-top: 25px" >Edit</button></td>
+					     </tr>
+					     <tr>
+					        <td>a</td>
+					        <td class="d-none d-xl-table-cell">a</td>
+					        <td><span class="badge bg-success">Done</span></td>
+					        <td class="d-none d-md-table-cell">a</td>
+					        <td class="d-none d-md-table-cell">a</td>
+					        <td class="d-none d-md-table-cell">a</td>
+					        <td class="d-none d-md-table-cell">a</td>
+					        <td class="d-none d-md-table-cell"><button class="btn mb-3 btn-light" style="width: 100%; margin-top: 25px" >Edit</button></td>
+					     </tr>
+					     <tr>
+					        <td>a</td>
+					        <td class="d-none d-xl-table-cell">a</td>
+					        <td><span class="badge bg-success">Done</span></td>
+					        <td class="d-none d-md-table-cell">a</td>
+					        <td class="d-none d-md-table-cell">a</td>
+					        <td class="d-none d-md-table-cell">a</td>
+					        <td class="d-none d-md-table-cell">a</td>
+					        <td class="d-none d-md-table-cell"><button class="btn mb-3 btn-light" style="width: 100%; margin-top: 25px" >Edit</button></td>
+					     </tr>
+					     <tr>
+					        <td>a</td>
+					        <td class="d-none d-xl-table-cell">a</td>
+					        <td><span class="badge bg-success">Done</span></td>
+					        <td class="d-none d-md-table-cell">a</td>
+					        <td class="d-none d-md-table-cell">a</td>
+					        <td class="d-none d-md-table-cell">a</td>
+					        <td class="d-none d-md-table-cell">a</td>
+					        <td class="d-none d-md-table-cell"><button class="btn mb-3 btn-light" style="width: 100%; margin-top: 25px" >Edit</button></td>
+					     </tr>
+					     <tr>
+					        <td>a</td>
+					        <td class="d-none d-xl-table-cell">a</td>
+					        <td><span class="badge bg-success">Done</span></td>
+					        <td class="d-none d-md-table-cell">a</td>
+					        <td class="d-none d-md-table-cell">a</td>
+					        <td class="d-none d-md-table-cell">a</td>
+					        <td class="d-none d-md-table-cell">a</td>
+					        <td class="d-none d-md-table-cell"><button class="btn mb-3 btn-light" style="width: 100%; margin-top: 25px" >Edit</button></td>
+					     </tr>
+					     <tr>
 					        <td>a</td>
 					        <td class="d-none d-xl-table-cell">a</td>
 					        <td><span class="badge bg-success">Done</span></td>
