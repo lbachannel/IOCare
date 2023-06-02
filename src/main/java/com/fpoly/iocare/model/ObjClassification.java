@@ -23,6 +23,6 @@ public class ObjClassification {
 	private Integer objClassificationId;
 	
 	@Column(name = "Objclassificationdes")
-	private String objClassification;
+	private String objClassificationDes;
 	
 }
