@@ -11,9 +11,6 @@ import com.fpoly.iocare.model.RiskClassification;
 @Controller
 public class HomeAdminController {
 	
-	@Autowired
-	RiskClassificationDAO dao;
-	
 	@RequestMapping("")
 	public String index(){
 		return "admin/index";
