@@ -2,8 +2,8 @@ let pathSemester = "http://localhost:8080/rest";
 app.controller("ctrl-semester", function($scope, $http, $filter){
 	$scope.form = {};
 	$scope.items = [];
-	$scope.startTime = '';
-	$scope.endTime = '';
+	$scope.startTime = new Date();
+	$scope.endTime = new Date();
 	
 	/*--Xóa học kỳ--*/
 	$scope.delete = function(semesterId){
@@ -24,6 +24,8 @@ app.controller("ctrl-semester", function($scope, $http, $filter){
 		var url = `${pathSemester}/semester/${semesterId}`;
 		$http.get(url).then(resp => {
 			$scope.form = resp.data;
+			$scope.startTime = moment($scope.form.startTime, 'YYYY-MM-DD').toDate();
+        $scope.endTime = moment($scope.form.endTime, 'YYYY-MM-DD').toDate();
 			console.log("Success", resp);
 		}).catch(errors => {
 			console.log("Error", errors);
@@ -60,6 +62,8 @@ app.controller("ctrl-semester", function($scope, $http, $filter){
 		});
 	}
 	
+
+
 	/*--Reset form--*/
 	$scope.reset = function(){
 		$scope.form = {};

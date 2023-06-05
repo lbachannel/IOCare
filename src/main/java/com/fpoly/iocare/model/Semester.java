@@ -1,5 +1,6 @@
 package com.fpoly.iocare.model;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -25,8 +26,8 @@ public class Semester {
 	private String semesterName;
 	
 	@Column(name = "Starttime")
-	private Date startTime = new Date();
+	private LocalDate startTime = LocalDate.now() ;
 	
 	@Column(name = "Endtime")
-	private Date endTime = new Date();
+	private LocalDate endTime = LocalDate.now();
 }
