@@ -27,8 +27,6 @@ public class Authority {
 	@Column(name = "Employeeid")
 	private String employeeId;
 	
-	@Column(name = "Roleid")
-	private String roleId;
 	
 	
 	/* Khóa ngoại Employee

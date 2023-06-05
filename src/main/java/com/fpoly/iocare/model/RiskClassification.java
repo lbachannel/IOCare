@@ -14,8 +14,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+
 @Entity
-@Table(name = "RiskClassification")
+@Table(name = "Riskclassification")
 public class RiskClassification {
 	@Id
 	@Column(name = "Riskclassificationid")
