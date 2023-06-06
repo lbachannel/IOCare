@@ -19,6 +19,7 @@ public class HomeAdminController {
 	/*--url: Quản lý chiến dịch--*/
 	@RequestMapping("/campaign-management")
 	public String campaignManagement(){
+		
 		return "admin/index";
 	}
 	
