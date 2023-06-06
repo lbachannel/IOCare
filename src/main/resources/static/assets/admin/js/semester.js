@@ -75,6 +75,8 @@ app.controller("ctrl-semester", function($scope, $http, $filter){
 		$scope.form = {};
 		$scope.startTime = '';
 		$scope.endTime = '';
+		$scope.isDisabled = true;
+
 	}
 	
 	
