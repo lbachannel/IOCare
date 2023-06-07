@@ -280,42 +280,52 @@
 					<div class="col-md-12 col-lg-12">
 						<h5 class="mb-3"><strong>Tạo học kì</strong></h5>
 						<div class="card card-primary shadow">
-							<div class="card-body row">						
+						<form name="myForm">
+							<div class="card-body row">					
 								<div class="form-group col-md-6 mb-3">
 									<label>Mã học kì: </label>
 									<div class="mb-3 mt-1">
-										<input ng-model="form.semesterId" type="text" class="form-control">
+										<input ng-model="form.semesterId" name="semesterId" type="text" class="form-control" ng-pattern="/^[a-zA-Z]{2}\d{2}$/" required>
+										<div ng-show="myForm.semesterId.$error.pattern" class="text-danger">Mã Học Kì không hợp lệ!</div>
+										<div ng-show="myForm.semesterId.$error.required && myForm.semesterId.$touched" class="text-danger">Mã Học Kì không được để trống!</div>
 						            </div>
 								</div>
 								
 								<div class="form-group col-md-6 mb-3">
 									<label>Tên học kì:  </label>
 									<div class="mb-3 mt-1">
-										<input ng-model="form.semesterName" type="text" class="form-control">
+										<input ng-model="form.semesterName" name="semesterName" type="text" class="form-control" required>
+										<div ng-show="myForm.semesterName.$error.required && myForm.semesterName.$touched" class="text-danger">Tên Học Kì không được để trống!</div>
 						            </div>
 								</div>
 								
 								<div class="form-group col-md-6 mb-3">
 									<label>Ngày bắt đầu:  </label>
 									<div class="mb-3 mt-1">
-										<input ng-model="startTime" class="form-control" type="date" ng-value="{{form.startTime}}">
+										<input ng-model="startTime" name="startDate" class="form-control" type="date" ng-value="{{form.startTime}}" required>
+										<div ng-show="myForm.startDate.$error.required && myForm.startDate.$touched" class="text-danger">Ngày bắt đầu không được để trống!</div>
 						            </div>
 								</div>
 								
 								<div class="form-group col-md-6 mb-3">
 									<label>Ngày kết thúc:  </label>
 									<div class="mb-3 mt-1">
-										<input ng-model="endTime" class="form-control" type="date" >
+										<input ng-model="endTime" name="endDate" class="form-control" type="date" required>
+										<div ng-show="endTime < startTime" class="text-danger">Ngày kết thúc phải lớn hơn ngày bắt đầu!</div>
+										<div ng-show="myForm.endDate.$error.required && myForm.endDate.$touched" class="text-danger">Ngày kết thúc không được để trống!</div>							
 						            </div>
 								</div>
 								
 								<div class="form-group col-md-12 col-lg-12">
-									<button ng-click="create()" class="btn mb-3 btn-light">Tạo học kì</button>								
-									<button class="btn mb-3 btn-light">Sửa</button>
+									<button class="btn mb-3 btn-light" ng-show="myForm.$invalid" disabled>Tạo học kì</button>
+									<button ng-click="create()" class="btn mb-3 btn-light" ng-show="!myForm.$invalid">Tạo học kì</button>								
+									<button class="btn mb-3 btn-light" ng-disabled="isDisabled">Sửa</button>
 									<button ng-click="reset()" class="btn mb-3 btn-light">Làm mới</button>
 								</div>
 							</div>
-						</div>
+						
+							</div>
+						</form>
 					</div>
 					
 					<div class="form-group col-md-12 mb-3">

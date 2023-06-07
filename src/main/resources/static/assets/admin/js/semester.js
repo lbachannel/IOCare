@@ -19,10 +19,14 @@ app.controller("ctrl-semester", function($scope, $http, $filter){
         });
     }
 	
+	$scope.isDisabled = true;
+	
 	/*--Hiển thị học kỳ lên form--*/
 	$scope.edit = function(semesterId){
 		var url = `${pathSemester}/semester/${semesterId}`;
+		
 		$http.get(url).then(resp => {
+			$scope.isDisabled = false;
 			$scope.form = resp.data;
 			$scope.startTime = moment($scope.form.startTime, 'YYYY-MM-DD').toDate();
         $scope.endTime = moment($scope.form.endTime, 'YYYY-MM-DD').toDate();
@@ -42,6 +46,7 @@ app.controller("ctrl-semester", function($scope, $http, $filter){
 			console.log("Error", errors)
 		});
 	}
+
 	
 	/*--Gọi API Backend tạo mới học kỳ--*/
 	$scope.create = function(){
@@ -59,6 +64,7 @@ app.controller("ctrl-semester", function($scope, $http, $filter){
 			console.log("Insert value to Semester Successfully!", resp);
 		}).catch(error => {
 			console.log("Adding new encountered an error. Please check again.", error);
+			alert("Mã học kì đã tồn tại!");
 		});
 	}
 	
@@ -69,6 +75,8 @@ app.controller("ctrl-semester", function($scope, $http, $filter){
 		$scope.form = {};
 		$scope.startTime = '';
 		$scope.endTime = '';
+		$scope.isDisabled = true;
+
 	}
 	
 	
