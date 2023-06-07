@@ -364,81 +364,65 @@
 	    <div class="tab-pane fade" id="pills-create-campains" role="tabpanel"
 	        aria-labelledby="pills-create-campains-tab" tabindex="0">
 	        
-	        <div class="row">
+	        <div class="row" ng-controller="ctrl-campain">
 				<div class="col-md-12 col-lg-12">
 					<h5 class="mb-3"><strong>Tạo chiến dịch</strong></h5>
 					<div class="card card-primary shadow">
+					<form name="myForm">
 						<div class="card-body row">						
-							<div class="form-group col-md-6 mb-3">
+							<div class="form-group col-md-12 mb-3">
 								<label>Mã chiến dịch: </label>
 								<div class="mb-3 mt-1">
-									<input type="text" class="form-control" readonly>
+									<input ng-model="form.campaignId" name="campaignId" type="text" class="form-control"  required>
+										<div ng-show="myForm.campaignId.$error.pattern" class="text-danger">Mã chiến dịch không hợp lệ!</div>
+										<div ng-show="myForm.campaignId.$error.required && myForm.campaignId.$touched" class="text-danger">Mã chiến dịch không được để trống!</div>
 					            </div>
 							</div>
 							
-							<div class="form-group col-md-6 mb-3">
+							<div class="form-group col-md-12 mb-3">
 								<label>Tên chiến dịch:  </label>
 								<div class="mb-3 mt-1">
-									<input type="text" class="form-control" readonly>
-					            </div>
-							</div>
-							
-							<div class="form-group col-md-4 mb-3">
-								<label>Mã môn:  </label>
-								<div class="mb-3 mt-1">
-									<input type="text" class="form-control" readonly>
-					            </div>
-							</div>
-							
-							<div class="form-group col-md-4 mb-3">
-								<label>Trạng thái:  </label>
-								<div class="mb-3 mt-1">
-									<input type="text" class="form-control" readonly>
-					            </div>
-							</div>
-							
-							<div class="form-group col-md-4 mb-3">
-								<label>Tổng học phí:  </label>
-								<div class="mb-3 mt-1">
-									<input type="text" class="form-control" readonly>
-					            </div>
-							</div>
-							
-							<div class="form-group col-md-4 mb-3">
-								<label>Học kì:  </label>
-								<div class="mb-3 mt-1">
-									<select class="form-select">
-						                <option></option>
-						            </select>
-					            </div>
-							</div>
-							
-							<div class="form-group col-md-4 mb-3">
-								<label>Lý do vắng học:  </label>
-								<div class="mb-3 mt-1">
-									<select class="form-select">
-						                <option></option>
-						            </select>
-					            </div>
-							</div>
-							
-							<div class="form-group col-md-4 mb-3">
-								<label>Lý do chiến dịch học phí:  </label>
-								<div class="mb-3 mt-1">
-									<select class="form-select">
-						                <option></option>
-						            </select>
+									<input ng-model="form.campaignName" name="campaignName" type="text" class="form-control" required>
+										<div ng-show="myForm.campaignName.$error.required && myForm.campaignName.$touched" class="text-danger">Tên Học Kì không được để trống!</div>
 					            </div>
 							</div>
 							
 							<div class="form-group col-md-12 col-lg-12" style="display: flex; justify-content: center;">
-								<button class="btn mb-3 btn-light" style="width: 35%;">
-									 Tạo chiến dịch
-								</button>
+								<button class="btn mb-3 btn-light" ng-show="myForm.$invalid" disabled>Tạo chiến dịch</button>
+									<button ng-click="create2()" class="btn mb-3 btn-light" ng-show="!myForm.$invalid">Tạo chiến dịch</button>								
+									<button class="btn mb-3 btn-light" ng-disabled="isDisabled">Sửa</button>
+									<button ng-click="reset2()" class="btn mb-3 btn-light">Làm mới</button>
 							</div>
 						</div>
 					</div>
+					</form>
 				</div>
+				<div class="form-group col-md-12 mb-3">
+						<div class="form-group col-md-12 mb-3">
+							<div class="card flex-fill">
+								<table class="table table-hover my-0">
+									<thead>
+										<tr>
+											<th>Mã chiến dịch</th>
+											<th class="d-none d-xl-table-cell">Tên chiến dịch</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="campain in items">
+											<td>{{campain.campaignId}}</td>
+											<td>{{campain.campaignName}}</td>
+											<td>
+												<button ng-click="edit2(campain.campaignId)"
+												class="btn btn-light m-3">Chỉnh sửa</button>
+											<button ng-click="delete2(campain.campaignId)"
+												class="btn btn-light">Xóa chiến dịch</button>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
 			</div>
 	        
 	    </div>
