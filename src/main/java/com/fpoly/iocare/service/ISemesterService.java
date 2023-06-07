@@ -19,4 +19,7 @@ public interface ISemesterService {
 	
 	/*--Kiểm tra mã học kỳ có tồn tại hay chưa--*/
 	boolean existsById(String id);
+	
+	// Update hoc ky
+	Semester update(Semester semester);
 }
