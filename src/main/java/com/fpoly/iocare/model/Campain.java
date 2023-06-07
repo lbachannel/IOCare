@@ -16,9 +16,9 @@ import lombok.NoArgsConstructor;
 @Table(name = "Campains")
 public class Campain {
 	@Id
-	@Column(name = "Cammpaignid")
+	@Column(name = "Campaignid")
 	private String campaignId;
 	
-	@Column(name = "CampaignName")
+	@Column(name = "Campaignname")
 	private String campaignName;
 }
