@@ -56,7 +56,25 @@ app.controller("ctrl-campain", function($scope, $http, $filter){
 			alert("Mã chiến dịch đã tồn tại!");
 		});
 	}
-	
+	/*--update*/
+	$scope.update2 = function() {
+    var item = angular.copy($scope.form);
+    var url = `${pathCampain}/campain/${item.campaignId}`;
+    $http
+        .put(url, item)
+        .then((resp) => {
+            var index = $scope.items.findIndex((p) => p.campaignId == item.campaignId);
+            $scope.items[index] = resp.data;
+            $scope.reset2();
+            console.log("Cập nhật chiến dịch thành công!", resp);
+            alert("Cập nhật chiến dịch thành công!");
+        })
+        .catch((error) => {
+            console.log("Lỗi khi cập nhật chiến dịch!", error);
+            alert("Lỗi khi cập nhật chiến dịch!");
+        });
+};
+
 
 	/*--Reset form--*/
 	$scope.reset2 = function(){
