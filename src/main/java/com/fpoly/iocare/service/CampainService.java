@@ -19,4 +19,6 @@ public interface CampainService {
 	
 	/*--Kiểm tra mã chiến dịch có tồn tại hay chưa--*/
 	boolean existsById(String id);
+
+	public Campain update(Campain currentCampain);
 }

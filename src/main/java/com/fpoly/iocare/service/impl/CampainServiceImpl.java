@@ -46,5 +46,29 @@ public class CampainServiceImpl implements CampainService{
 	public List<Campain> findAll() {
 		return dao.findAll();
 	}
+	
+	@Override
+	public Campain update(Campain currentCampain) {
+	    String currentCampaignId = currentCampain.getCampaignId(); // Lấy mã chiến dịch hiện tại từ đối tượng cập nhật
+	    String newCampaignId = currentCampain.getCampaignId(); // Lấy mã chiến dịch mới từ đối tượng cập nhật
+
+	    if (!currentCampaignId.equals(newCampaignId)) {
+	        // Nếu mã chiến dịch được cập nhật, thực hiện kiểm tra mã chiến dịch mới
+	        if (existsById(newCampaignId)) {
+	            // Mã chiến dịch mới đã tồn tại, xử lý lỗi hoặc thông báo cho người dùng
+	            throw new IllegalArgumentException("Mã chiến dịch đã tồn tại");
+	        }
+	        // Cập nhật mã chiến dịch mới
+	        currentCampain.setCampaignId(newCampaignId);
+	    }
+
+	    return dao.save(currentCampain);
+	}
+
+
+
+
+
+
 
 }
