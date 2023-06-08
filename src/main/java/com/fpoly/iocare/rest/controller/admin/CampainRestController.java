@@ -50,6 +50,7 @@ public class CampainRestController {
 		return ResponseEntity.ok(campain);
 	}
 	
+	/*--Sửa 1 chiến dịch--*/
 	@PutMapping("/rest/campain/{campaignId}")
 	public ResponseEntity<Campain> updateCampain(@PathVariable("campaignId") String campaignId, @RequestBody Campain updatedCampain) {
 	    if (campainService.existsById(campaignId)) {

@@ -4,20 +4,31 @@ app.controller("ctrl-campain", function($scope, $http, $filter){
 	$scope.items = [];
 	
 	/*--Xóa chiến dịch--*/
-	$scope.delete2 = function(campaignId){
-        var url = `${pathCampain}/campain/${campaignId}`;
-        $http.delete(url).then(resp => {
-            // tìm ra phần tử tại vị trí sẽ xóa.
-            var index = $scope.items.findIndex(item => item.campaignId == campaignId);
-            $scope.items.splice(index, 1); // tại vị trí đó và xóa 1 phần tử
-            $scope.reset();
-            console.log("Success", resp);
-        }).catch(error => {
-            console.log("Error", error);
-        });
-    }
+	$scope.delete2 = function(campaignId) {
+	  // Hiển thị hộp thoại xác nhận
+	  var xacNhan = confirm("Bạn có muốn xóa không?");
+	  
+	  // Kiểm tra câu trả lời của người dùng
+	  if (xacNhan) {
+	    var url = `${pathCampain}/campain/${campaignId}`;
+	    $http.delete(url).then(resp => {
+	      // Tìm ra phần tử tại vị trí sẽ xóa.
+	      var index = $scope.items.findIndex(item => item.campaignId == campaignId);
+	      $scope.items.splice(index, 1); // Xóa 1 phần tử tại vị trí đó
+	      $scope.reset();
+	      console.log("Success", resp);
+	    }).catch(error => {
+	      console.log("Error", error);
+	    });
+	  } else {
+	    // Người dùng chọn "Cancel", không thực hiện xóa
+	    console.log("Xóa bị hủy");
+	  }
+	}
+
 	
 	$scope.isDisabled = true;
+	$scope.isIdDisabled = false;
 	
 	/*--Hiển thị chiến dịch lên form--*/
 	$scope.edit2 = function(campaignId){
@@ -25,6 +36,7 @@ app.controller("ctrl-campain", function($scope, $http, $filter){
 		
 		$http.get(url).then(resp => {
 			$scope.isDisabled = false;
+			$scope.isIdDisabled = true;
 			$scope.form = resp.data;
 			console.log("Success", resp);
 		}).catch(errors => {
@@ -56,12 +68,22 @@ app.controller("ctrl-campain", function($scope, $http, $filter){
 			alert("Mã chiến dịch đã tồn tại!");
 		});
 	}
+	
+	$scope.formChanges = false;
+
+	$scope.checkFormChanges = function() {
+	  $scope.formChanges = true;
+	}
+	
 	/*--update*/
 	$scope.update2 = function() {
+	if (!$scope.formChanges) {
+    // Không có sự thay đổi, không thực hiện cập nhật
+   		return;
+  	}
     var item = angular.copy($scope.form);
-    var url = `${pathCampain}/campain/${item.campaignId}`;
     $http
-        .put(url, item)
+        .put(`${pathCampain}/campain/${item.campaignId}`, item)
         .then((resp) => {
             var index = $scope.items.findIndex((p) => p.campaignId == item.campaignId);
             $scope.items[index] = resp.data;
@@ -70,17 +92,19 @@ app.controller("ctrl-campain", function($scope, $http, $filter){
             alert("Cập nhật chiến dịch thành công!");
         })
         .catch((error) => {
+			$scope.reset2();
             console.log("Lỗi khi cập nhật chiến dịch!", error);
             alert("Lỗi khi cập nhật chiến dịch!");
         });
-};
+	};
 
 
 	/*--Reset form--*/
 	$scope.reset2 = function(){
 		$scope.form = {};
 		$scope.isDisabled = true;
-
+		$scope.isIdDisabled = false;
+		$scope.formChanges = false;
 	}
 	
 	
