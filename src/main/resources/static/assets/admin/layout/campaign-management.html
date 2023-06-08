@@ -302,7 +302,7 @@
 								<div class="form-group col-md-6 mb-3">
 									<label>Ngày bắt đầu:  </label>
 									<div class="mb-3 mt-1">
-										<input ng-model="startTime" name="startDate" class="form-control" type="date" ng-value="{{form.startTime}}" required>
+										<input ng-model="form.startTime" name="startDate" class="form-control" type="date" ng-value="{{form.startTime}}" required>
 										<div ng-show="myForm.startDate.$error.required && myForm.startDate.$touched" class="text-danger">Ngày bắt đầu không được để trống!</div>
 						            </div>
 								</div>
@@ -310,7 +310,7 @@
 								<div class="form-group col-md-6 mb-3">
 									<label>Ngày kết thúc:  </label>
 									<div class="mb-3 mt-1">
-										<input ng-model="endTime" name="endDate" class="form-control" type="date" required>
+										<input ng-model="form.endTime" name="endDate" class="form-control" type="date" required>
 										<div ng-show="endTime < startTime" class="text-danger">Ngày kết thúc phải lớn hơn ngày bắt đầu!</div>
 										<div ng-show="myForm.endDate.$error.required && myForm.endDate.$touched" class="text-danger">Ngày kết thúc không được để trống!</div>							
 						            </div>
@@ -345,8 +345,8 @@
 										<tr ng-repeat="semester in items">
 											<td>{{semester.semesterId}}</td>
 											<td>{{semester.semesterName}}</td>
-											<td>{{semester.startTime}}</td>
-											<td>{{semester.endTime}}</td>
+											<td>{{semester.startTime | date:'dd/MM/yyyy'}}</td>
+											<td>{{semester.endTime | date:'dd/MM/yyyy'}}</td>
 											<td>
 												<button ng-click="edit(semester.semesterId)" class="btn btn-light m-3">Chỉnh sửa</button>
 												<button ng-click="delete(semester.semesterId)" class="btn btn-light">Xóa học kỳ</button>

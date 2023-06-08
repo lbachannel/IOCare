@@ -51,13 +51,12 @@ app.controller("ctrl-semester", function($scope, $http, $filter) {
 	/*--Gọi API Backend tạo mới học kỳ--*/
 	$scope.create = function() {
 		var item = angular.copy($scope.form);
-		$scope.startTime = moment($scope.form.startTime, 'YYYY-MM-DD').toDate();
-		$scope.endTime = moment($scope.form.endTime, 'YYYY-MM-DD').toDate();
 		var url = `${pathSemester}/semester`;
 		$http.post(url, item).then(resp => {
 			$scope.items.push(item);
 			$scope.reset();
 			console.log("Insert value to Semester Successfully!", resp);
+			alert("Thêm mới thành công!");
 		}).catch(error => {
 			console.log("Adding new encountered an error. Please check again.", error);
 			alert("Mã học kì đã tồn tại!");
@@ -77,21 +76,13 @@ app.controller("ctrl-semester", function($scope, $http, $filter) {
 	//Update form
 	$scope.update = function() {
     var semester = angular.copy($scope.form);
-
-    // Chuyển đổi kiểu dữ liệu dd-mm-yy thành yy-mm-dd 
-    var formattedStartDate = moment($scope.form.startTime, 'DD-MM-YY').format('YYYY-MM-DD');
-    var formattedEndDate = moment($scope.form.endTime, 'DD-MM-YY').format('YYYY-MM-DD');
-
-    // Gán giá trị đã chuyển đổi vào đối tượng semester
-    semester.startTime = formattedStartDate;
-    semester.endTime = formattedEndDate;
-
-    var url = `${pathSemester}/semester/${$scope.form.semesterId}`;
+	
+    var url = `${pathSemester}/semester/${semester.semesterId}`;
 
     $http.put(url, semester).then(resp => {
-        var index = $scope.items.findIndex(item => item == $scope.form.semesterId);
+        var index = $scope.items.findIndex(item => item.semesterId == semester.semesterId);
         $scope.items[index] = resp.data;
-
+		
         console.log("Update value to Semester Successfully!", resp);
         alert("Cập nhật thành công!");
     }).catch(error => {
