@@ -76,27 +76,30 @@ app.controller("ctrl-semester", function($scope, $http, $filter) {
 	}
 	//Update form
 	$scope.update = function() {
-		var semester = angular.copy($scope.form);
+    var semester = angular.copy($scope.form);
 
-		// Chuyển đổi kiểu dữ liệu dd-mm-yy thành yy-mm-dd 
-		$scope.startTime = moment($scope.form.startTime, 'DD-MM-YY').format('YYYY-MM-DD');
-		$scope.endTime = moment($scope.form.endTime, 'DD-MM-YY').format('YYYY-MM-DD');
+    // Chuyển đổi kiểu dữ liệu dd-mm-yy thành yy-mm-dd 
+    var formattedStartDate = moment($scope.form.startTime, 'DD-MM-YY').format('YYYY-MM-DD');
+    var formattedEndDate = moment($scope.form.endTime, 'DD-MM-YY').format('YYYY-MM-DD');
 
+    // Gán giá trị đã chuyển đổi vào đối tượng semester
+    semester.startTime = formattedStartDate;
+    semester.endTime = formattedEndDate;
 
+    var url = `${pathSemester}/semester/${$scope.form.semesterId}`;
 
-		var url = `${pathSemester}/semester/${$scope.form.semesterId}`;
+    $http.put(url, semester).then(resp => {
+        var index = $scope.items.findIndex(item => item == $scope.form.semesterId);
+        $scope.items[index] = resp.data;
 
-		$http.put(url, semester).then(resp => {
-			var index = $scope.items.findIndex(item => item == $scope.form.semesterId);
-			$scope.items[index] = resp.data;
+        console.log("Update value to Semester Successfully!", resp);
+        alert("Cập nhật thành công!");
+    }).catch(error => {
+        console.log("Adding new encountered an error. Please check again.", error);
+        alert("Cập nhật không thành công!");
+    });
+};
 
-			console.log("Update value to Semester Successfully!", resp);
-			alert("Cập nhật thành công!");
-		}).catch(error => {
-			console.log("Adding new encountered an error. Please check again.", error);
-			alert("Cập nhật không thành công!");
-		});
-	};
 
 
 
