@@ -373,7 +373,7 @@
 							<div class="form-group col-md-12 mb-3">
 								<label>Mã chiến dịch: </label>
 								<div class="mb-3 mt-1">
-									<input ng-model="form.campaignId" name="campaignId" type="text" class="form-control"  required>
+									<input ng-model="form.campaignId" ng-disabled="isIdDisabled" name="campaignId" type="text" class="form-control"  required>
 										<div ng-show="myForm.campaignId.$error.pattern" class="text-danger">Mã chiến dịch không hợp lệ!</div>
 										<div ng-show="myForm.campaignId.$error.required && myForm.campaignId.$touched" class="text-danger">Mã chiến dịch không được để trống!</div>
 					            </div>
@@ -382,20 +382,21 @@
 							<div class="form-group col-md-12 mb-3">
 								<label>Tên chiến dịch:  </label>
 								<div class="mb-3 mt-1">
-									<input ng-model="form.campaignName" name="campaignName" type="text" class="form-control" required>
+									<input ng-model="form.campaignName" ng-change="checkFormChanges()" name="campaignName" type="text" class="form-control" required>
 										<div ng-show="myForm.campaignName.$error.required && myForm.campaignName.$touched" class="text-danger">Tên Học Kì không được để trống!</div>
 					            </div>
 							</div>
 							
-							<div class="form-group col-md-12 col-lg-12" style="display: flex; justify-content: center;">
+							<div class="form-group col-md-12 col-lg-12">
 								<button class="btn mb-3 btn-light" ng-show="myForm.$invalid" disabled>Tạo chiến dịch</button>
 									<button ng-click="create2()" class="btn mb-3 btn-light" ng-show="!myForm.$invalid">Tạo chiến dịch</button>								
-									<button class="btn mb-3 btn-light" ng-click="update2()">Sửa</button>
+									<button class="btn mb-3 btn-light" ng-click="update2()" ng-disabled="!formChanges">Sửa</button>
 									<button ng-click="reset2()" class="btn mb-3 btn-light">Làm mới</button>
 							</div>
 						</div>
-					</div>
 					</form>
+					</div>
+					
 				</div>
 				<div class="form-group col-md-12 mb-3">
 						<div class="form-group col-md-12 mb-3">
