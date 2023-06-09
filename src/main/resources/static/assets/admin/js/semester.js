@@ -8,16 +8,25 @@ app.controller("ctrl-semester", function($scope, $http, $filter) {
 	/*--Xóa học kỳ--*/
 	$scope.delete = function(semesterId) {
 		var url = `${pathSemester}/semester/${semesterId}`;
-		$http.delete(url).then(resp => {
-			// tìm ra phần tử tại vị trí sẽ xóa.
-			var index = $scope.items.findIndex(item => item.semesterId == semesterId);
-			$scope.items.splice(index, 1); // tại vị trí đó và xóa 1 phần tử
-			$scope.reset();
-			console.log("Success", resp);
-		}).catch(error => {
-			console.log("Error", error);
-		});
-	}
+
+		// Hiển thị hộp thoại xác nhận
+		var confirmed = window.confirm('Bạn có chắc chắn muốn xóa học kỳ này?');
+
+		if (confirmed) {
+			$http.delete(url).then(resp => {
+				var index = $scope.items.findIndex(item => item.semesterId == semesterId);
+				$scope.items.splice(index, 1);
+				$scope.reset();
+				console.log("Success", resp);
+
+				// Hiển thị cửa sổ thông báo khi xóa thành công
+				window.alert('Xóa học kỳ thành công!');
+			}).catch(error => {
+				console.log("Error", error);
+			});
+		}
+	};
+
 
 	$scope.isDisabled = true;
 
@@ -28,9 +37,10 @@ app.controller("ctrl-semester", function($scope, $http, $filter) {
 		$http.get(url).then(resp => {
 			$scope.isDisabled = false;
 			$scope.form = resp.data;
-			$scope.form.startTime =new Date($scope.form.startTime);
+			$scope.form.startTime = new Date($scope.form.startTime);
 			$scope.form.endTime = new Date($scope.form.endTime);
 			console.log("Success", resp);
+			
 		}).catch(errors => {
 			console.log("Not OK");
 			console.log("Error", errors);
