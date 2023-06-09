@@ -5,15 +5,15 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.fpoly.iocare.dao.CampainDAO;
-import com.fpoly.iocare.model.Campain;
-import com.fpoly.iocare.service.CampainService;
+import com.fpoly.iocare.dao.ICampaignDAO;
+import com.fpoly.iocare.model.Campaign;
+import com.fpoly.iocare.service.ICampaignService;
 
 @Service
-public class CampainServiceImpl implements CampainService{
+public class CampaignServiceImpl implements ICampaignService{
 	
 	@Autowired
-	CampainDAO dao;
+	ICampaignDAO dao;
 	
 	/*--Xóa chiến dịch--*/
 	@Override
@@ -23,14 +23,14 @@ public class CampainServiceImpl implements CampainService{
 	
 	/*--Tìm kiếm chiến dịch theo mã chiến dịch--*/
 	@Override
-	public Campain findById(String id) {
+	public Campaign findById(String id) {
 		return dao.findById(id).get();
 	}
 	
 	/*--Thêm mới chiến dịch--*/
 	@Override
-	public Campain create(Campain campain) {
-		return dao.save(campain);
+	public Campaign create(Campaign campaign) {
+		return dao.save(campaign);
 	}
 	
 	/*--Kiểm tra mã chiến dịch có tồn tại hay chưa--*/
@@ -43,14 +43,14 @@ public class CampainServiceImpl implements CampainService{
 	
 	/*--Hiển thị tất cả học kỳ--*/
 	@Override
-	public List<Campain> findAll() {
+	public List<Campaign> findAll() {
 		return dao.findAll();
 	}
 	
 	@Override
-	public Campain update(Campain currentCampain) {
-	    String currentCampaignId = currentCampain.getCampaignId(); // Lấy mã chiến dịch hiện tại từ đối tượng cập nhật
-	    String newCampaignId = currentCampain.getCampaignId(); // Lấy mã chiến dịch mới từ đối tượng cập nhật
+	public Campaign update(Campaign currentCampaign) {
+	    String currentCampaignId = currentCampaign.getCampaignId(); // Lấy mã chiến dịch hiện tại từ đối tượng cập nhật
+	    String newCampaignId = currentCampaign.getCampaignId(); // Lấy mã chiến dịch mới từ đối tượng cập nhật
 
 	    if (!currentCampaignId.equals(newCampaignId)) {
 	        // Nếu mã chiến dịch được cập nhật, thực hiện kiểm tra mã chiến dịch mới
@@ -59,10 +59,10 @@ public class CampainServiceImpl implements CampainService{
 	            throw new IllegalArgumentException("Mã chiến dịch đã tồn tại");
 	        }
 	        // Cập nhật mã chiến dịch mới
-	        currentCampain.setCampaignId(newCampaignId);
+	        currentCampaign.setCampaignId(newCampaignId);
 	    }
 
-	    return dao.save(currentCampain);
+	    return dao.save(currentCampaign);
 	}
 
 

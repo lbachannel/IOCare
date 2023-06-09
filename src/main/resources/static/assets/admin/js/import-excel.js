@@ -27,9 +27,6 @@ app.controller("ctrl-import", function($scope, $http) {
           let student = {
             studentId: row.getCell(1).value,
             subjectId: row.getCell(2).value,
-            gender: true && row.getCell(3).value,
-            mark: +row.getCell(4).value,
-            country: row.getCell(5).value
           }
           var url = "/rest/student";
           $http.post(url, student).then(resp => {

@@ -2,23 +2,23 @@ package com.fpoly.iocare.service;
 
 import java.util.List;
 
-import com.fpoly.iocare.model.Campain;
+import com.fpoly.iocare.model.Campaign;
 
-public interface CampainService {
+public interface ICampaignService {
 	/*--Xóa chiến dịch-*/
 	public void deleteById(String id);
 	
 	/*--Tìm kiếm chiến dịch theo mã chiến dịch--*/
-	Campain findById(String id);
+	Campaign findById(String id);
 	
 	/*--Hiển thị tất cả chiến dịch--*/
-	List<Campain> findAll();
+	List<Campaign> findAll();
 	
 	/*--Thêm mới chiến dịch--*/
-	Campain create(Campain campain);
+	Campaign create(Campaign campain);
 	
 	/*--Kiểm tra mã chiến dịch có tồn tại hay chưa--*/
 	boolean existsById(String id);
 
-	Campain update(Campain campain);
+	Campaign update(Campaign campaign);
 }
