@@ -345,8 +345,8 @@
 										<tr ng-repeat="semester in items">
 											<td>{{semester.semesterId}}</td>
 											<td>{{semester.semesterName}}</td>
-											<td>{{semester.startTime | date:'dd/MM/yyyy'}}</td>
-											<td>{{semester.endTime | date:'dd/MM/yyyy'}}</td>
+											<td>{{semester.startTime | date:'dd-MM-yyyy'}}</td>
+											<td>{{semester.endTime | date:'dd-MM-yyyy'}}</td>
 											<td>
 												<button ng-click="edit(semester.semesterId)" class="btn btn-light m-3">Chỉnh sửa</button>
 												<button ng-click="delete(semester.semesterId)" class="btn btn-light">Xóa học kỳ</button>
