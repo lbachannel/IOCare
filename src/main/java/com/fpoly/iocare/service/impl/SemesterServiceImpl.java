@@ -46,5 +46,9 @@ public class SemesterServiceImpl implements ISemesterService{
 	public void deleteById(String id) {
 		dao.deleteById(id);
 	}
-
+	/*--Update hoc ky--*/
+	@Override
+	public Semester update(Semester semester) {
+		return dao.save(semester);
+	}
 }

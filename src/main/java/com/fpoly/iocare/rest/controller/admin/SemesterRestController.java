@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -57,5 +58,17 @@ public class SemesterRestController {
 			return ResponseEntity.ok().build();
 		}
 		return ResponseEntity.notFound().build();
+	}
+	/*--Update học kỳ--*/
+	@PutMapping("/rest/semester/{semesterId}")
+	public ResponseEntity<Semester> update(@PathVariable("semesterId") String semesterId, @RequestBody Semester semester){
+		if(semesterService.existsById(semesterId)) {
+			semesterService.update(semester);
+			System.out.println(semesterId);
+			return ResponseEntity.ok(semester);
+		}
+		System.out.print("OK2");
+		return ResponseEntity.notFound().build();
+			
 	}
 }
