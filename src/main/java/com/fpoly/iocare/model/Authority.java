@@ -24,18 +24,10 @@ public class Authority {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer authorityId;
 	
-	@Column(name = "Employeeid")
-	private String employeeId;
-	
-	
-	
-	/* Khóa ngoại Employee
-	 * @ManyToOne
-	 * 
-	 * @JoinColumn(name = "Employeeid", referencedColumnName = "Employeeid") 
-	 * private Employee employee;
-	 */
-	
+	@ManyToOne
+	@JoinColumn(name = "Employeeid", referencedColumnName = "Employeeid") 
+	private Employee employee;
+	 
 	@ManyToOne
 	@JoinColumn(name = "Roleid", referencedColumnName = "Roleid")
 	private Role role;

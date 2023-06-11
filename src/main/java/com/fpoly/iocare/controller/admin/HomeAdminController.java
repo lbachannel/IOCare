@@ -11,7 +11,7 @@ import com.fpoly.iocare.model.RiskClassification;
 @Controller
 public class HomeAdminController {
 	
-	@RequestMapping("")
+	@RequestMapping("/home")
 	public String index(){
 		return "admin/index";
 	}
