@@ -28,8 +28,8 @@ app.controller("ctrl-semester", function($scope, $http, $filter) {
 		$http.get(url).then(resp => {
 			$scope.isDisabled = false;
 			$scope.form = resp.data;
-			$scope.startTime = moment($scope.form.startTime, 'YYYY-MM-DD').toDate();
-			$scope.endTime = moment($scope.form.endTime, 'YYYY-MM-DD').toDate();
+			$scope.form.startTime = new Date($scope.form.startTime);
+			$scope.form.endTime = new Date($scope.form.endTime);
 			console.log("Success", resp);
 		}).catch(errors => {
 			console.log("Error", errors);

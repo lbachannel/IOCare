@@ -302,7 +302,7 @@
 								<div class="form-group col-md-6 mb-3">
 									<label>Ngày bắt đầu:  </label>
 									<div class="mb-3 mt-1">
-										<input ng-model="form.startTime" name="startDate" class="form-control" type="date" ng-value="{{form.startTime}}" required>
+										<input type="date" ng-model="form.startTime" name="startDate" class="form-control" required>
 										<div ng-show="myForm.startDate.$error.required && myForm.startDate.$touched" class="text-danger">Ngày bắt đầu không được để trống!</div>
 						            </div>
 								</div>
@@ -310,7 +310,7 @@
 								<div class="form-group col-md-6 mb-3">
 									<label>Ngày kết thúc:  </label>
 									<div class="mb-3 mt-1">
-										<input ng-model="form.endTime" name="endDate" class="form-control" type="date" required>
+										<input type="date" ng-model="form.endTime" name="endDate" class="form-control" required>
 										<div ng-show="endTime < startTime" class="text-danger">Ngày kết thúc phải lớn hơn ngày bắt đầu!</div>
 										<div ng-show="myForm.endDate.$error.required && myForm.endDate.$touched" class="text-danger">Ngày kết thúc không được để trống!</div>							
 						            </div>
