@@ -1,5 +1,5 @@
 let pathCampaign = "http://localhost:8080/rest";
-app.controller("ctrl-campaign", function($scope, $http, $filter){
+app.controller("ctrl-campaign", function($scope, $http, $filter, $timeout){
 	$scope.form = {};
 	$scope.items = [];
 	
@@ -55,27 +55,56 @@ app.controller("ctrl-campaign", function($scope, $http, $filter){
 		});
 	}
 	
+	$scope.isDuplicateCampaignId = false;
+	$scope.showMaxLengthError = false;
+
+	$scope.checkDuplicateCampaignId = function(campaignId) {
+	  $scope.isDuplicateCampaignId = $scope.items.some(function(item) {
+	    return item.campaignId === campaignId;
+	  });
+	};
+
+
 	/*--Gọi API Backend tạo mới học kỳ--*/
 	$scope.create2 = function() {
-    var isFormValid = $scope.myForm.$valid;
-    var isDataFilled = $scope.form.campaignId && $scope.form.campaignName;
-    
-    if (isFormValid && isDataFilled) {
-        var item = angular.copy($scope.form);
-        var url = `${pathCampaign}/campaign`;
-        
-        $http.post(url, item).then(resp => {
-            $scope.items.push(item);
-            $scope.reset();
-            console.log("Insert value to Campaign Successfully!", resp);
-        }).catch(error => {
-            console.log("Adding new encountered an error. Please check again.", error);
-        });
-	    } else {
-
-	    }
-	}
+	  var isFormValid = $scope.myForm.$valid;
+	  var isDataFilled = $scope.form.campaignId && $scope.form.campaignName;
 	
+	  if (isFormValid && isDataFilled) {
+	    var item = angular.copy($scope.form);
+	    
+	    // Kiểm tra trùng mã chiến dịch
+	    $scope.checkDuplicateCampaignId(item.campaignId);
+	    if ($scope.isDuplicateCampaignId) {
+	      console.log("Mã chiến dịch đã tồn tại!");
+	      return;
+	    }
+	    
+	    if ($scope.form.campaignId.length > 5) {
+	        $scope.isIdDisabled = false; // Cho phép chỉnh sửa mã chiến dịch
+	        $scope.showMaxLengthError = false;
+	        $scope.isDuplicateCampaignId = false; // Ẩn thông báo mã chiến dịch đã tồn tại (nếu có)
+	        $scope.myForm.campaignId.$setValidity('length', false); // Đánh dấu lỗi độ dài mã chiến dịch
+	        return; // Dừng quá trình tạo chiến dịch nếu có lỗi
+	    }
+	    
+	    var url = `${pathCampaign}/campaign`;
+	
+	    $http.post(url, item).then(resp => {
+	      $scope.items.push(item);
+	      $scope.reset();
+	      console.log("Insert value to Campaign Successfully!", resp);
+	
+	      $scope.submitted = false; // Reset submitted flag
+	      $scope.hideErrorAfterDelay(); // Hide error message after 5 seconds
+	    }).catch(error => {
+	      console.log("Adding new encountered an error. Please check again.", error);
+	    });
+	  } else {
+	    $scope.submitted = true;
+	  }
+	}	
+
 	$scope.formChanges = false;
 
 	$scope.checkFormChanges = function() {
@@ -113,6 +142,10 @@ app.controller("ctrl-campaign", function($scope, $http, $filter){
 		$scope.isIdDisabled = false;
 		$scope.formChanges = false;
 		$scope.submitted = false;
+		$scope.isDuplicateCampaignId = false;
+		if (!$scope.myForm.$pristine) {
+	        $scope.myForm.campaignId.$setValidity('length', true); // Đặt lại trạng thái hợp lệ cho trường campaignId
+	    }
 	}
 	
 	
