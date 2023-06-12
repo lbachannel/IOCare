@@ -1,11 +1,15 @@
 package com.fpoly.iocare.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -24,20 +28,18 @@ public class Authority {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer authorityId;
 	
-	@Column(name = "Employeeid")
-	private String employeeId;
-	
-	
-	
 	/* Khóa ngoại Employee
 	 * @ManyToOne
 	 * 
 	 * @JoinColumn(name = "Employeeid", referencedColumnName = "Employeeid") 
 	 * private Employee employee;
 	 */
-	
-	@ManyToOne
-	@JoinColumn(name = "Roleid", referencedColumnName = "Roleid")
-	private Role role;
-	
+
+    @ManyToOne
+    @JoinColumn(name = "Employeeid")
+    private Employee employee;
+    
+    @ManyToOne
+    @JoinColumn(name = "Roleid")
+    private Role role;
 }
