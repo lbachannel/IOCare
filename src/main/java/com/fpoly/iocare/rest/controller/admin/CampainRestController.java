@@ -53,7 +53,7 @@ public class CampainRestController {
 	
 	/*--Sửa 1 chiến dịch--*/
 	@PutMapping("/rest/campaign/{campaignId}")
-	public ResponseEntity<Campaign> updateCampain(@PathVariable("campaignId") String campaignId, @RequestBody Campain updatedCampaign) {
+	public ResponseEntity<Campaign> updateCampain(@PathVariable("campaignId") String campaignId, @RequestBody Campaign updatedCampaign) {
 	    if (campaignService.existsById(campaignId)) {
 	        Campaign currentCampain = campaignService.findById(campaignId);
 	        currentCampain.setCampaignId(updatedCampaign.getCampaignId()); // Cập nhật mã chiến dịch

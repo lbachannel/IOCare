@@ -56,17 +56,24 @@ app.controller("ctrl-campaign", function($scope, $http, $filter){
 	}
 	
 	/*--Gọi API Backend tạo mới học kỳ--*/
-	$scope.create2 = function(){
-		var item = angular.copy($scope.form);
-		var url = `${pathCampaign}/campaign`;
-		$http.post(url, item).then(resp => {
-			$scope.items.push(item);
-			$scope.reset();
-			console.log("Insert value to Campaign Successfully!", resp);
-		}).catch(error => {
-			console.log("Adding new encountered an error. Please check again.", error);
-			alert("Mã chiến dịch đã tồn tại!");
-		});
+	$scope.create2 = function() {
+    var isFormValid = $scope.myForm.$valid;
+    var isDataFilled = $scope.form.campaignId && $scope.form.campaignName;
+    
+    if (isFormValid && isDataFilled) {
+        var item = angular.copy($scope.form);
+        var url = `${pathCampaign}/campaign`;
+        
+        $http.post(url, item).then(resp => {
+            $scope.items.push(item);
+            $scope.reset();
+            console.log("Insert value to Campaign Successfully!", resp);
+        }).catch(error => {
+            console.log("Adding new encountered an error. Please check again.", error);
+        });
+	    } else {
+
+	    }
 	}
 	
 	$scope.formChanges = false;
@@ -105,6 +112,7 @@ app.controller("ctrl-campaign", function($scope, $http, $filter){
 		$scope.isDisabled = true;
 		$scope.isIdDisabled = false;
 		$scope.formChanges = false;
+		$scope.submitted = false;
 	}
 	
 	
