@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fpoly.iocare.model.Campaign;
-import com.fpoly.iocare.model.Campain;
 import com.fpoly.iocare.model.Semester;
 import com.fpoly.iocare.service.ICampaignService;
 import com.fpoly.iocare.service.impl.CampaignServiceImpl;
@@ -53,7 +52,7 @@ public class CampainRestController {
 	
 	/*--Sửa 1 chiến dịch--*/
 	@PutMapping("/rest/campaign/{campaignId}")
-	public ResponseEntity<Campaign> updateCampain(@PathVariable("campaignId") String campaignId, @RequestBody Campain updatedCampaign) {
+	public ResponseEntity<Campaign> updateCampain(@PathVariable("campaignId") String campaignId, @RequestBody Campaign updatedCampaign) {
 	    if (campaignService.existsById(campaignId)) {
 	        Campaign currentCampain = campaignService.findById(campaignId);
 	        currentCampain.setCampaignId(updatedCampaign.getCampaignId()); // Cập nhật mã chiến dịch
