@@ -1,11 +1,14 @@
 package com.fpoly.iocare.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -30,4 +33,13 @@ public class Semester {
 	
 	@Column(name = "Endtime")
 	private LocalDate endTime = LocalDate.now();
+	
+	@OneToMany(mappedBy = "semester")
+	private List<JoinCampaign> joinCampaigns = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "semester")
+	private List<ImportedData> importedDatas = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "semester")
+	private List<Student> students = new ArrayList<>();
 }

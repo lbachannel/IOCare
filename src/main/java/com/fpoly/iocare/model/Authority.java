@@ -40,4 +40,8 @@ public class Authority {
 	@JoinColumn(name = "Roleid", referencedColumnName = "Roleid")
 	private Role role;
 	
+	@ManyToOne
+	@JoinColumn(name = "employeeId")
+	private Employee employee;
+	
 }

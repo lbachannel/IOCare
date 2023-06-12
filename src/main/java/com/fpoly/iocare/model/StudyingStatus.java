@@ -1,8 +1,12 @@
 package com.fpoly.iocare.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -21,5 +25,8 @@ public class StudyingStatus {
 	
 	@Column (name = "Studyingstatusname")
 	private String studyingStatusName;
+	
+	@OneToMany(mappedBy = "studyingStatus")
+	private List<JoinCampaign> joinCampaigns = new ArrayList<>();
 
 }
