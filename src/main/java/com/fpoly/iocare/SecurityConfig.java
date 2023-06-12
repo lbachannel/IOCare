@@ -15,28 +15,30 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.fpoly.iocare.dao.EmployeeDAO;
 import com.fpoly.iocare.model.Employee;
 import com.fpoly.iocare.service.Service_Employee;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
-	@Autowired private Service_Employee EmployeeService;
+	@Autowired private Service_Employee dao;
 	@Autowired private BCryptPasswordEncoder pe;
-	
 	//Cung cấp nguồn dữ liệu đăng nhập
+	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(id->{
 			try {
-				Employee user = EmployeeService.findById(id);
-				
+				Employee user =  dao.findByEmail(id);
+				System.out.println(user);
 				String password = pe.encode(user.getPasword());
 				String[] roles = user.getAuthorities().stream()
 						.map(el->el.getRole().getRoleId())
 						.collect(Collectors.toList()).toArray(new String[0]);
-				return User.withUsername(id).password(password).roles(roles).build();
+				return User.withUsername(user.getId()).password(password).roles(roles).build();
 			} catch (Exception e) {
+				e.printStackTrace();
 				throw new UsernameNotFoundException(id + "not found!");
 			}
 		});
@@ -52,11 +54,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			.antMatchers("/campaign-management").hasAnyRole("STA","DIR")
 			.anyRequest().permitAll();
 
-		
 		http.formLogin()
 			.loginPage("/security/login/form")
 			.loginProcessingUrl("/security/login")
-			.defaultSuccessUrl("/security/login/success",false)
+			.defaultSuccessUrl("/security/login/success",true)
 			.failureUrl("/security/login/error");
 		
 		http.rememberMe()

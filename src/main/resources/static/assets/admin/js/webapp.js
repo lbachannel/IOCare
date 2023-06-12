@@ -1,6 +1,14 @@
 var app = angular.module("myapp", ["ngRoute"]);
 
+app.controller("dropdownController", function($scope, $window) {
+	$scope.logoff = function(){
+		console.log("oke");
+		$window.location.href = 'http://localhost:8080/security/logoff';
+	}
+});
+
 app.config(function($routeProvider, $locationProvider){
+
 	$routeProvider
 	.when("/", {
 		templateUrl: "/assets/admin/layout/home.html"
@@ -23,18 +31,19 @@ app.config(function($routeProvider, $locationProvider){
 	.otherwise({
 		redirectTo: "/"
 	});
-	$locationProvider.html5Mode(true);
+	
+  	$locationProvider.html5Mode(true);
 });
 
 app.run(function ($rootScope) {
+	
     $rootScope.$on('$routeChangeStart', function () {
         $rootScope.loading = true;
     });
     $rootScope.$on('$routeChangeSuccess', function () {
-        $rootScope.loading = false;
+        $rootScope.loading = false; 
     });
     $rootScope.$on('$routeChangeError', function () {
         $rootScope.loading = false;
-        alert("Lỗi");
     });
 });

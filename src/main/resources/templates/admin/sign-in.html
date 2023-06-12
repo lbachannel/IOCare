@@ -46,11 +46,11 @@
 										<img src="/folder/logo/logo-fpt.jpg" alt="Charles Hall"
 											class="img-fluid rounded-circle" width="132" height="132" />
 									</div>
-									<form th:action="@{/security/login}"method="post"  class="col-sm-8  mx-auto">
+									<form action="/security/login" method="POST" class="col-sm-8 mx-auto">
 										<div class="mb-3">
-											<label class="form-label">ID</label> <input
-												class="form-control form-control-lg" type="text"
-												name="email" placeholder="Nhập id" />
+											<label class="form-label">Email</label> <input
+												class="form-control form-control-lg" type="email"
+												name="username" placeholder="Nhập Email" />
 										</div>
 										<div class="mb-3">
 											<label class="form-label">Mật khẩu</label> <input
@@ -68,6 +68,7 @@
 										</div>
 										<div class="text-center mt-3">
 											<b class="text-danger mt-2"><i>[[${message}]]</i></b>
+											<br>
 											<button class="btn btn-lg" type="submit" style="background-color: #f05123; color: white">Đăng nhập</button >
 											<!-- <button type="submit" class="btn btn-lg btn-primary">Sign in</button> -->
 										</div>

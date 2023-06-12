@@ -17,6 +17,11 @@ public class ServiceImpl_Employee implements Service_Employee{
 	public Employee findById(String username) {
 		return accDao.findById(username).get();
 	}
+	
+	@Override
+	public Employee findByEmail(String email) {
+		return accDao.findByEmail(email);
+	}
 
 	@Override
 	public List<Employee> getAdministrators() {

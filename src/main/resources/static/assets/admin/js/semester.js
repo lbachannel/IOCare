@@ -1,5 +1,5 @@
 let pathSemester = "http://localhost:8080/rest";
-app.controller("ctrl-semester", function($scope, $http, $filter) {
+app.controller("ctrl-semester", function($scope, $http, $filter, $window, $rootScope) {
 	$scope.form = {};
 	$scope.items = [];
 	$scope.startTime = new Date();
@@ -26,7 +26,15 @@ app.controller("ctrl-semester", function($scope, $http, $filter) {
 			});
 		}
 	};
-
+	
+	$scope.located = function(){
+		var url = `http://localhost:8080/campaign-management`;
+		$http.get(url).then(resp => {
+			$window.location.href = 'http://localhost:8080/campaign-management';
+		}).catch(errors => {
+			console.log("Error", errors);
+		});
+	}
 
 	$scope.isDisabled = true;
 
@@ -102,9 +110,7 @@ app.controller("ctrl-semester", function($scope, $http, $filter) {
 		});
 	};
 
-
-
-
+	$scope.located();
 
 	/*--Gọi hàm reset--*/
 	$scope.reset();

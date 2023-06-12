@@ -10,6 +10,8 @@ import com.fpoly.iocare.model.Employee;
 @Service
 public interface Service_Employee {
 	Employee findById(String username);
+	
+	Employee findByEmail(String email);
 
 	List<Employee> getAdministrators();
 

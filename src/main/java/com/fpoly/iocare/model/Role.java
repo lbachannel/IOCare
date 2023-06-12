@@ -1,5 +1,7 @@
 package com.fpoly.iocare.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -9,12 +11,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@SuppressWarnings("serial")
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name = "Roles")
-public class Role {
+public class Role implements Serializable{
 	@Id
 	@Column(name = "Roleid")
 	private String roleId;

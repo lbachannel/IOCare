@@ -1,5 +1,6 @@
 package com.fpoly.iocare.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -15,12 +16,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@SuppressWarnings("serial")
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name = "Employees")
-public class Employee {
+public class Employee implements Serializable{
 	
 	@Id
 	@Column(name = "employeeid")
