@@ -24,5 +24,6 @@ public class StudentRestController {
 			return ResponseEntity.badRequest().build();
 		}
 		studentService.create(student);
+		return ResponseEntity.ok(student);
 	}
 }
