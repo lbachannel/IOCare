@@ -64,6 +64,11 @@ app.controller("ctrl-campaign", function($scope, $http, $filter, $timeout){
 	  });
 	};
 
+	$scope.hideErrorAfterDelay = function() {
+	    $timeout(function() {
+	        $scope.submitted = false;
+	    }, 5000);
+	};
 
 	/*--Gọi API Backend tạo mới học kỳ--*/
 	$scope.create2 = function() {
@@ -94,7 +99,7 @@ app.controller("ctrl-campaign", function($scope, $http, $filter, $timeout){
 	      $scope.items.push(item);
 	      $scope.reset();
 	      console.log("Insert value to Campaign Successfully!", resp);
-	
+		  alert("Tạo chiến dịch thành công!");
 	      $scope.submitted = false; // Reset submitted flag
 	      $scope.hideErrorAfterDelay(); // Hide error message after 5 seconds
 	    }).catch(error => {
