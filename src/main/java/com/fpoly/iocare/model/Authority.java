@@ -1,5 +1,6 @@
 package com.fpoly.iocare.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -22,18 +23,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name = "Authorities")
-public class Authority {
-	@Id
-	@Column(name = "Authorityid")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer authorityId;
+public class Authority implements Serializable{
+	private static final long serialVersionUID = 1L;
 	
-	/* Khóa ngoại Employee
-	 * @ManyToOne
-	 * 
-	 * @JoinColumn(name = "Employeeid", referencedColumnName = "Employeeid") 
-	 * private Employee employee;
-	 */
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "Authorityid")
+	private Integer authorityId;
 
     @ManyToOne
     @JoinColumn(name = "Employeeid")
