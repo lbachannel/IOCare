@@ -2,23 +2,26 @@
 	<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
 
 		<li class="nav-item" role="presentation">
-			<button class="btn btn-light" id="pills-create-semesters-tab" data-bs-toggle="pill"
-				data-bs-target="#pills-create-semesters" type="button" role="tab" aria-controls="pills-create-semesters"
+			<button class="btn btn-light" id="pills-create-semesters-tab"
+				data-bs-toggle="pill" data-bs-target="#pills-create-semesters"
+				type="button" role="tab" aria-controls="pills-create-semesters"
 				aria-selected="true">Tạo học kì</button>
 		</li>
 
 		<li class="nav-item" role="presentation">
-			<button class="btn btn-light" id="pills-create-campains-tab" data-bs-toggle="pill"
-				data-bs-target="#pills-create-campains" type="button" role="tab" aria-controls="pills-create-campains"
+			<button class="btn btn-light" id="pills-create-campains-tab"
+				data-bs-toggle="pill" data-bs-target="#pills-create-campains"
+				type="button" role="tab" aria-controls="pills-create-campains"
 				aria-selected="false">Tạo chiến dịch</button>
 		</li>
 		<li class="nav-item" role="presentation">
-			<button class="btn btn-light active" id="pills-home-tab" data-bs-toggle="pill"
-				data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home"
-				aria-selected="false">Quản lí chiến dịch</button>
+			<button class="btn btn-light active" id="pills-home-tab"
+				data-bs-toggle="pill" data-bs-target="#pills-home" type="button"
+				role="tab" aria-controls="pills-home" aria-selected="false">Quản
+				lí chiến dịch</button>
 		</li>
 	</ul>
-	
+
 	<div class="tab-content" id="pills-tabContent">
 		<div class="tab-pane fade show active" id="pills-home" role="tabpanel"
 			aria-labelledby="pills-home-tab" tabindex="0">
@@ -273,61 +276,88 @@
 		</div>
 
 		<div class="tab-content" id="pills-tabContent">
-			<div class="tab-pane fade" id="pills-create-semesters" role="tabpanel"
-		        aria-labelledby="pills-create-semesters-tab" tabindex="0">
-		        
-		        <div class="row">
+			<div class="tab-pane fade" id="pills-create-semesters"
+				role="tabpanel" aria-labelledby="pills-create-semesters-tab"
+				tabindex="0">
+
+				<div class="row">
 					<div class="col-md-12 col-lg-12">
-						<h5 class="mb-3"><strong>Tạo học kì</strong></h5>
+						<h5 class="mb-3">
+							<strong>Tạo học kì</strong>
+						</h5>
 						<div class="card card-primary shadow">
-						<form name="myForm">
-							<div class="card-body row">					
-								<div class="form-group col-md-6 mb-3">
-									<label>Mã học kì: </label>
-									<div class="mb-3 mt-1">
-										<input ng-model="form.semesterId" name="semesterId" type="text" class="form-control" ng-pattern="/^[a-zA-Z]{2}\d{2}$/" required>
-										<div ng-show="myForm.semesterId.$error.pattern" class="text-danger">Mã Học Kì không hợp lệ!</div>
-										<div ng-show="myForm.semesterId.$error.required && myForm.semesterId.$touched" class="text-danger">Mã Học Kì không được để trống!</div>
-						            </div>
+							<form name="myForm">
+								<div class="card-body row">
+									<div class="form-group col-md-6 mb-3">
+										<label>Mã học kì: </label>
+										<div class="mb-3 mt-1">
+											<input ng-model="form.semesterId" name="semesterId"
+												type="text" class="form-control" ng-disabled="isIdDisabled" required>
+											<div
+												ng-show="myForm.semesterId.$error.length && myForm.semesterId.$touched && submitted"
+												class="text-danger">Mã Học Kì không được quá 5 ký tự!
+											</div>
+											<div
+												ng-show="myForm.semesterId.$error.duplicate && myForm.semesterId.$touched && submitted"
+												class="text-danger">Mã học kì đã tồn tại!</div>
+											<div
+												ng-show="myForm.semesterId.$error.required && myForm.semesterId.$touched && submitted"
+												class="text-danger">Mã Học Kì không được để trống!</div>
+										</div>
+									</div>
+
+
+
+
+									<div class="form-group col-md-6 mb-3">
+										<label>Tên học kì: </label>
+										<div class="mb-3 mt-1">
+											<input ng-model="form.semesterName" name="semesterName"
+												type="text" class="form-control" required ng-change="checkFormChanges()">
+											<div
+												ng-show="myForm.semesterName.$error.required && myForm.semesterName.$touched && submitted"
+												class="text-danger">Tên Học Kì không được để trống!</div>
+										</div>
+									</div>
+
+									<div class="form-group col-md-6 mb-3">
+										<label>Ngày bắt đầu: </label>
+										<div class="mb-3 mt-1">
+											<input ng-model="form.startTime" ng-value="formatDate(form.startTime)" name="startDate"
+												class="form-control" type="date"
+												ng-value="{{form.startTime}}" required ng-change="checkFormChanges()">
+											<div
+												ng-show="myForm.startDate.$error.required && myForm.startDate.$touched && submitted"
+												class="text-danger">Ngày bắt đầu không được để trống!</div>
+										</div>
+									</div>
+
+									<div class="form-group col-md-6 mb-3">
+										<label>Ngày kết thúc: </label>
+										<div class="mb-3 mt-1">
+											<input ng-model="form.endTime"  ng-value="formatDate(form.endTime)" name="endDate"
+												class="form-control" type="date"  required ng-change="checkFormChanges()">
+											<div ng-show="endTime < startTime" class="text-danger">Ngày
+												kết thúc phải lớn hơn ngày bắt đầu!</div>
+											<div
+												ng-show="myForm.endDate.$error.required && myForm.endDate.$touched && submitted"
+												class="text-danger">Ngày kết thúc không được để trống!</div>
+										</div>
+									</div>
+
+									<div class="form-group col-md-12 col-lg-12">
+										<button class="btn mb-3 btn-light"
+											ng-click="submitted = true; create()">Tạo học kì</button>
+										<button ng-click="update()" class="btn mb-3 btn-light"
+											ng-disabled="!formChanges">Cập Nhật</button>
+										<button ng-click="reset()" class="btn mb-3 btn-light">Làm
+											mới</button>
+									</div>
 								</div>
-								
-								<div class="form-group col-md-6 mb-3">
-									<label>Tên học kì:  </label>
-									<div class="mb-3 mt-1">
-										<input ng-model="form.semesterName" name="semesterName" type="text" class="form-control" required>
-										<div ng-show="myForm.semesterName.$error.required && myForm.semesterName.$touched" class="text-danger">Tên Học Kì không được để trống!</div>
-						            </div>
-								</div>
-								
-								<div class="form-group col-md-6 mb-3">
-									<label>Ngày bắt đầu:  </label>
-									<div class="mb-3 mt-1">
-										<input ng-model="form.startTime" name="startDate" class="form-control" type="date" ng-value="{{form.startTime}}" required>
-										<div ng-show="myForm.startDate.$error.required && myForm.startDate.$touched" class="text-danger">Ngày bắt đầu không được để trống!</div>
-						            </div>
-								</div>
-								
-								<div class="form-group col-md-6 mb-3">
-									<label>Ngày kết thúc:  </label>
-									<div class="mb-3 mt-1">
-										<input ng-model="form.endTime" name="endDate" class="form-control" type="date" required>
-										<div ng-show="endTime < startTime" class="text-danger">Ngày kết thúc phải lớn hơn ngày bắt đầu!</div>
-										<div ng-show="myForm.endDate.$error.required && myForm.endDate.$touched" class="text-danger">Ngày kết thúc không được để trống!</div>							
-						            </div>
-								</div>
-								
-								<div class="form-group col-md-12 col-lg-12">
-									<button class="btn mb-3 btn-light" ng-show="myForm.$invalid" disabled>Tạo học kì</button>
-									<button ng-click="create()" class="btn mb-3 btn-light" ng-show="!myForm.$invalid">Tạo học kì</button>								
-									<button ng-click="update()" class="btn mb-3 btn-light" ng-disabled="isDisabled">Cập Nhật</button>
-									<button ng-click="reset()" class="btn mb-3 btn-light">Làm mới</button>
-								</div>
-							</div>
-						
-							</div>
+						</div>
 						</form>
 					</div>
-					
+
 					<div class="form-group col-md-12 mb-3">
 						<div class="form-group col-md-12 mb-3">
 							<div class="card flex-fill">
@@ -348,8 +378,10 @@
 											<td>{{semester.startTime | date:'dd/MM/yyyy'}}</td>
 											<td>{{semester.endTime | date:'dd/MM/yyyy'}}</td>
 											<td>
-												<button ng-click="edit(semester.semesterId)" class="btn btn-light m-3">Chỉnh sửa</button>
-												<button ng-click="delete(semester.semesterId)" class="btn btn-light">Xóa học kỳ</button>
+												<button ng-click="edit(semester.semesterId)"
+													class="btn btn-light m-3">Chỉnh sửa</button>
+												<button ng-click="delete(semester.semesterId)"
+													class="btn btn-light">Xóa học kỳ</button>
 											</td>
 										</tr>
 									</tbody>
@@ -357,49 +389,67 @@
 							</div>
 						</div>
 					</div>
-					
+
 				</div>
-		    </div>
-	    
-	    <div class="tab-pane fade" id="pills-create-campains" role="tabpanel"
-	        aria-labelledby="pills-create-campains-tab" tabindex="0">
-	        
-	        <div class="row" ng-controller="ctrl-campaign">
-				<div class="col-md-12 col-lg-12">
-					<h5 class="mb-3"><strong>Tạo chiến dịch</strong></h5>
-					<div class="card card-primary shadow">
-					<form name="myForm">
-					    <div class="card-body row">
-					        <div class="form-group col-md-12 mb-3">
-					            <label>Mã chiến dịch:</label>
-					            <div class="mb-3 mt-1">
-					                <input ng-model="form.campaignId" ng-disabled="isIdDisabled" name="campaignId" type="text" class="form-control" required>
-									<div ng-show="isDuplicateCampaignId" class="text-danger">Mã chiến dịch đã tồn tại!</div>
-					                <div ng-show="myForm.campaignId.$error.required && myForm.campaignId.$touched && submitted" class="text-danger">Mã chiến dịch không được để trống!</div>
-					            	<div ng-show="myForm.campaignId.$error.length && myForm.campaignId.$touched && submitted" class="text-danger">Mã chiến dịch không được quá 5 ký tự!</div>
-					            </div>
-					        </div>
-					
-					        <div class="form-group col-md-12 mb-3">
-					            <label>Tên chiến dịch:</label>
-					            <div class="mb-3 mt-1">
-					                <input ng-model="form.campaignName" ng-change="checkFormChanges()" name="campaignName" type="text" class="form-control" required>
-					                <div ng-show="myForm.campaignName.$error.required && myForm.campaignName.$touched && submitted" class="text-danger">Tên chiến dịch không được để trống!</div>
-					            </div>
-					        </div>
-					
-					        <div class="form-group col-md-12 col-lg-12">
-					            <button class="btn mb-3 btn-light" ng-click="submitted = true; create2()">Tạo chiến dịch</button>
-					            <button class="btn mb-3 btn-light" ng-click="update2()" ng-disabled="!formChanges">Cập nhật</button>
-					            <button class="btn mb-3 btn-light" ng-click="reset2()">Làm mới</button>
-					        </div>
-					    </div>
-					</form>
+			</div>
+
+			<div class="tab-pane fade" id="pills-create-campains" role="tabpanel"
+				aria-labelledby="pills-create-campains-tab" tabindex="0">
+
+				<div class="row" ng-controller="ctrl-campaign">
+					<div class="col-md-12 col-lg-12">
+						<h5 class="mb-3">
+							<strong>Tạo chiến dịch</strong>
+						</h5>
+						<div class="card card-primary shadow">
+							<form name="myForm">
+								<div class="card-body row">
+									<div class="form-group col-md-12 mb-3">
+										<label>Mã chiến dịch:</label>
+										<div class="mb-3 mt-1">
+											<input ng-model="form.campaignId" ng-disabled="isIdDisabled"
+												name="campaignId" type="text" class="form-control" required>
+											<div ng-show="isDuplicateCampaignId" class="text-danger">Mã
+												chiến dịch đã tồn tại!</div>
+											<div
+												ng-show="myForm.campaignId.$error.required && myForm.campaignId.$touched && submitted"
+												class="text-danger">Mã chiến dịch không được để trống!</div>
+											<div
+												ng-show="myForm.campaignId.$error.length && myForm.campaignId.$touched && submitted"
+												class="text-danger">Mã chiến dịch không được quá 5 ký
+												tự!</div>
+										</div>
+									</div>
+
+									<div class="form-group col-md-12 mb-3">
+										<label>Tên chiến dịch:</label>
+										<div class="mb-3 mt-1">
+											<input ng-model="form.campaignName"
+												ng-change="checkFormChanges()" name="campaignName"
+												type="text" class="form-control" required>
+											<div
+												ng-show="myForm.campaignName.$error.required && myForm.campaignName.$touched && submitted"
+												class="text-danger">Tên chiến dịch không được để
+												trống!</div>
+										</div>
+									</div>
+
+									<div class="form-group col-md-12 col-lg-12">
+										<button class="btn mb-3 btn-light"
+											ng-click="submitted = true; create2()">Tạo chiến
+											dịch</button>
+										<button class="btn mb-3 btn-light" ng-click="update2()"
+											ng-disabled="!formChanges">Cập nhật</button>
+										<button class="btn mb-3 btn-light" ng-click="reset2()">Làm
+											mới</button>
+									</div>
+								</div>
+							</form>
+
+						</div>
 
 					</div>
-					
-				</div>
-				<div class="form-group col-md-12 mb-3">
+					<div class="form-group col-md-12 mb-3">
 						<div class="form-group col-md-12 mb-3">
 							<div class="card flex-fill">
 								<table class="table table-hover my-0">
@@ -415,9 +465,9 @@
 											<td>{{campain.campaignName}}</td>
 											<td>
 												<button ng-click="edit2(campain.campaignId)"
-												class="btn btn-light m-3">Chỉnh sửa</button>
-											<button ng-click="delete2(campain.campaignId)"
-												class="btn btn-light">Xóa chiến dịch</button>
+													class="btn btn-light m-3">Chỉnh sửa</button>
+												<button ng-click="delete2(campain.campaignId)"
+													class="btn btn-light">Xóa chiến dịch</button>
 											</td>
 										</tr>
 									</tbody>
@@ -425,10 +475,9 @@
 							</div>
 						</div>
 					</div>
-			</div>
-	        
-	    </div>
-	    
-	</div>
-</div>
+				</div>
 
+			</div>
+
+		</div>
+	</div>

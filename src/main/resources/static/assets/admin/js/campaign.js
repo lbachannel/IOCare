@@ -15,7 +15,7 @@ app.controller("ctrl-campaign", function($scope, $http, $filter, $timeout){
 	      // Tìm ra phần tử tại vị trí sẽ xóa.
 	      var index = $scope.items.findIndex(item => item.campaignId == campaignId);
 	      $scope.items.splice(index, 1); // Xóa 1 phần tử tại vị trí đó
-	      $scope.reset();
+	      $scope.reset2();
 	      console.log("Success", resp);
 	    }).catch(error => {
 	      console.log("Error", error);
@@ -100,7 +100,7 @@ app.controller("ctrl-campaign", function($scope, $http, $filter, $timeout){
 	
 	    $http.post(url, item).then(resp => {
 	      $scope.items.push(item);
-	      $scope.reset();
+	      $scope.reset2();
 	      console.log("Insert value to Campaign Successfully!", resp);
 		  alert("Tạo chiến dịch thành công!");
 	      $scope.submitted = false; // Reset submitted flag
