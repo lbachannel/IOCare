@@ -21,6 +21,7 @@ public class StudentRestController {
 	@PostMapping("/rest/student")
 	public ResponseEntity<Student> post(@RequestBody Student student){
 		if(studentService.existsById(student.getStudentId())) {
+			System.out.println(student.getStudentId());
 			return ResponseEntity.badRequest().build();
 		}
 		studentService.create(student);

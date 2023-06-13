@@ -292,23 +292,32 @@
 										<label>Mã học kì: </label>
 										<div class="mb-3 mt-1">
 											<input ng-model="form.semesterId" name="semesterId"
-												type="text" class="form-control"
-												ng-pattern="/^[a-zA-Z]{2}\d{2}$/" required>
-											<div ng-show="myForm.semesterId.$error.pattern"
-												class="text-danger">Mã Học Kì không hợp lệ!</div>
+												type="text" class="form-control" ng-disabled="isIdDisabled"
+												required>
 											<div
-												ng-show="myForm.semesterId.$error.required && myForm.semesterId.$touched"
+												ng-show="myForm.semesterId.$error.length && myForm.semesterId.$touched && submitted"
+												class="text-danger">Mã Học Kì không được quá 5 ký tự!
+											</div>
+											<div
+												ng-show="myForm.semesterId.$error.duplicate && myForm.semesterId.$touched && submitted"
+												class="text-danger">Mã học kì đã tồn tại!</div>
+											<div
+												ng-show="myForm.semesterId.$error.required && myForm.semesterId.$touched && submitted"
 												class="text-danger">Mã Học Kì không được để trống!</div>
 										</div>
 									</div>
+
+
+
 
 									<div class="form-group col-md-6 mb-3">
 										<label>Tên học kì: </label>
 										<div class="mb-3 mt-1">
 											<input ng-model="form.semesterName" name="semesterName"
-												type="text" class="form-control" required>
+												type="text" class="form-control" required
+												ng-change="checkFormChanges()">
 											<div
-												ng-show="myForm.semesterName.$error.required && myForm.semesterName.$touched"
+												ng-show="myForm.semesterName.$error.required && myForm.semesterName.$touched && submitted"
 												class="text-danger">Tên Học Kì không được để trống!</div>
 										</div>
 									</div>
@@ -316,11 +325,13 @@
 									<div class="form-group col-md-6 mb-3">
 										<label>Ngày bắt đầu: </label>
 										<div class="mb-3 mt-1">
-											<input ng-model="form.startTime" name="startDate"
+											<input ng-model="form.startTime"
+												ng-value="formatDate(form.startTime)" name="startDate"
 												class="form-control" type="date"
-												ng-value="{{form.startTime}}" required>
+												ng-value="{{form.startTime}}" required
+												ng-change="checkFormChanges()">
 											<div
-												ng-show="myForm.startDate.$error.required && myForm.startDate.$touched"
+												ng-show="myForm.startDate.$error.required && myForm.startDate.$touched && submitted"
 												class="text-danger">Ngày bắt đầu không được để trống!</div>
 										</div>
 									</div>
@@ -328,23 +339,23 @@
 									<div class="form-group col-md-6 mb-3">
 										<label>Ngày kết thúc: </label>
 										<div class="mb-3 mt-1">
-											<input ng-model="form.endTime" name="endDate"
-												class="form-control" type="date" required>
+											<input ng-model="form.endTime"
+												ng-value="formatDate(form.endTime)" name="endDate"
+												class="form-control" type="date" required
+												ng-change="checkFormChanges()">
 											<div ng-show="endTime < startTime" class="text-danger">Ngày
 												kết thúc phải lớn hơn ngày bắt đầu!</div>
 											<div
-												ng-show="myForm.endDate.$error.required && myForm.endDate.$touched"
+												ng-show="myForm.endDate.$error.required && myForm.endDate.$touched && submitted"
 												class="text-danger">Ngày kết thúc không được để trống!</div>
 										</div>
 									</div>
 
 									<div class="form-group col-md-12 col-lg-12">
-										<button class="btn mb-3 btn-light" ng-show="myForm.$invalid"
-											disabled>Tạo học kì</button>
-										<button ng-click="create()" class="btn mb-3 btn-light"
-											ng-show="!myForm.$invalid">Tạo học kì</button>
+										<button class="btn mb-3 btn-light"
+											ng-click="submitted = true; create()">Tạo học kì</button>
 										<button ng-click="update()" class="btn mb-3 btn-light"
-											ng-disabled="isDisabled">Cập Nhật</button>
+											ng-disabled="!formChanges">Cập Nhật</button>
 										<button ng-click="reset()" class="btn mb-3 btn-light">Làm
 											mới</button>
 									</div>
@@ -400,42 +411,47 @@
 							<form name="myForm">
 								<div class="card-body row">
 									<div class="form-group col-md-12 mb-3">
-										<label>Mã chiến dịch: </label>
+										<label>Mã chiến dịch:</label>
 										<div class="mb-3 mt-1">
 											<input ng-model="form.campaignId" ng-disabled="isIdDisabled"
 												name="campaignId" type="text" class="form-control" required>
-											<div ng-show="myForm.campaignId.$error.pattern"
-												class="text-danger">Mã chiến dịch không hợp lệ!</div>
+											<div ng-show="isDuplicateCampaignId" class="text-danger">Mã
+												chiến dịch đã tồn tại!</div>
 											<div
-												ng-show="myForm.campaignId.$error.required && myForm.campaignId.$touched"
+												ng-show="myForm.campaignId.$error.required && myForm.campaignId.$touched && submitted"
 												class="text-danger">Mã chiến dịch không được để trống!</div>
+											<div
+												ng-show="myForm.campaignId.$error.length && myForm.campaignId.$touched && submitted"
+												class="text-danger">Mã chiến dịch không được quá 5 ký
+												tự!</div>
 										</div>
 									</div>
 
 									<div class="form-group col-md-12 mb-3">
-										<label>Tên chiến dịch: </label>
+										<label>Tên chiến dịch:</label>
 										<div class="mb-3 mt-1">
 											<input ng-model="form.campaignName"
 												ng-change="checkFormChanges()" name="campaignName"
 												type="text" class="form-control" required>
 											<div
-												ng-show="myForm.campaignName.$error.required && myForm.campaignName.$touched"
-												class="text-danger">Tên Học Kì không được để trống!</div>
+												ng-show="myForm.campaignName.$error.required && myForm.campaignName.$touched && submitted"
+												class="text-danger">Tên chiến dịch không được để
+												trống!</div>
 										</div>
 									</div>
 
 									<div class="form-group col-md-12 col-lg-12">
-										<button class="btn mb-3 btn-light" ng-show="myForm.$invalid"
-											disabled>Tạo chiến dịch</button>
-										<button ng-click="create2()" class="btn mb-3 btn-light"
-											ng-show="!myForm.$invalid">Tạo chiến dịch</button>
+										<button class="btn mb-3 btn-light"
+											ng-click="submitted = true; create2()">Tạo chiến
+											dịch</button>
 										<button class="btn mb-3 btn-light" ng-click="update2()"
-											ng-disabled="!formChanges">Sửa</button>
-										<button ng-click="reset2()" class="btn mb-3 btn-light">Làm
+											ng-disabled="!formChanges">Cập nhật</button>
+										<button class="btn mb-3 btn-light" ng-click="reset2()">Làm
 											mới</button>
 									</div>
 								</div>
 							</form>
+
 						</div>
 
 					</div>
@@ -471,5 +487,3 @@
 
 		</div>
 	</div>
-</div>
-

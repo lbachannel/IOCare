@@ -30,7 +30,7 @@ public class ImportedData implements Serializable{
 
 	@Id
 	@Column(name = "Importedfilename")
-	private String importFileName;
+	private String importedFileName;
 	
 	@ManyToOne
 	@JoinColumn(name = "Semesterid")

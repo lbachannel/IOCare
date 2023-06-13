@@ -18,9 +18,9 @@ public class ImportedDataServiceImpl implements IImportedDataService{
 	@Override
 	public ImportedData create(ImportedData importedData) {
 		ImportedData imp = new ImportedData();
+		imp.setImportedFileName(importedData.getImportedFileName());
 		imp.setSemester(importedData.getSemester());
 		imp.setCampaign(importedData.getCampaign());
-		imp.setImportFileName(importedData.getImportFileName());
 		return dao.save(imp);
 	}
 
