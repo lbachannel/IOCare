@@ -374,7 +374,7 @@
 					            <label>Mã chiến dịch:</label>
 					            <div class="mb-3 mt-1">
 					                <input ng-model="form.campaignId" ng-disabled="isIdDisabled" name="campaignId" type="text" class="form-control" required>
-									<div ng-show="isDuplicateCampaignId && submitted" class="text-danger">Mã chiến dịch đã tồn tại!</div>
+									<div ng-show="isDuplicateCampaignId" class="text-danger">Mã chiến dịch đã tồn tại!</div>
 					                <div ng-show="myForm.campaignId.$error.required && myForm.campaignId.$touched && submitted" class="text-danger">Mã chiến dịch không được để trống!</div>
 					            	<div ng-show="myForm.campaignId.$error.length && myForm.campaignId.$touched && submitted" class="text-danger">Mã chiến dịch không được quá 5 ký tự!</div>
 					            </div>

@@ -66,8 +66,9 @@ app.controller("ctrl-campaign", function($scope, $http, $filter, $timeout){
 
 	$scope.hideErrorAfterDelay = function() {
 	    $timeout(function() {
-	        $scope.submitted = false;
-	    }, 5000);
+			$scope.submitted = false;	
+			$scope.isDuplicateCampaignId = false;
+	    },5000);
 	};
 
 	/*--Gọi API Backend tạo mới học kỳ--*/
@@ -82,6 +83,7 @@ app.controller("ctrl-campaign", function($scope, $http, $filter, $timeout){
 	    $scope.checkDuplicateCampaignId(item.campaignId);
 	    if ($scope.isDuplicateCampaignId) {
 	      console.log("Mã chiến dịch đã tồn tại!");
+	      $scope.hideErrorAfterDelay(); // Hide error message after 5 seconds
 	      return;
 	    }
 	    
@@ -90,6 +92,7 @@ app.controller("ctrl-campaign", function($scope, $http, $filter, $timeout){
 	        $scope.showMaxLengthError = false;
 	        $scope.isDuplicateCampaignId = false; // Ẩn thông báo mã chiến dịch đã tồn tại (nếu có)
 	        $scope.myForm.campaignId.$setValidity('length', false); // Đánh dấu lỗi độ dài mã chiến dịch
+	        $scope.hideErrorAfterDelay(); // Hide error message after 5 seconds
 	        return; // Dừng quá trình tạo chiến dịch nếu có lỗi
 	    }
 	    
@@ -101,12 +104,13 @@ app.controller("ctrl-campaign", function($scope, $http, $filter, $timeout){
 	      console.log("Insert value to Campaign Successfully!", resp);
 		  alert("Tạo chiến dịch thành công!");
 	      $scope.submitted = false; // Reset submitted flag
-	      $scope.hideErrorAfterDelay(); // Hide error message after 5 seconds
 	    }).catch(error => {
 	      console.log("Adding new encountered an error. Please check again.", error);
 	    });
 	  } else {
 	    $scope.submitted = true;
+	    $scope.hideErrorAfterDelay(); // Hide error message after 5 seconds
+
 	  }
 	}	
 
