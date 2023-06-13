@@ -8,7 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -30,6 +29,6 @@ public class Aspiration {
     @Column(name = "Aspirationdes")
     private String aspirationDes;
     
-    @OneToMany(mappedBy = "aspiration")
-    private List<Student> students = new ArrayList<>();
+    @OneToMany(mappedBy = "aspirations")
+    private List<Student> student = new ArrayList<>();
 }

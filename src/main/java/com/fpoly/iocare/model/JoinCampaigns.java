@@ -1,7 +1,5 @@
 package com.fpoly.iocare.model;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,13 +18,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name = "JoinCampaigns")
-public class JoinCampaign implements Serializable{
-
-	private static final long serialVersionUID = 1L;
-
+public class JoinCampaigns {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "Joincampainsid")
+	@Column(name = "JoinCampainsid")
 	private Integer joinCampainsId;
 	
 	@ManyToOne
@@ -46,10 +41,10 @@ public class JoinCampaign implements Serializable{
 	private Semester semester;
 	
 	@ManyToOne
-	@JoinColumn(name = "Reasonabsenteeismid")
-	private ReasonAbsenteeism reasonAbsenteeism;
+	@JoinColumn(name = "ReasonAbsenteeismid")
+	private ReasonAbsenteeism reasonAbsenteeisms;
 	
 	@ManyToOne
-	@Column(name = "Reasonfeeid")
+	@JoinColumn(name = "ReasonFeeId")
 	private ReasonFee reasonFee;
 }

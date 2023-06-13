@@ -24,8 +24,7 @@ public class Authority {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer authorityId;
 	
-	@Column(name = "Employeeid")
-	private String employeeId;
+	
 	
 	
 	
@@ -41,7 +40,6 @@ public class Authority {
 	private Role role;
 	
 	@ManyToOne
-	@JoinColumn(name = "employeeId")
+	@JoinColumn(name = "Employeeid")
 	private Employee employee;
-	
 }

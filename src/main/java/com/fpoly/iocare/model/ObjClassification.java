@@ -29,7 +29,6 @@ public class ObjClassification {
 	@Column(name = "Objclassificationdes")
 	private String objClassificationDes;
 	
-	@OneToMany(mappedBy = "objClassification")
-	List<Student> students = new ArrayList<>();
-	
+	@OneToMany(mappedBy = "objClassifications")
+	private List<Student> student = new ArrayList<>();
 }

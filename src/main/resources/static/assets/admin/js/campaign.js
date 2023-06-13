@@ -1,5 +1,5 @@
-let pathCampain = "http://localhost:8080/rest";
-app.controller("ctrl-campain", function($scope, $http, $filter){
+let pathCampaign = "http://localhost:8080/rest";
+app.controller("ctrl-campaign", function($scope, $http, $filter){
 	$scope.form = {};
 	$scope.items = [];
 	
@@ -10,7 +10,7 @@ app.controller("ctrl-campain", function($scope, $http, $filter){
 	  
 	  // Kiểm tra câu trả lời của người dùng
 	  if (xacNhan) {
-	    var url = `${pathCampain}/campain/${campaignId}`;
+	    var url = `${pathCampaign}/campaign/${campaignId}`;
 	    $http.delete(url).then(resp => {
 	      // Tìm ra phần tử tại vị trí sẽ xóa.
 	      var index = $scope.items.findIndex(item => item.campaignId == campaignId);
@@ -32,7 +32,7 @@ app.controller("ctrl-campain", function($scope, $http, $filter){
 	
 	/*--Hiển thị chiến dịch lên form--*/
 	$scope.edit2 = function(campaignId){
-		var url = `${pathCampain}/campain/${campaignId}`;
+		var url = `${pathCampaign}/campaign/${campaignId}`;
 		
 		$http.get(url).then(resp => {
 			$scope.isDisabled = false;
@@ -46,7 +46,7 @@ app.controller("ctrl-campain", function($scope, $http, $filter){
 	
 	/*--Hiển thị tất cả chiến dịch--*/
 	$scope.findAll2 = function(){
-		var url = `${pathCampain}/campain`;
+		var url = `${pathCampaign}/campaign`;
 		$http.get(url).then(resp => {
 			$scope.items = resp.data;
 			console.log("Success", resp)
@@ -58,7 +58,7 @@ app.controller("ctrl-campain", function($scope, $http, $filter){
 	/*--Gọi API Backend tạo mới học kỳ--*/
 	$scope.create2 = function(){
 		var item = angular.copy($scope.form);
-		var url = `${pathCampain}/campain`;
+		var url = `${pathCampaign}/campaign`;
 		$http.post(url, item).then(resp => {
 			$scope.items.push(item);
 			$scope.reset();
@@ -83,7 +83,7 @@ app.controller("ctrl-campain", function($scope, $http, $filter){
   	}
     var item = angular.copy($scope.form);
     $http
-        .put(`${pathCampain}/campain/${item.campaignId}`, item)
+        .put(`${pathCampaign}/campaign/${item.campaignId}`, item)
         .then((resp) => {
             var index = $scope.items.findIndex((p) => p.campaignId == item.campaignId);
             $scope.items[index] = resp.data;

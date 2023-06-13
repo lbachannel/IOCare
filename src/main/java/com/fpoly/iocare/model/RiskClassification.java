@@ -30,6 +30,6 @@ public class RiskClassification {
 	@Column(name = "Riskclassificationdes")
 	private String riskClassificationDes;
 	
-	@OneToMany(mappedBy = "riskClassification")
-	private List<Student> students = new ArrayList<>();
+	@OneToMany(mappedBy = "riskClassifications")
+	private List<Student> student = new ArrayList<>();
 }

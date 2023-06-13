@@ -61,15 +61,12 @@ app.controller("ctrl-import", function($scope, $http) {
 
 	  var url = `${pathImportedData}/imported`;
 	  $http.post(url, item).then(resp => {
-
-		  console.log(resp.data)
-		  $scope.items.push(item);
-		  $scope.load_all();
-		  console.log("Success", resp);
 		  
-		  var url = "/rest/student";
-	      $http.post(url, student).then(resp => {
-	        console.log("Thành công", resp.data);
+		  $scope.load_all();
+		  console.log("Import file thành công", resp);
+
+	      $http.post("/rest/student", student).then(resp => {
+	        console.log("Thêm danh sách sinh viên thành công", resp.data);
 	      }).catch(error => {
 	        console.log("Lỗi", error);
 	      });

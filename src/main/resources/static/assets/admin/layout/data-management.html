@@ -126,7 +126,7 @@
 						
 						<div class="mb-3">
 						  <label for="formFileDisabled" class="form-label">Nhập file excel</label>
-						  <input class="form-control" type="file" id="image">
+						  <input ng-model="form.file" class="form-control" type="file" id="image" onchange="angular.element(this).scope().import(this.files)" ng-disabled="!form.semester.semesterId || !form.campaign.campaignId">
 						</div>
 						
 						<!-- <div class="custom-file mb-4">
@@ -138,8 +138,7 @@
 					<div class="form-group col-md-2 mb-4">
 						<label for="title">Hành động</label>
 						<div class="custom-file mb-4 pt-2">
-							<button class="btn mb-3 btn-light">Put</button>	
-							<button class="btn mb-3 btn-light">Save</button>	
+							<button ng-click="create()" class="btn mb-3 btn-light">Lưu</button>	
 						</div>	
 					</div>
 					
@@ -148,26 +147,23 @@
 				<table id="myTable" class="table table-hover my-0">
 					<thead>
 						<tr>
-							<th>Loại chiến dịch</th>
-							<th class="d-none d-xl-table-cell">Mã số sinh viên</th>
-							<th>Lý do</th>
-							<th class="d-none d-md-table-cell">Diễn giải chi tiết</th>
-							<th class="d-none d-md-table-cell">Phân loại đánh giá</th>
-							<th class="d-none d-md-table-cell">Nhân sự</th>
-							<th class="d-none d-md-table-cell">Thời gian chăm sóc</th>
+							<th class="d-none d-md-table-cell">Tên thư mục</th>
+							<th class="d-none d-xl-table-cell">Mã học kỳ</th>
+							<th>Mã chiến dịch</th>
+
+							<th class="d-none d-md-table-cell">Ngày nhập file</th>
+							<th class="d-none d-md-table-cell">Mã nhân sự</th>
 							<th class="d-none d-md-table-cell">Tuỳ chọn</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-					        <td>a</td>
-					        <td class="d-none d-xl-table-cell">a</td>
-					        <td><span class="badge bg-success">Done</span></td>
-					        <td class="d-none d-md-table-cell">a</td>
-					        <td class="d-none d-md-table-cell">a</td>
-					        <td class="d-none d-md-table-cell">a</td>
-					        <td class="d-none d-md-table-cell">a</td>
-					        <td class="d-none d-md-table-cell"><button class="btn mb-3 btn-light" style="width: 100%; margin-top: 25px" >Edit</button></td>
+						<tr ng-repeat="imp in items">
+					        <td>{{imp.importFileName}}</td>
+					        <td class="d-none d-xl-table-cell">{{imp.semester.semesterId}}</td>
+					        <td><span class="badge bg-success">{{imp.campaign.campaignId}}</span></td>
+					        <td class="d-none d-md-table-cell">{{imp.importedDate}}</td>
+					        <td class="d-none d-md-table-cell">{{imp.employee.employeeId}}</td>
+					        <td class="d-none d-md-table-cell"><button class="btn mb-3 btn-light" style="width: 100%; margin-top: 25px" >Chỉnh sửa</button></td>
 					     </tr>
 						
 					</tbody>

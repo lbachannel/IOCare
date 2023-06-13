@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fpoly.iocare.model.ImportedData;
@@ -23,7 +22,7 @@ public class ImportedDataRestController {
 
 	/*--tạo mới importedData--*/
 	@PostMapping("/rest/imported")
-	public ResponseEntity<ImportedData> post(@RequestParam("fileName") String fileName, @RequestBody ImportedData importedData){
+	public ResponseEntity<ImportedData> post(@RequestBody ImportedData importedData){
 		importedDataService.create(importedData);
 		return ResponseEntity.ok(importedData);
 	}

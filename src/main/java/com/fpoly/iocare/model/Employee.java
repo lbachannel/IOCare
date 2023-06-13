@@ -1,5 +1,6 @@
 package com.fpoly.iocare.model;
 
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,8 +23,8 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "Employees")
 public class Employee implements Serializable{
-
 	private static final long serialVersionUID = 1L;
+
 
 	@Id
 	@Column(name = "Employeeid")
@@ -35,20 +36,21 @@ public class Employee implements Serializable{
 	@Column(name = "Employeename")
 	private String employeeName;
 	
-	@Column(name = "Employeeemail")
+	@Column(name = "Empoyeeemail")
 	private String empoyeeEmail;
 	
 	@Column(name = "Employeephone")
 	private String employeePhone;
 	
-	@OneToMany(mappedBy = "authority")
-	private List<Authority> authorities = new ArrayList<>();
+	@JsonIgnore
+	@OneToMany(mappedBy = "employee")
+	private List<Student> students  = new ArrayList<>();
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "employee")
-	private List<ImportedData> importedData;
+	private List<ImportedData> importedDatas  = new ArrayList<>();
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "employee")
-	private List<Student> students = new ArrayList<>();
+	private List<Authority> authorities  = new ArrayList<>();
 }

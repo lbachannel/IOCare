@@ -29,6 +29,6 @@ public class ReasonAbsenteeism {
     @Column(name = "Reasonabsenteeismname")
     private String reasonAbsenteeismName;
     
-    @OneToMany(mappedBy = "reasonAbsenteeism")
-    private List<JoinCampaign> joinCampaigns = new ArrayList<>();
+    @OneToMany(mappedBy = "reasonAbsenteeisms")
+    private List<JoinCampaigns> joinCampains = new ArrayList<>();
 }

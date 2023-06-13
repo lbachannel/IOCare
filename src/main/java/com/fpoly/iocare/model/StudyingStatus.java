@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "StudyingStatus" )
+@Table(name = "StudyingStatus")
 public class StudyingStatus {
 	@Id
 	@Column(name = "Studyingstatusid")
@@ -25,8 +25,7 @@ public class StudyingStatus {
 	
 	@Column (name = "Studyingstatusname")
 	private String studyingStatusName;
-	
-	@OneToMany(mappedBy = "studyingStatus")
-	private List<JoinCampaign> joinCampaigns = new ArrayList<>();
 
+	@OneToMany(mappedBy = "studyingStatus")
+	private List<JoinCampaigns> joinCampains = new ArrayList<>();
 }
