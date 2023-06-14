@@ -24,7 +24,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
  *                               được sử dụng để cấu hình bảo mật cho ứng dụng web
  *                               xác thực, phân quyền, giới hạn truy cập và xác thực CSRF (Cross-site Request Forgery).
  */
-public class AuthConfig extends WebSecurityConfigurerAdapter{
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	@Autowired
 	BCryptPasswordEncoder pe;
 	

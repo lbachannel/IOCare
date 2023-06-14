@@ -1,12 +1,8 @@
 package com.fpoly.iocare.controller.admin;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.fpoly.iocare.dao.*;
-import com.fpoly.iocare.model.RiskClassification;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class HomeAdminController {

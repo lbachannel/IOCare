@@ -3,9 +3,9 @@ package com.fpoly.iocare.dao;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.fpoly.iocare.model.RiskClassification;
+import com.fpoly.iocare.model.Role;
 
 @Repository
-public interface RiskClassificationDAO extends JpaRepository<RiskClassification, Integer>{
-	
+public interface IRoleDAO extends JpaRepository<Role, Integer>{
+
 }

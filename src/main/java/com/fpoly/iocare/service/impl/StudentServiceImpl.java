@@ -1,5 +1,7 @@
 package com.fpoly.iocare.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +25,12 @@ public class StudentServiceImpl implements IStudentService{
 		if(dao.existsById(id))
 			return true;
 		return false;
+	}
+
+	/*--Hiển thị tất cả sinh viên--*/
+	@Override
+	public List<Object[]> findAll(String importFileName) {
+		return dao.findAll(importFileName);
 	}
 
 }

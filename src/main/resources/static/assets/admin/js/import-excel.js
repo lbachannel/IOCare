@@ -72,6 +72,17 @@ app.controller("ctrl-import", function($scope, $http) {
 				var workbook = new ExcelJS.Workbook();
 				await workbook.xlsx.load(reader.result);
 				const worksheet = workbook.getWorksheet('Sheet1');
+				// Kiểm tra xem workbook có worksheet là tên 'Sheet1' hay không
+				if(!worksheet){
+					// Không tìm thấy worksheet
+					alert('Không tìm thấy worksheet có tên "Sheet1". Vui lòng kiểm tra file Excel.');
+					$scope.load_all();
+					$scope.load_filename();
+					$scope.load_semester();
+					$scope.load_campaign();
+					$scope.reset();
+					return;
+				}
 				var firstRow = worksheet.getRow(1);
 				var firstCell = firstRow.getCell(1).value;
 				var secondCell = firstRow.getCell(2).value;

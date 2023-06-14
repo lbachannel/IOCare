@@ -19,7 +19,7 @@ import com.fpoly.iocare.service.impl.CampaignServiceImpl;
 
 @CrossOrigin("*")
 @RestController
-public class CampainRestController {
+public class CampaignRestController {
 	@Autowired
 	ICampaignService campaignService = new CampaignServiceImpl();
 	
