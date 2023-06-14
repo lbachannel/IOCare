@@ -2,6 +2,8 @@ package com.fpoly.iocare;
 
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,7 +33,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		auth.userDetailsService(id->{
 			try {
 				Employee user =  dao.findById(id);
-				System.out.println(user);
 				String password = pe.encode(user.getPasword());
 				String[] roles = user.getAuthorities().stream()
 						.map(el->el.getRole().getRoleId())
@@ -51,7 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		http.authorizeRequests()
 //		 	.antMatchers("/security/sign-in").permitAll() // Cho phép truy cập không cần xác thực vào "/sign-in"
 //		    .anyRequest().authenticated(); // Yêu cầu xác thực đối với tất cả các URL còn lại
-			.antMatchers("/campaign-management").hasAnyRole("STA","DIR")
+			.antMatchers("/security").authenticated()
 			.anyRequest().permitAll();
 
 		http.formLogin()

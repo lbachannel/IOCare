@@ -17,11 +17,11 @@ public class HomeAdminController {
 		return "admin/index";
 	}
 	
-//	/*--url: Quản lý chiến dịch--*/
-//	@RequestMapping("/campaign-management")
-//	public String campaignManagement(){
-//		return "admin/index";
-//	}
+	/*--url: Quản lý chiến dịch--*/
+	@RequestMapping("/campaign-management")
+	public String campaignManagement(){
+		return "admin/index";
+	}
 	
 	/*--url: Chăm sóc sinh viên--*/
 	@RequestMapping("/student-support")

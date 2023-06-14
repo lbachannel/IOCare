@@ -27,10 +27,10 @@ app.controller("ctrl-semester", function($scope, $http, $filter, $window, $rootS
 		}
 	};
 	
-	$scope.located = function(){
-		var url = `http://localhost:8080/campaign-management`;
+	$scope.located = function(){	
+		var url = `http://localhost:8080/security`;
 		$http.get(url).then(resp => {
-			$window.location.href = 'http://localhost:8080/campaign-management';
+			console.log(resp);
 		}).catch(errors => {
 			console.log("Error", errors);
 		});
@@ -110,11 +110,30 @@ app.controller("ctrl-semester", function($scope, $http, $filter, $window, $rootS
 		});
 	};
 
-
+	$scope.located();
 
 	/*--Gọi hàm reset--*/
 	$scope.reset();
 
 	/*--Gọi hàm hiển thị tất cả học kỳ--*/
 	$scope.findAll();
+});
+
+app.run(function($rootScope, $location, $window, $http) {
+  // Xử lý trước khi reload trang
+  $rootScope.$on('$locationChangeStart', function(event) {
+    // Thực hiện các xử lý bạn muốn trước khi trang được reload
+    // Ví dụ: Hiển thị thông báo xác nhận hoặc lưu dữ liệu trước khi reload
+	   $http.get('/security').then(function(response) {
+		    var userInfo = response.data;
+		    if(userInfo != true){
+				var url = `http://localhost:8080/security`;
+				$http.get(url).then(resp => {
+					$window.location.href = 'http://localhost:8080/security';
+				}).catch(errors => {
+					console.log("Error", errors);
+				});
+			}
+     });
+  });
 });

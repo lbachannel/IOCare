@@ -1,68 +1,28 @@
 package com.fpoly.iocare.rest.controller.admin;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.apache.tomcat.util.json.JSONFilter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @CrossOrigin("*")
 @RestController
 public class SecurityRestController {
 	
-	@GetMapping("campaign-management")
-	public String campaign_Management(){
+	@GetMapping("security")
+	public Boolean campaign_Management(){
 		 Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		    
-		    if (authentication.isAuthenticated()) {
-		        String username = authentication.getName();
-		       
-		        System.out.println(username);
-		        return username;
-		    } else {
-		        return null;
-		    }
-	}
-	
-	@GetMapping("student-support")
-	public String student_support(){
-		 Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		    
-		    if (authentication.isAuthenticated()) {
-		        String username = authentication.getName();
-		       
-		        System.out.println(username);
-		        return username;
-		    } else {
-		        return null;
-		    }
-	}
-	
-	@GetMapping("account-management")
-	public String account_management(){
-		 Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		    
-		    if (authentication.isAuthenticated()) {
-		        String username = authentication.getName();
-		       
-		        System.out.println(username);
-		        return username;
-		    } else {
-		        return null;
-		    }
-	}
-	
-	@GetMapping("authority-management")
-	public String authority_management(){
-		 Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		    
-		    if (authentication.isAuthenticated()) {
-		        String username = authentication.getName();
-		       
-		        System.out.println(username);
-		        return username;
-		    } else {
-		        return null;
-		    }
+		 System.out.println(authentication.isAuthenticated());
+        return authentication.isAuthenticated();
 	}
 }
