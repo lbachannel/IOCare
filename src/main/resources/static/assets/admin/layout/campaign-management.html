@@ -357,7 +357,7 @@
 
 									<div class="form-group col-md-12 col-lg-12">
 										<button class="btn mb-3 btn-light"
-											ng-click="submitted = true; create()">Tạo học kì</button>
+											ng-click="submitted = true; create()" ng-disabled="isDisabled">Tạo học kì</button>
 										<button ng-click="update()" class="btn mb-3 btn-light"
 											ng-disabled="!formChanges">Cập Nhật</button>
 										<button ng-click="reset()" class="btn mb-3 btn-light">Làm
@@ -446,7 +446,7 @@
 
 									<div class="form-group col-md-12 col-lg-12">
 										<button class="btn mb-3 btn-light"
-											ng-click="submitted = true; create2()">Tạo chiến
+											ng-click="submitted = true; create2()" ng-disabled="isDisabled">Tạo chiến
 											dịch</button>
 										<button class="btn mb-3 btn-light" ng-click="update2()"
 											ng-disabled="!formChanges">Cập nhật</button>
