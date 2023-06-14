@@ -82,50 +82,72 @@ app.controller("ctrl-semester", function($scope, $http, $filter, $timeout) {
 
 	/*--Gọi API Backend tạo mới học kỳ--*/
 $scope.create = function() {
-    if ($scope.myForm.$valid) {
-        var item = angular.copy($scope.form);
-        var url = `${pathSemester}/semester`;
+  if ($scope.myForm.$valid) {
+    var item = angular.copy($scope.form);
+    var url = `${pathSemester}/semester`;
 
-        if (item.semesterId.length > 5) {
-            $scope.myForm.semesterId.$setValidity('length', false);
-            $timeout(function() {
-                $scope.myForm.semesterId.$setValidity('length', true);
-            }, 5000);
-            return;
-        }
-
-        // Check duplicate semesterId
-        var duplicate = $scope.items.some(function(existingItem) {
-            return existingItem.semesterId === item.semesterId;
-        });
-
-        if (duplicate) {
-            $scope.myForm.semesterId.$setValidity('duplicate', false);
-            $timeout(function() {
-                $scope.myForm.semesterId.$setValidity('duplicate', true);
-            }, 5000);
-            return;
-        }
-
-        $http.post(url, item).then(resp => {
-            $scope.items.push(item);
-            console.log("Insert value to Semester Successfully!", resp);
-            alert("Thêm mới thành công!");
-            $scope.reset();
-        }).catch(error => {
-            console.log("Adding new encountered an error. Please check again.", error);
-            alert("Đã xảy ra lỗi khi thêm mới học kì. Vui lòng kiểm tra lại.");
-        });
-    } else {
-        $scope.submitted = true;
-        $scope.hideErrorAfterDelay();
+    if (item.semesterId.length > 5) {
+      $scope.myForm.semesterId.$setValidity('length', false);
+      $timeout(function() {
+        $scope.myForm.semesterId.$setValidity('length', true);
+      }, 5000);
+      return;
     }
+
+    // Check duplicate semesterId
+    var duplicate = $scope.items.some(function(existingItem) {
+      return existingItem.semesterId === item.semesterId;
+    });
+
+    if (duplicate) {
+      $scope.myForm.semesterId.$setValidity('duplicate', false);
+      $timeout(function() {
+        $scope.myForm.semesterId.$setValidity('duplicate', true);
+      }, 5000);
+      return;
+    }
+
+    // Kiểm tra ngày kết thúc phải lớn hơn ngày bắt đầu
+    var startDate = new Date(item.startTime);
+    var endDate = new Date(item.endTime);
+    if (endDate <= startDate) {
+      $scope.myForm.endDate.$setValidity('dateComparison', false);
+      return;
+      $scope.hideErrorAfterDelay();
+    } else {
+      $scope.myForm.endDate.$setValidity('dateComparison', true);
+    }
+
+    $http.post(url, item).then(resp => {
+      $scope.items.push(item);
+      console.log("Insert value to Semester Successfully!", resp);
+      alert("Thêm mới thành công!");
+      $scope.reset();
+    }).catch(error => {
+      console.log("Adding new encountered an error. Please check again.", error);
+      alert("Đã xảy ra lỗi khi thêm mới học kì. Vui lòng kiểm tra lại.");
+    });
+  } else {
+    $scope.submitted = true;
+
+    // Hiển thị lỗi ngày bắt đầu không được để trống
+    if ($scope.myForm.startDate.$error.required) {
+      $scope.myForm.startDate.$setTouched();
+    }
+
+    // Hiển thị lỗi ngày kết thúc không được để trống
+    if ($scope.myForm.endDate.$error.required) {
+      $scope.myForm.endDate.$setTouched();
+    }
+    
+  }
+  $scope.hideErrorAfterDelay();
 };
 
 
 
 
-
+	//reset form//
 	$scope.reset = function() {
 	  $scope.form = {};
 	  $scope.startTime = ""; // Thay đổi thành null để xóa giá trị ngày bắt đầu
@@ -137,6 +159,7 @@ $scope.create = function() {
 	  if ($scope.myForm) {
 	    $scope.myForm.semesterId.$setValidity('duplicate', true);
 	    $scope.myForm.semesterId.$setValidity('length', true);
+	    $scope.myForm.endDate.$setValidity('dateComparison', true);
 	    $scope.myForm.$setPristine();
 	    $scope.myForm.$setUntouched();
 	  }
