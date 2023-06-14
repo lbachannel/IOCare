@@ -8,6 +8,6 @@ import com.fpoly.iocare.model.Role;
 import com.fpoly.iocare.model.Semester;
 
 @Repository
-public interface RoleDAO extends JpaRepository<Role, String>{
+public interface IRoleDAO extends JpaRepository<Role, String>{
 
 }

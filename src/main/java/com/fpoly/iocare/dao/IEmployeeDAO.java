@@ -10,7 +10,7 @@ import com.fpoly.iocare.model.Employee;
 import com.fpoly.iocare.model.Semester;
 
 @Repository
-public interface EmployeeDAO extends JpaRepository<Employee, String>{
+public interface IEmployeeDAO extends JpaRepository<Employee, String>{
 	@Query("Select Distinct ar.employee From Authority ar where ar.role.roleId IN ('DIR','STA')")
 	List<Employee> getAdministrators();
 	

@@ -8,7 +8,7 @@ import com.fpoly.iocare.model.Authority;
 
 
 @Service
-public interface Service_Authority {
+public interface IAuthorityService {
 	List<Authority> findAuthoritiesOfAdministrators();
 
 	List<Authority> findAll();

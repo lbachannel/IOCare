@@ -110,7 +110,7 @@ app.controller("ctrl-semester", function($scope, $http, $filter, $window, $rootS
 		});
 	};
 
-	$scope.located();
+
 
 	/*--Gọi hàm reset--*/
 	$scope.reset();

@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 import com.fpoly.iocare.model.*;
 
 @Repository
-public interface RiskClassificationDAO extends JpaRepository<RiskClassification, Integer>{
+public interface IRiskClassificationDAO extends JpaRepository<RiskClassification, Integer>{
 	
 }

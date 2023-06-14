@@ -6,14 +6,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.fpoly.iocare.dao.EmployeeDAO;
+import com.fpoly.iocare.dao.IEmployeeDAO;
 
 @Controller
 @RequestMapping("security")
 public class AuthController {
 
 	@Autowired
-	EmployeeDAO dao;
+	IEmployeeDAO dao;
 	
 	@GetMapping("login/form")
 	public String loginForm(Model model) {

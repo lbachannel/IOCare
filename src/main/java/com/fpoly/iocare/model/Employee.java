@@ -32,7 +32,7 @@ public class Employee implements Serializable{
 	@Column(name = "employeepassword")
 	private String pasword;
 	
-	@Column(name = "empoyeeemail")
+	@Column(name = "employeeemail")
 	private String email;
 	
 	@Column(name = "employeephone")

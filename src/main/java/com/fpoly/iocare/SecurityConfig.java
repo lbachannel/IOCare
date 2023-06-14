@@ -15,14 +15,14 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import com.fpoly.iocare.dao.EmployeeDAO;
+import com.fpoly.iocare.dao.IEmployeeDAO;
 import com.fpoly.iocare.model.Employee;
-import com.fpoly.iocare.service.Service_Employee;
+import com.fpoly.iocare.service.IEmployeeService;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
-	@Autowired private Service_Employee dao;
+	@Autowired private IEmployeeService dao;
 	@Autowired private BCryptPasswordEncoder pe;
 	//Cung cấp nguồn dữ liệu đăng nhập
 	
@@ -30,7 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(id->{
 			try {
-				Employee user =  dao.findByEmail(id);
+				Employee user =  dao.findById(id);
 				System.out.println(user);
 				String password = pe.encode(user.getPasword());
 				String[] roles = user.getAuthorities().stream()

@@ -5,13 +5,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.fpoly.iocare.dao.EmployeeDAO;
+import com.fpoly.iocare.dao.IEmployeeDAO;
 import com.fpoly.iocare.model.Employee;
-import com.fpoly.iocare.service.Service_Employee;
+import com.fpoly.iocare.service.IEmployeeService;
 
 @Service
-public class ServiceImpl_Employee implements Service_Employee{
-	@Autowired private EmployeeDAO accDao;
+public class EmployeeServiceImpl implements IEmployeeService{
+	@Autowired private IEmployeeDAO accDao;
 
 	@Override
 	public Employee findById(String username) {

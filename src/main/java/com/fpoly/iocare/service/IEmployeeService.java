@@ -8,7 +8,7 @@ import com.fpoly.iocare.model.Employee;
 
 
 @Service
-public interface Service_Employee {
+public interface IEmployeeService {
 	Employee findById(String username);
 	
 	Employee findByEmail(String email);

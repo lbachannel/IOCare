@@ -5,17 +5,17 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.fpoly.iocare.dao.AuthorityDAO;
-import com.fpoly.iocare.dao.EmployeeDAO;
+import com.fpoly.iocare.dao.IAuthorityDAO;
+import com.fpoly.iocare.dao.IEmployeeDAO;
 import com.fpoly.iocare.model.Authority;
 import com.fpoly.iocare.model.Employee;
-import com.fpoly.iocare.service.Service_Authority;
+import com.fpoly.iocare.service.IAuthorityService;
 
 @Service
-public class ServiceImpl_Authority implements Service_Authority{
+public class AuthorityServiceImpl implements IAuthorityService{
 	
-	@Autowired private AuthorityDAO authdao;
-	@Autowired private EmployeeDAO accdao;
+	@Autowired private IAuthorityDAO authdao;
+	@Autowired private IEmployeeDAO accdao;
 	
 	@Override
 	public List<Authority> findAuthoritiesOfAdministrators() {

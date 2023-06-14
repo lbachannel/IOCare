@@ -14,7 +14,7 @@ import com.fpoly.iocare.model.Semester;
 
 
 @Repository
-public interface AuthorityDAO extends JpaRepository<Authority, Integer>{
+public interface IAuthorityDAO extends JpaRepository<Authority, Integer>{
 	
 	@Query("Select Distinct a From Authority a where a.employee IN ?1")
 	List<Authority> authoritiesOf(List<Employee> accounts);
