@@ -31,24 +31,22 @@ app.controller("ctrl-semester", function($scope, $http, $filter, $timeout) {
 	$scope.formatDate = function(dateString) {
 	  if (!dateString) return null;
 	  var date = new Date(dateString);
-	  var formattedDate = date.toISOString().substring(0, 10);
+	  var formattedDate = moment(date).format('YYYY-MM-DD');
 	  return formattedDate;
 	};
 	/*--Hiển thị học kỳ lên form--*/
 	$scope.edit = function(semesterId) {
-	    var url = `${pathSemester}/semester/${semesterId}`;
-	
-	    $http.get(url).then(resp => {
-	        $scope.isDisabled = false;
-	        $scope.isIdDisabled = true;
-	        $scope.form = resp.data;
-	        $scope.startTime = new Date(resp.data.startTime); // Chuyển đổi sang định dạng ngày
-	        $scope.endTime = new Date(resp.data.endTime); // Chuyển đổi sang định dạng ngày
-	        console.log("Success", resp);
-	    }).catch(errors => {
-	        console.log("Error", errors);
-	        $scope.hideErrorAfterDelay();
-	    });
+		var url = `${pathSemester}/semester/${semesterId}`;
+
+		$http.get(url).then(resp => {
+			$scope.isDisabled = false;
+			$scope.form = resp.data;
+			$scope.startTime = moment($scope.form.startTime, 'YYYY-MM-DD').toDate();
+			$scope.endTime = moment($scope.form.endTime, 'YYYY-MM-DD').toDate();
+			console.log("Success", resp);
+		}).catch(errors => {
+			console.log("Error", errors);
+		});
 	}
 
 	/*--Hiển thị tất cả học kỳ--*/
@@ -163,8 +161,10 @@ $scope.create = function() {
             var index = $scope.items.findIndex((p) => p.semesterId == item.semesterId);
             $scope.items[index] = resp.data;
             console.log("Cập nhật học kì thành công!", resp);
+            $scope.findAll();
 			$scope.reset();
             alert("Cập nhật học kì thành công!");
+            
         })
         .catch((error) => {
             console.log("Lỗi khi cập nhật học kì!", error);
