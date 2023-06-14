@@ -292,8 +292,7 @@
 										<label>Mã học kì: </label>
 										<div class="mb-3 mt-1">
 											<input ng-model="form.semesterId" name="semesterId"
-												type="text" class="form-control" ng-disabled="isIdDisabled"
-												required>
+												type="text" class="form-control" ng-disabled="isIdDisabled" required>
 											<div
 												ng-show="myForm.semesterId.$error.length && myForm.semesterId.$touched && submitted"
 												class="text-danger">Mã Học Kì không được quá 5 ký tự!
@@ -314,46 +313,37 @@
 										<label>Tên học kì: </label>
 										<div class="mb-3 mt-1">
 											<input ng-model="form.semesterName" name="semesterName"
-												type="text" class="form-control" required
-												ng-change="checkFormChanges()">
+												type="text" class="form-control" required ng-change="checkFormChanges()">
 											<div
-												ng-show="submitted && myForm.semesterName.$error.required"
+												ng-show="myForm.semesterName.$error.required && myForm.semesterName.$touched && submitted"
 												class="text-danger">Tên Học Kì không được để trống!</div>
 										</div>
 									</div>
 
 									<div class="form-group col-md-6 mb-3">
-										<label>Ngày bắt đầu:</label>
+										<label>Ngày bắt đầu: </label>
 										<div class="mb-3 mt-1">
-											<input ng-model="form.startTime"
-												ng-value="formatDate(form.startTime)" name="startDate"
-												class="form-control" type="date" required
-												ng-change="checkFormChanges()">
-											<div ng-show="submitted && myForm.startDate.$error.required"
-												class="text-danger">Ngày bắt đầu không được để trống!</div>
+											<input ng-model="form.startTime" ng-value="formatDate(form.startTime)" name="startDate"
+												class="form-control" type="date"
+												ng-value="{{form.startTime}}" required ng-change="checkFormChanges()">
 											<div
-												ng-show="submitted && myForm.endDate.$error.dateComparison"
-												class="text-danger">Ngày bắt đầu phải nhỏ hơn ngày kết
-												thúc!</div>
+												ng-show="myForm.startDate.$error.required && myForm.startDate.$touched && submitted"
+												class="text-danger">Ngày bắt đầu không được để trống!</div>
 										</div>
 									</div>
 
 									<div class="form-group col-md-6 mb-3">
-										<label>Ngày kết thúc:</label>
+										<label>Ngày kết thúc: </label>
 										<div class="mb-3 mt-1">
-											<input ng-model="form.endTime"
-												ng-value="formatDate(form.endTime)" name="endDate"
-												class="form-control" type="date" required
-												ng-change="checkFormChanges()">
-											<div ng-show="submitted && myForm.endDate.$error.required"
-												class="text-danger">Ngày kết thúc không được để trống!</div>
+											<input ng-model="form.endTime"  ng-value="formatDate(form.endTime)" name="endDate"
+												class="form-control" type="date"  required ng-change="checkFormChanges()">
+											<div ng-show="endTime < startTime" class="text-danger">Ngày
+												kết thúc phải lớn hơn ngày bắt đầu!</div>
 											<div
-												ng-show="submitted && myForm.endDate.$error.dateComparison"
-												class="text-danger">Ngày kết thúc phải lớn hơn ngày
-												bắt đầu!</div>
+												ng-show="myForm.endDate.$error.required && myForm.endDate.$touched && submitted"
+												class="text-danger">Ngày kết thúc không được để trống!</div>
 										</div>
 									</div>
-
 
 									<div class="form-group col-md-12 col-lg-12">
 										<button class="btn mb-3 btn-light"
