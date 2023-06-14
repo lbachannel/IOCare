@@ -107,25 +107,42 @@ $scope.create = function() {
             return;
         }
 
+        // Kiểm tra ngày bắt đầu và ngày kết thúc
+        var startDate = new Date(item.startTime);
+        var endDate = new Date(item.endTime);
+
+        if (startDate >= endDate) {
+            $scope.myForm.startDate.$setValidity('dateComparison', false);
+            $scope.myForm.endDate.$setValidity('dateComparison', false);
+            return;
+        }
+
         $http.post(url, item).then(resp => {
             $scope.items.push(item);
             console.log("Insert value to Semester Successfully!", resp);
             alert("Thêm mới thành công!");
+
+            $scope.submitted = false;
             $scope.reset();
         }).catch(error => {
             console.log("Adding new encountered an error. Please check again.", error);
             alert("Đã xảy ra lỗi khi thêm mới học kì. Vui lòng kiểm tra lại.");
+            $scope.hideErrorAfterDelay();
         });
     } else {
         $scope.submitted = true;
-        $scope.hideErrorAfterDelay();
+        $scope.myForm.startDate.$setValidity('dateComparison', true);
+        $scope.myForm.endDate.$setValidity('dateComparison', true);
     }
+    $scope.hideErrorAfterDelay();
 };
 
 
 
 
 
+
+		//resetform//
 	$scope.reset = function() {
 	  $scope.form = {};
 	  $scope.startTime = ""; // Thay đổi thành null để xóa giá trị ngày bắt đầu
