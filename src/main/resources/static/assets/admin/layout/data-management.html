@@ -170,7 +170,7 @@
 	<div class="form-group col-md-3 mb-4">					
 		<label class="form-label">Tên thư mục: </label>
 		<div class="mb-3">
-				<select ng-model="form.importedFileName" class="form-select">
+				<select ng-model="selectedFileName" ng-change="showStudents()" class="form-select">
                 <option ng-repeat="x in fileExcelNames" ng-value="x.importedFileName">{{x.importedFileName}}</option>
             </select>
            </div>
@@ -237,25 +237,22 @@
 							<th class="d-none d-xl-table-cell">Mã học kì</th>
 							<th>Mã môn học</th>
 							<th class="d-none d-md-table-cell">Tổng học phí</th>
-							<th class="d-none d-md-table-cell">Chuyên ngành</th>
 							<th class="d-none d-md-table-cell">Mã nhân sự</th>
-							<th class="d-none d-md-table-cell">Thời gian chăm sóc</th>
-							<th class="d-none d-md-table-cell">Nguyện vọng</th>
-							<th class="d-none d-md-table-cell">Phân loại đối tượng</th>
-							<th class="d-none d-md-table-cell">Phân loại rủi ro</th>
-							<th class="d-none d-md-table-cell">Mô tả chi tiết</th>
 							<th class="d-none d-md-table-cell">Tên file excel</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-					        <td>a</td>
-					        <td class="d-none d-xl-table-cell">a</td>
-					        <td><span class="badge bg-success">Done</span></td>
-					        <td class="d-none d-md-table-cell">a</td>
-					        <td class="d-none d-md-table-cell">a</td>
-					        <td class="d-none d-md-table-cell">a</td>
-					        <td class="d-none d-md-table-cell">a</td>
+						<tr ng-repeat="student in tableData">
+					        <td ng-model="form.student.studentId">{{ student.studentId }}</td>
+					        <td ng-model="form.student.semester.semesterId" class="d-none d-xl-table-cell">{{ student.semester.semesterId }}</td>
+					        <td ng-model="form.student.subjectId"><span class="badge bg-success">{{ student.subjectId }}</span></td>
+					        <td ng-model="form.student.totalFee" class="d-none d-md-table-cell">{{ student.totalFee}}</td>
+					        <td contenteditable="true" ng-model="student.employee.employeeId" ng-keyup="saveEmployeeId(student)" class="d-none d-md-table-cell">
+					        	<select ng-model="form.selectedEmployee" ng-change="update()" class="form-select">
+					                <option ng-repeat="x in employees" ng-value="x.employeeId">{{x.employeeId}}</option>
+					            </select>
+					        </td>
+					        <td ng-model="form.student.imported.importedFileName" class="d-none d-md-table-cell">{{ student.imported.importedFileName }}</td>
 					     </tr>
 						
 					</tbody>

@@ -11,6 +11,9 @@ public interface IStudentService {
 	/*--Kiểm tra mã student có tồn tại hay chưa--*/
 	boolean existsById(String studentId);
 	
-	/*--Hiển thị tất cả sinh viên--*/
-	List<Object[]> findAll(String importFileName);
+	/*--Lấy tất cả sinh viên--*/
+	List<Student> findAll(String importFileName);
+	
+	/*--Cập nhật student (phân công nhân sự)--*/
+	Student update(Student student);
 }

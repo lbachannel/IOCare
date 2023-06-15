@@ -75,21 +75,22 @@ app.controller("ctrl-semester", function($scope, $http, $filter) {
 	}
 	//Update form
 	$scope.update = function() {
-    var semester = angular.copy($scope.form);
-	
-    var url = `${pathSemester}/semester/${semester.semesterId}`;
-
-    $http.put(url, semester).then(resp => {
-        var index = $scope.items.findIndex(item => item.semesterId == semester.semesterId);
-        $scope.items[index] = resp.data;
+	    var semester = angular.copy($scope.form);
 		
-        console.log("Update value to Semester Successfully!", resp);
-        alert("Cập nhật thành công!");
-    }).catch(error => {
-        console.log("Adding new encountered an error. Please check again.", error);
-        alert("Cập nhật không thành công!");
-    });
-};
+	    var url = `${pathSemester}/semester/${semester.semesterId}`;
+	
+	    $http.put(url, semester).then(resp => {
+	        var index = $scope.items.findIndex(item => item.semesterId == semester.semesterId);
+	        $scope.items[index] = resp.data;
+			
+	        console.log("Update value to Semester Successfully!", resp);
+	        alert("Cập nhật thành công!");
+	    }).catch(error => {
+	        console.log("Adding new encountered an error. Please check again.", error);
+	        alert("Cập nhật không thành công!");
+	    });
+	};
+	
 
 
 

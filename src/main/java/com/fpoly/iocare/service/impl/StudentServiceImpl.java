@@ -29,8 +29,15 @@ public class StudentServiceImpl implements IStudentService{
 
 	/*--Hiển thị tất cả sinh viên--*/
 	@Override
-	public List<Object[]> findAll(String importFileName) {
+	public List<Student> findAll(String importFileName) {
 		return dao.findAll(importFileName);
 	}
 
+	/*--Cập nhật student (phân công nhân sự)--*/
+	@Override
+	public Student update(Student student) {
+		return dao.save(student);
+	}
+
+	
 }

@@ -64,10 +64,8 @@ public class SemesterRestController {
 	public ResponseEntity<Semester> update(@PathVariable("semesterId") String semesterId, @RequestBody Semester semester){
 		if(semesterService.existsById(semesterId)) {
 			semesterService.update(semester);
-			System.out.println(semesterId);
 			return ResponseEntity.ok(semester);
 		}
-		System.out.print("OK2");
 		return ResponseEntity.notFound().build();
 			
 	}

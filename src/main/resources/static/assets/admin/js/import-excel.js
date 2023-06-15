@@ -2,6 +2,8 @@ let pathImportedData = "http://localhost:8080/rest";
 app.controller("ctrl-import", function($scope, $http) {
 	$scope.form = {};
 	$scope.items = [];
+	/*--Mảng chứa list nhân sự--*/
+	$scope.employees = [];
 	/*--Mảng chứa list tên file thư mục--*/
 	$scope.fileExcelNames = [];
 	/*--Mảng chứa list học kỳ--*/
@@ -11,6 +13,38 @@ app.controller("ctrl-import", function($scope, $http) {
 	
 	$scope.fileName = '';
 	$scope.students = [];
+	
+	/*--Mảng chứa danh sách sinh viên từ file excel--*/
+	$scope.tableData = [];
+	
+	/*--Cập nhật tên nhân sự phụ trách cho thuộc tính của sinh viên--*/
+	$scope.update = function(){
+		var student = angular.copy($scope.form);
+		var url = `/rest/student/` + $scope.form.selectedEmployee;
+		$http.put(url, student).then(resp => {
+			var index = $scope.items.findIndex(item => item.studentId == student.studentId);
+			$scope.items[index] = resp.data;
+			alert("Cập nhật student thành công")
+		}).catch(error => {
+			console.log("Update failed.", error);
+			alert("Cập nhật student thất bại")
+		});
+	};
+
+	/*--Hiển thị danh sách sinh viên dựa vào tên file excel--*/
+	$scope.showStudents = function() {
+		$http.get(`/rest/student/` + $scope.selectedFileName).then(resp =>{
+			$scope.tableData = resp.data;
+		});
+	};
+	
+	
+	/*--Lấy tất cả nhân sự--*/
+	$scope.load_employees = function(){
+		$http.get("/rest/employees").then(resp =>{
+			$scope.employees = resp.data;
+		});
+	};
 	
 	/*--Lấy tất cả học kỳ vào select box--*/
 	$scope.load_semester = function(){
@@ -192,4 +226,5 @@ app.controller("ctrl-import", function($scope, $http) {
 	$scope.load_filename();
 	$scope.load_semester();
 	$scope.load_campaign();
+	$scope.load_employees();
 });

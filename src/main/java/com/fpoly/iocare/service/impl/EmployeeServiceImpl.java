@@ -24,6 +24,8 @@ public class EmployeeServiceImpl implements IEmployeeService{
 	public Employee create(Employee employee) {
 		return dao.save(employee);
 	}
+	
+	/*--Kiểm tra mã nhân sự có tồn tại hay chưa--*/
 	@Override
 	public boolean existsById(String id) {
 		if(dao.existsById(id)) 
@@ -38,6 +40,7 @@ public class EmployeeServiceImpl implements IEmployeeService{
 		return false;
 	}
 	
+	/*--Hiển thị tất cả nhân sự--*/
 	@Override
 	public List<Employee> findAll() {
 		return dao.findAll();

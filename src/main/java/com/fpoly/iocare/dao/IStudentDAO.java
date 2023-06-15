@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import com.fpoly.iocare.model.Student;
 
 public interface IStudentDAO extends JpaRepository<Student, String>{
+	/*--Lấy tất cả sinh viên--*/
 	@Query(value = "select * from Students where ImportedFileName = ?1", nativeQuery = true)
-	List<Object[]> findAll(String importFileName);
+	List<Student> findAll(String importFileName);
 }
