@@ -90,7 +90,7 @@ app.controller("ctrl-import", function($scope, $http) {
 									importedFileName: '',
 								}
 							};
-							$scope.students.push(student);
+$scope.students.push(student);
 						}
 					});	  
 				}else{
@@ -185,7 +185,7 @@ app.controller("ctrl-import", function($scope, $http) {
 				student.imported.importedFileName = $scope.fileName;
 				$http.post("/rest/student", student).then(resp => {
 					$scope.reset();
-					console.log("Thêm danh sách sinh viên thành công", resp.data);
+console.log("Thêm danh sách sinh viên thành công", resp.data);
 				}).catch(error => {
 					console.log("Lỗi", error);
 				});
@@ -222,6 +222,36 @@ app.controller("ctrl-import", function($scope, $http) {
         var inputFile = document.getElementById('file-excel');
         inputFile.value = '';
 	}
+	
+	$scope.selectedRows = [];
+
+    $scope.selectRow = function(student) {
+        var index = $scope.selectedRows.indexOf(student);
+        if (index === -1) {
+            $scope.selectedRows.push(student);
+        } else {
+            $scope.selectedRows.splice(index, 1);
+        }
+    };
+
+    $scope.isSelected = function(student) {
+        return $scope.selectedRows.indexOf(student) !== -1;
+    };
+
+    $scope.updateSelectedRows = function() {
+        angular.forEach($scope.selectedRows, function(student) {
+            $scope.updateEmployeeId(student);
+        });
+    };
+
+    $scope.updateEmployeeId = function(student) {
+        var url = `/rest/student/${student.studentId}`;
+        $http.put(url, student).then(function(response) {
+            console.log("Cập nhật mã nhân sự thành công:", response);
+        }).catch(function(error) {
+            console.log("Lỗi khi cập nhật mã nhân sự:", error);
+        });
+    };
 	$scope.load_all();
 	$scope.load_filename();
 	$scope.load_semester();
