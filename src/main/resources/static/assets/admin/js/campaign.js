@@ -26,6 +26,8 @@ app.controller("ctrl-campaign", function($scope, $http, $filter, $timeout){
 	  }
 	}
 
+	
+	$scope.isDisabled = true;
 	$scope.isIdDisabled = false;
 	
 	/*--Hiển thị chiến dịch lên form--*/
@@ -33,10 +35,10 @@ app.controller("ctrl-campaign", function($scope, $http, $filter, $timeout){
 		var url = `${pathCampaign}/campaign/${campaignId}`;
 		
 		$http.get(url).then(resp => {
+			$scope.isDisabled = false;
 			$scope.isIdDisabled = true;
 			$scope.form = resp.data;
 			console.log("Success", resp);
-			$scope.isDisabled = true;
 		}).catch(errors => {
 			console.log("Error", errors);
 		});
@@ -145,7 +147,7 @@ app.controller("ctrl-campaign", function($scope, $http, $filter, $timeout){
 	/*--Reset form--*/
 	$scope.reset2 = function(){
 		$scope.form = {};
-		$scope.isDisabled = false;
+		$scope.isDisabled = true;
 		$scope.isIdDisabled = false;
 		$scope.formChanges = false;
 		$scope.submitted = false;
