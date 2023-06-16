@@ -14,6 +14,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fpoly.iocare.model.Campaign;
+<<<<<<< HEAD:src/main/java/com/fpoly/iocare/rest/controller/admin/CampaignRestController.java
+=======
+import com.fpoly.iocare.model.Semester;
+>>>>>>> LongKiet:src/main/java/com/fpoly/iocare/rest/controller/admin/CampainRestController.java
 import com.fpoly.iocare.service.ICampaignService;
 import com.fpoly.iocare.service.impl.CampaignServiceImpl;
 

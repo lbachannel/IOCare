@@ -317,12 +317,17 @@
 												type="text" class="form-control" required
 												ng-change="checkFormChanges()">
 											<div
+<<<<<<< HEAD
 												ng-show="myForm.semesterName.$error.required && myForm.semesterName.$touched && submitted"
+=======
+												ng-show="submitted && myForm.semesterName.$error.required"
+>>>>>>> LongKiet
 												class="text-danger">Tên Học Kì không được để trống!</div>
 										</div>
 									</div>
 
 									<div class="form-group col-md-6 mb-3">
+<<<<<<< HEAD
 										<label>Ngày bắt đầu: </label>
 										<div class="mb-3 mt-1">
 											<input ng-model="form.startTime"
@@ -333,16 +338,35 @@
 											<div
 												ng-show="myForm.startDate.$error.required && myForm.startDate.$touched && submitted"
 												class="text-danger">Ngày bắt đầu không được để trống!</div>
+=======
+										<label>Ngày bắt đầu:</label>
+										<div class="mb-3 mt-1">
+											<input ng-model="form.startTime"
+												ng-value="formatDate(form.startTime)" name="startDate"
+												class="form-control" type="date" required
+												ng-change="checkFormChanges()">
+											<div ng-show="submitted && myForm.startDate.$error.required"
+												class="text-danger">Ngày bắt đầu không được để trống!</div>
+											<div
+												ng-show="submitted && myForm.endDate.$error.dateComparison"
+												class="text-danger">Ngày bắt đầu phải nhỏ hơn ngày kết
+												thúc!</div>
+>>>>>>> LongKiet
 										</div>
 									</div>
 
 									<div class="form-group col-md-6 mb-3">
+<<<<<<< HEAD
 										<label>Ngày kết thúc: </label>
+=======
+										<label>Ngày kết thúc:</label>
+>>>>>>> LongKiet
 										<div class="mb-3 mt-1">
 											<input ng-model="form.endTime"
 												ng-value="formatDate(form.endTime)" name="endDate"
 												class="form-control" type="date" required
 												ng-change="checkFormChanges()">
+<<<<<<< HEAD
 											<div ng-show="endTime < startTime" class="text-danger">Ngày
 												kết thúc phải lớn hơn ngày bắt đầu!</div>
 											<div
@@ -354,6 +378,21 @@
 									<div class="form-group col-md-12 col-lg-12">
 										<button class="btn mb-3 btn-light"
 											ng-click="submitted = true; create()">Tạo học kì</button>
+=======
+											<div ng-show="submitted && myForm.endDate.$error.required"
+												class="text-danger">Ngày kết thúc không được để trống!</div>
+											<div
+												ng-show="submitted && myForm.endDate.$error.dateComparison"
+												class="text-danger">Ngày kết thúc phải lớn hơn ngày
+												bắt đầu!</div>
+										</div>
+									</div>
+
+
+									<div class="form-group col-md-12 col-lg-12">
+										<button class="btn mb-3 btn-light"
+											ng-click="submitted = true; create()" ng-disabled="isDisabled">Tạo học kì</button>
+>>>>>>> LongKiet
 										<button ng-click="update()" class="btn mb-3 btn-light"
 											ng-disabled="!formChanges">Cập Nhật</button>
 										<button ng-click="reset()" class="btn mb-3 btn-light">Làm
@@ -442,7 +481,11 @@
 
 									<div class="form-group col-md-12 col-lg-12">
 										<button class="btn mb-3 btn-light"
+<<<<<<< HEAD
 											ng-click="submitted = true; create2()">Tạo chiến
+=======
+											ng-click="submitted = true; create2()" ng-disabled="isDisabled">Tạo chiến
+>>>>>>> LongKiet
 											dịch</button>
 										<button class="btn mb-3 btn-light" ng-click="update2()"
 											ng-disabled="!formChanges">Cập nhật</button>
