@@ -90,7 +90,7 @@ app.controller("ctrl-import", function($scope, $http) {
 									importedFileName: '',
 								}
 							};
-$scope.students.push(student);
+							$scope.students.push(student);
 						}
 					});	  
 				}else{
@@ -185,7 +185,7 @@ $scope.students.push(student);
 				student.imported.importedFileName = $scope.fileName;
 				$http.post("/rest/student", student).then(resp => {
 					$scope.reset();
-console.log("Thêm danh sách sinh viên thành công", resp.data);
+					console.log("Thêm danh sách sinh viên thành công", resp.data);
 				}).catch(error => {
 					console.log("Lỗi", error);
 				});
@@ -222,39 +222,51 @@ console.log("Thêm danh sách sinh viên thành công", resp.data);
         var inputFile = document.getElementById('file-excel');
         inputFile.value = '';
 	}
-	
-	$scope.selectedRows = [];
-
-    $scope.selectRow = function(student) {
-        var index = $scope.selectedRows.indexOf(student);
-        if (index === -1) {
-            $scope.selectedRows.push(student);
-        } else {
-            $scope.selectedRows.splice(index, 1);
-        }
-    };
-
-    $scope.isSelected = function(student) {
-        return $scope.selectedRows.indexOf(student) !== -1;
-    };
-
-    $scope.updateSelectedRows = function() {
-        angular.forEach($scope.selectedRows, function(student) {
-            $scope.updateEmployeeId(student);
-        });
-    };
-
-    $scope.updateEmployeeId = function(student) {
-        var url = `/rest/student/${student.studentId}`;
-        $http.put(url, student).then(function(response) {
-            console.log("Cập nhật mã nhân sự thành công:", response);
-        }).catch(function(error) {
-            console.log("Lỗi khi cập nhật mã nhân sự:", error);
-        });
-    };
 	$scope.load_all();
 	$scope.load_filename();
 	$scope.load_semester();
 	$scope.load_campaign();
 	$scope.load_employees();
+	
+	// Thêm một mảng selectedStudents để lưu trạng thái chọn của sinh viên
+$scope.selectedStudents = [];
+
+// Hàm cập nhật danh sách sinh viên được chọn
+$scope.updateSelectedStudents = function(student) {
+    if (student.selected) {
+        $scope.selectedStudents.push(student);
+    } else {
+        var index = $scope.selectedStudents.findIndex(function(selectedStudent) {
+            return selectedStudent.studentId === student.studentId;
+        });
+        $scope.selectedStudents.splice(index, 1);
+    }
+};
+
+// Hàm cập nhật mã nhân sự cho các sinh viên được chọn
+$scope.updateSelectedEmployees = function() {
+    var selectedEmployeeId = $scope.form.selectedEmployee;
+    $scope.selectedStudents.forEach(function(student) {
+        student.employee.employeeId = selectedEmployeeId;
+    });
+};
+
+// Cập nhật danh sách sinh viên được chọn khi chọn mã nhân sự
+$scope.update = function() {
+    $scope.updateSelectedEmployees();
+};
+
+// Cập nhật trạng thái chọn của sinh viên khi thay đổi danh sách sinh viên
+$scope.$watch('tableData', function(newTableData, oldTableData) {
+    if (newTableData !== oldTableData) {
+        newTableData.forEach(function(student) {
+            var isSelected = $scope.selectedStudents.some(function(selectedStudent) {
+                return selectedStudent.studentId === student.studentId;
+            });
+            student.selected = isSelected;
+        });
+    }
+}, true);
+
+	
 });

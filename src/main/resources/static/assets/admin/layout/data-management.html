@@ -78,7 +78,10 @@
 						<label style="width: 90%;">Chưa chăm sóc: (chỉ xem) </label>
 						<input style="width: 50%" type="text" class="form-control" readonly>
 					</div>
-<div class="form-group col-md-4 mb-3 d-flex align-items-center justify-content-center">
+					
+					
+					
+					<div class="form-group col-md-4 mb-3 d-flex align-items-center justify-content-center">
 						<label style="width: 90%;">Tổng danh sách: (chỉ xem) </label>
 						<input style="width: 50%" type="text" class="form-control" readonly>
 					</div>
@@ -153,7 +156,7 @@
 					        <td class="d-none d-xl-table-cell">{{imp.semester.semesterId}}</td>
 					        <td><span class="badge bg-success">{{imp.campaign.campaignId}}</span></td>
 					        <td class="d-none d-md-table-cell">{{imp.importedDate}}</td>
-<td class="d-none d-md-table-cell">{{imp.employee.employeeId}}</td>
+					        <td class="d-none d-md-table-cell">{{imp.employee.employeeId}}</td>
 					        <td class="d-none d-md-table-cell"><button class="btn mb-3 btn-light" style="width: 100%; margin-top: 25px" >Chỉnh sửa</button></td>
 					     </tr>
 						
@@ -221,42 +224,49 @@
 						
 					</tbody>
 				</table>
-<button class="btn btn-light">Xem thêm</button>
+				<button class="btn btn-light">Xem thêm</button>
 			</div>
 	    </div>
 	    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab"
-	        tabindex="0">
-	        <div class="card flex-fill">
-			    <table id="myTable" class="table table-hover my-0">
-			        <thead>
-			            <tr>
-			                <th>Mã sinh viên</th>
-			                <th class="d-none d-xl-table-cell">Mã học kì</th>
-			                <th>Mã môn học</th>
-			                <th class="d-none d-md-table-cell">Tổng học phí</th>
-			                <th class="d-none d-md-table-cell">Mã nhân sự</th>
-			                <th class="d-none d-md-table-cell">Tên file excel</th>
-			            </tr>
-			        </thead>
-			        <tbody>
-			            <tr ng-repeat="student in tableData" ng-click="selectRow(student)" ng-class="{'selected-row': isSelected(student)}">
-			                <td ng-model="form.student.studentId">{{ student.studentId }}</td>
-			                <td ng-model="form.student.semester.semesterId" class="d-none d-xl-table-cell">{{ student.semester.semesterId }}</td>
-			                <td ng-model="form.student.subjectId"><span class="badge bg-success">{{ student.subjectId }}</span></td>
-			                <td ng-model="form.student.totalFee" class="d-none d-md-table-cell">{{ student.totalFee }}</td>
-			                <td contenteditable="true" ng-model="student.employee.employeeId" ng-keyup="saveEmployeeId(student)" class="d-none d-md-table-cell">
-			                    <select ng-model="student.employee.employeeId" ng-change="updateSelectedRows()" class="form-select">
-			                        <option ng-repeat="x in employees" ng-value="x.employeeId">{{ x.employeeId }}</option>
-			                    </select>
-			                </td>
-			                <td ng-model="form.student.imported.importedFileName" class="d-none d-md-table-cell">{{ student.imported.importedFileName }}</td>
-			            </tr>
-			        </tbody>
-			    </table>
-			    <button class="btn btn-light">Xem thêm</button>
-			</div>
+        tabindex="0">
+    <div class="card flex-fill" ng-controller="viewmore">
+        <table id="myTable" class="table table-hover my-0">
+            <thead>
+                <tr>
+                    <th></th> <!-- Thêm cột checkbox -->
+                    <th>Mã sinh viên</th>
+                    <th class="d-none d-xl-table-cell">Mã học kì</th>
+                    <th>Mã môn học</th>
+                    <th class="d-none d-md-table-cell">Tổng học phí</th>
+                    <th class="d-none d-md-table-cell">Mã nhân sự</th>
+                    <th class="d-none d-md-table-cell">Tên file excel</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="student in tableData">
+                    <td>
+                        <input type="checkbox" ng-model="student.selected" ng-change="updateSelectedStudents(student)">
+                    </td> <!-- Thêm ô checkbox -->
+                    <td ng-model="form.student.studentId">{{ student.studentId }}</td>
+                    <td ng-model="form.student.semester.semesterId" class="d-none d-xl-table-cell">{{ student.semester.semesterId }}</td>
+                    <td ng-model="form.student.subjectId"><span class="badge bg-success">{{ student.subjectId }}</span></td>
+                    <td ng-model="form.student.totalFee" class="d-none d-md-table-cell">{{ student.totalFee }}</td>
+                    <td contenteditable="true" ng-model="student.employee.employeeId" ng-show="student.selected" ng-keyup="saveEmployeeId(student)" class="d-none d-md-table-cell">
+                        <select ng-model="form.selectedEmployee" ng-change="update()" class="form-select">
+                            <option ng-repeat="x in employees" ng-value="x.employeeId">{{ x.employeeId }}</option>
+                        </select>
+                    </td>
+                    <td ng-model="form.student.imported.importedFileName" class="d-none d-md-table-cell">{{ student.imported.importedFileName }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <button class="btn btn-light">Xem thêm</button>
+    </div>
+</div>
 
-	      </div>
 	</div>
     
 </div>
+
+
+
