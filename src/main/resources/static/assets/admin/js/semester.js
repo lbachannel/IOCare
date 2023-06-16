@@ -38,6 +38,7 @@ app.controller("ctrl-semester", function($scope, $http, $filter, $timeout) {
 	    var url = `${pathSemester}/semester/${semesterId}`;
 	
 	    $http.get(url).then(resp => {
+			$scope.isIdDisabled = true;
 	        $scope.form = resp.data;
 	        $scope.form.startTime = new Date(resp.data.startTime);
 	        $scope.form.endTime = new Date(resp.data.endTime);
@@ -85,6 +86,7 @@ app.controller("ctrl-semester", function($scope, $http, $filter, $timeout) {
 	        var url = `${pathSemester}/semester`;
 	
 	        if (item.semesterId.length > 5) {
+				$scope.isIdDisabled = false; // Cho phép chỉnh sửa mã chiến dịch
 	            $scope.myForm.semesterId.$setValidity('length', false);
 	            $timeout(function() {
 	                $scope.myForm.semesterId.$setValidity('length', true);
