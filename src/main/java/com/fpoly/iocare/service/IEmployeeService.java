@@ -11,6 +11,8 @@ import com.fpoly.iocare.model.Employee;
 public interface IEmployeeService {
 	Employee findById(String username);
 	
+	boolean existsById(String id);
+	
 	Employee findByEmail(String email);
 
 	List<Employee> getAdministrators();

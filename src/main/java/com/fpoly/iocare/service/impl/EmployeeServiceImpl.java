@@ -48,7 +48,12 @@ public class EmployeeServiceImpl implements IEmployeeService{
 	public Long getTotalEmployee() {
 		return accDao.count();
 	}
-
+	@Override
+	public boolean existsById(String id) {
+		if(accDao.existsById(id)) 
+			return true;
+		return false;
+	}
 
 	
 }

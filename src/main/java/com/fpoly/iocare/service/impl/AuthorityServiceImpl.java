@@ -3,6 +3,7 @@ package com.fpoly.iocare.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.fpoly.iocare.dao.IAuthorityDAO;
@@ -16,7 +17,7 @@ public class AuthorityServiceImpl implements IAuthorityService{
 	
 	@Autowired private IAuthorityDAO authdao;
 	@Autowired private IEmployeeDAO accdao;
-	
+	@Autowired BCryptPasswordEncoder pe;
 	@Override
 	public List<Authority> findAuthoritiesOfAdministrators() {
 		List<Employee> Employees = accdao.getAdministrators();
