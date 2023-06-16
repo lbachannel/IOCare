@@ -96,7 +96,7 @@ app.controller("ctrl-semester", function($scope, $http, $filter, $timeout) {
 	
 	        // Check duplicate semesterId
 	        var duplicate = $scope.items.some(function(existingItem) {
-	            return existingItem.semesterId === item.semesterId;
+return existingItem.semesterId === item.semesterId;
 	        });
 	
 	        if (duplicate) {
@@ -170,29 +170,6 @@ app.controller("ctrl-semester", function($scope, $http, $filter, $timeout) {
 	}
 	//Update form
 	$scope.update = function() {
-<<<<<<< HEAD
-	    var semester = angular.copy($scope.form);
-		
-	    var url = `${pathSemester}/semester/${semester.semesterId}`;
-	
-	    $http.put(url, semester).then(resp => {
-	        var index = $scope.items.findIndex(item => item.semesterId == semester.semesterId);
-	        $scope.items[index] = resp.data;
-			
-	        console.log("Update value to Semester Successfully!", resp);
-	        alert("Cập nhật thành công!");
-	    }).catch(error => {
-	        console.log("Adding new encountered an error. Please check again.", error);
-	        alert("Cập nhật không thành công!");
-	    });
-	};
-	
-
-
-
-
-
-=======
 		if (!$scope.formChanges) {
 	    // Không có sự thay đổi, không thực hiện cập nhật
 	   		return;
@@ -207,7 +184,7 @@ app.controller("ctrl-semester", function($scope, $http, $filter, $timeout) {
 	
 	        if (startDate >= endDate) {
 	            $scope.myForm.startDate.$setValidity('dateComparison', false);
-	            $scope.myForm.endDate.$setValidity('dateComparison', false);
+$scope.myForm.endDate.$setValidity('dateComparison', false);
 	            $timeout(function() {
 	                $scope.myForm.startDate.$setValidity('dateComparison', true);
 	            	$scope.myForm.endDate.$setValidity('dateComparison', true);
@@ -238,7 +215,6 @@ app.controller("ctrl-semester", function($scope, $http, $filter, $timeout) {
 	    $scope.hideErrorAfterDelay();
 	};
 	
->>>>>>> LongKiet
 	/*--Gọi hàm reset--*/
 	$scope.reset();
 	
