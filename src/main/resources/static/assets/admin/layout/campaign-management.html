@@ -295,14 +295,15 @@
 												required>
 											<div
 												ng-show="myForm.semesterId.$error.length && myForm.semesterId.$touched && submitted"
-												class="text-danger">Mã Học Kì không được quá 5 ký tự!
+												class="text-danger">Mã học kì không được quá 5 ký tự!
 											</div>
 											<div
 												ng-show="myForm.semesterId.$error.duplicate && myForm.semesterId.$touched && submitted"
 												class="text-danger">Mã học kì đã tồn tại!</div>
 											<div
 												ng-show="myForm.semesterId.$error.required && myForm.semesterId.$touched && submitted"
-												class="text-danger">Mã Học Kì không được để trống!</div>
+												class="text-danger">Mã học kì không được để trống!</div>
+											<div ng-show="isLowercaseError" class="text-danger">Mã học kì không được viết thường!</div>
 										</div>
 									</div>
 
@@ -317,7 +318,7 @@
 												ng-change="checkFormChanges()">
 											<div
 												ng-show="submitted && myForm.semesterName.$error.required"
-												class="text-danger">Tên Học Kì không được để trống!</div>
+												class="text-danger">Tên học kì không được để trống!</div>
 										</div>
 									</div>
 
@@ -428,6 +429,8 @@
 												ng-show="myForm.campaignId.$error.length && myForm.campaignId.$touched && submitted"
 												class="text-danger">Mã chiến dịch không được quá 5 ký
 												tự!</div>
+											<div ng-show="isLowercaseError" class="text-danger">Mã chiến dịch không được viết thường!</div>
+
 										</div>
 									</div>
 

@@ -55,6 +55,7 @@ app.controller("ctrl-campaign", function($scope, $http, $filter, $timeout){
 	
 	$scope.isDuplicateCampaignId = false;
 	$scope.showMaxLengthError = false;
+	$scope.isLowercaseError = false;
 
 	$scope.checkDuplicateCampaignId = function(campaignId) {
 	  $scope.isDuplicateCampaignId = $scope.items.some(function(item) {
@@ -84,6 +85,17 @@ app.controller("ctrl-campaign", function($scope, $http, $filter, $timeout){
 	      $scope.hideErrorAfterDelay(); // Hide error message after 5 seconds
 	      return;
 	    }
+	    
+	    if (/[a-z]/.test(item.campaignId)) {
+		  $scope.isLowercaseError = true; // Hiển thị thông báo lỗi mã chiến dịch viết thường
+		
+		  setTimeout(function() {
+		    $scope.isLowercaseError = false; // Ẩn thông báo lỗi sau 5 giây
+		    $scope.$apply(); // Áp dụng các thay đổi vào $scope (nếu cần)
+		  }, 5000); // 5 giây (5000 milliseconds)
+		
+		  return;
+		}
 	    
 	    if ($scope.form.campaignId.length > 5) {
 	        $scope.isIdDisabled = false; // Cho phép chỉnh sửa mã chiến dịch
@@ -150,6 +162,7 @@ app.controller("ctrl-campaign", function($scope, $http, $filter, $timeout){
 		$scope.formChanges = false;
 		$scope.submitted = false;
 		$scope.isDuplicateCampaignId = false;
+		$scope.isLowercaseError = false;
 		if (!$scope.myForm.$pristine) {
 	        $scope.myForm.campaignId.$setValidity('length', true); // Đặt lại trạng thái hợp lệ cho trường campaignId
 	    }

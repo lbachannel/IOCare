@@ -96,7 +96,7 @@ app.controller("ctrl-semester", function($scope, $http, $filter, $timeout) {
 	
 	        // Check duplicate semesterId
 	        var duplicate = $scope.items.some(function(existingItem) {
-return existingItem.semesterId === item.semesterId;
+			return existingItem.semesterId === item.semesterId;
 	        });
 	
 	        if (duplicate) {
@@ -106,7 +106,17 @@ return existingItem.semesterId === item.semesterId;
 	            }, 5000);
 	            return;
 	        }
-	
+			
+			if (/[a-z]/.test(item.semesterId)) {
+			  $scope.isLowercaseError = true; // Hiển thị thông báo lỗi mã học kì viết thường
+			
+			  setTimeout(function() {
+			    $scope.isLowercaseError = false; // Ẩn thông báo lỗi sau 5 giây
+			    $scope.$apply(); // Áp dụng các thay đổi vào $scope (nếu cần)
+			  }, 5000); // 5 giây (5000 milliseconds)
+			
+			  return;
+			}
 	        // Kiểm tra ngày bắt đầu và ngày kết thúc
 	        var startDate = new Date(item.startTime);
 	        var endDate = new Date(item.endTime);
@@ -149,6 +159,7 @@ return existingItem.semesterId === item.semesterId;
 	    $scope.isIdDisabled = false;
 	    $scope.formChanges = false;
 		$scope.submitted = false;
+		$scope.isLowercaseError = false;
 	    if ($scope.myForm) {
 	        $scope.myForm.semesterId.$setValidity('duplicate', true);
 	        $scope.myForm.semesterId.$setValidity('length', true);
