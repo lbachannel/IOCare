@@ -1,8 +1,13 @@
 package com.fpoly.iocare.controller.admin;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.fpoly.iocare.dao.*;
+import com.fpoly.iocare.model.RiskClassification;
 
 @Controller
 public class HomeAdminController {
@@ -15,7 +20,6 @@ public class HomeAdminController {
 	/*--url: Quản lý chiến dịch--*/
 	@RequestMapping("/campaign-management")
 	public String campaignManagement(){
-		
 		return "admin/index";
 	}
 	
