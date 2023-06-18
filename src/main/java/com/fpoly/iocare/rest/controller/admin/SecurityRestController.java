@@ -19,8 +19,32 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 @RestController
 public class SecurityRestController {
 	
-	@GetMapping("security")
-	public Boolean campaign_Management(){
+	//Xác thực đăng nhập
+	@GetMapping("security/authenticated")
+	public Boolean authenticated(){
+		 Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		 System.out.println(authentication.isAuthenticated());
+        return authentication.isAuthenticated();
+	}
+	
+	//Xác thực quyền ADMIN
+	@GetMapping("security/admin")
+	public Boolean adminSecurity(){
+		 Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return authentication.isAuthenticated();
+	}
+	
+	//Xác thực quyền USER1
+	@GetMapping("security/user1")
+	public Boolean user1Security(){
+		 Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		 System.out.println(authentication.isAuthenticated());
+        return authentication.isAuthenticated();
+	}
+	
+	//Xác thực quyền USER2
+	@GetMapping("security/user2")
+	public Boolean user2Security(){
 		 Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		 System.out.println(authentication.isAuthenticated());
         return authentication.isAuthenticated();

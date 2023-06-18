@@ -91,11 +91,6 @@ app.controller("ctrl-semester", function($scope, $http, $filter) {
 	    });
 	};
 	
-
-
-
-
-
 	/*--Gọi hàm reset--*/
 	$scope.reset();
 
