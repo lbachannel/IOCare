@@ -213,7 +213,22 @@ app.controller("ctrl-import", function($scope, $http) {
 		});	
 	};
   
-  
+$scope.assignStudents = function() {
+    // Lấy danh sách sinh viên chưa phân công từ tab chưa phân công
+    var unassignedStudents = $scope.tableData.filter(function(student) {
+        return !student.selected;
+    });
+
+    // Xóa danh sách sinh viên chưa phân công từ tab chưa phân công
+    $scope.tableData = $scope.tableData.filter(function(student) {
+        return student.selected;
+    });
+
+    // Thêm danh sách sinh viên chưa phân công vào tab đã phân công
+    $scope.tableDataAssigned = $scope.tableDataAssigned.concat(unassignedStudents);
+};
+
+
   
 	/*--Reset form--*/
 	$scope.reset = function() {
