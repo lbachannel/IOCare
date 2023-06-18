@@ -63,6 +63,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 			
 			//Các yêu cầu chỉ được cấp phép khi roleId = 1 và 2 (ADMIN, USER1)
 			.antMatchers("/security/user1").hasAnyRole("1", "2")
+			.antMatchers("/rest/imported").hasAnyRole("1","2")
 			//.antMatchers("?").hasAnyRole("1","2")
 			
 			//Các yêu cầu chỉ được cấp phép khi roleId = 1 và 3 (ADMIN, USER2)
