@@ -60,9 +60,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable();
 		http.authorizeRequests()
-//		 	.antMatchers("/security/sign-in").permitAll() // Cho phép truy cập không cần xác thực vào "/sign-in"
-//		    .anyRequest().authenticated(); // Yêu cầu xác thực đối với tất cả các URL còn lại
-			.antMatchers("/security").authenticated()
+			
+			//Các yêu cầu chỉ được cấp phép khi roleId = 1 và 2 (ADMIN, USER1)
+			.antMatchers("/security/user1").hasAnyRole("1", "2")
+			.antMatchers("/rest/imported").hasAnyRole("1","2")
+			//.antMatchers("?").hasAnyRole("1","2")
+			
+			//Các yêu cầu chỉ được cấp phép khi roleId = 1 và 3 (ADMIN, USER2)
+	        .antMatchers("/security/user2").hasAnyRole("1", "3")
+	        //.antMatchers("?").hasAnyRole("1","3")
+	        
+	        //Các yêu cầu chỉ được cấp phép khi roleId = 1 (ADMIN)
+			.antMatchers("/security/admin").hasRole("1")
+			.antMatchers("/authority-management").hasRole("1")
+			.antMatchers("/account-management").hasRole("1")
+			
+			///Các yêu cầu chỉ được cấp phép khi đã đăng nhập
+			.antMatchers("/security/authenticated").authenticated()
+			
+			//Các yêu cầu còn lại không cần cấp phép (tránh lỗi vòng lặp xác thực) 
 			.anyRequest().permitAll();
 
 		http.formLogin()

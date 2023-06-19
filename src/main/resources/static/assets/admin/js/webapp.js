@@ -2,7 +2,6 @@ var app = angular.module("myapp", ["ngRoute"]);
 
 app.controller("dropdownController", function($scope, $window) {
 	$scope.logoff = function() {
-		console.log("oke");
 		$window.location.href = 'http://localhost:8080/security/logoff';
 	}
 });
@@ -35,7 +34,7 @@ app.config(function($routeProvider, $locationProvider) {
 	$locationProvider.html5Mode(true);
 });
 
-app.run(function($rootScope) {
+app.run(function($rootScope, $location, $window, $http) {
 
 	$rootScope.$on('$routeChangeStart', function() {
 		$rootScope.loading = true;
@@ -46,27 +45,25 @@ app.run(function($rootScope) {
 	$rootScope.$on('$routeChangeError', function() {
 		$rootScope.loading = false;
 	});
-});
-// Điều hướng trang 
-app.run(function($rootScope, $location, $window, $http) {
-	// Xử lý trước khi reload trang
+	
+	// Xử lý đăng nhập trước khi reload trang
 	$rootScope.$on('$locationChangeStart', function(event) {
-		// Thực hiện các xử lý bạn muốn trước khi trang được reload
-		// Ví dụ: Hiển thị thông báo xác nhận hoặc lưu dữ liệu trước khi reload
-		$http.get('/security').then(function(response) {
-			var userInfo = response.data;
-			if (userInfo != true) {
-				var url = `http://localhost:8080/security`;
-				$http.get(url).then(resp => {
-					$window.location.href = 'http://localhost:8080/security';
-				}).catch(errors => {
-					console.log("Error", errors);
-				});
+		
+		//Goị yêu cầu kiểm tra đăng nhập
+		$http.get(`/security/authenticated`).then(resp => {
+			
+			//Nếu chưa đăng nhập
+			if(resp.data != true){
+				//Điều hướng đến yêu cầu kiểm tra đăng nhập để tiến hành đăng nhập
+				$window.location.href = '/security/authenticated';
 			}
+			
+			//Nếu đã đăng nhập thì trang sẽ tiếp tục chạy bình thường
+			
+		}).catch(errors => {
+			//Xuất lỗi nếu có trong quá trình
+			console.log("Error", errors);
 		});
 	});
 });
 
-
-$scope.isDisabled = true;
-$scope.located();

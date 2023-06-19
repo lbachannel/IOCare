@@ -60,109 +60,121 @@ app.controller("ctrl-import", function($scope, $http) {
 	};
 	/*--Function xử lý nhập tệp--*/
 	$scope.import = function(files) {
-		var reader = new FileReader();
-		reader.onloadend = async () => {
-			if ($scope.form.campaign.campaignId === 'CSVH') {
-				var workbook = new ExcelJS.Workbook();
-				await workbook.xlsx.load(reader.result);
-				const worksheet = workbook.getWorksheet('Sheet1');
-				// Kiểm tra xem workbook có worksheet là tên 'Sheet1' hay không
-				if(!worksheet){
-					// Không tìm thấy worksheet
-					alert('Không tìm thấy worksheet có tên "Sheet1". Vui lòng kiểm tra file Excel.');
-					$scope.load_all();
-					$scope.load_filename();
-					$scope.load_semester();
-					$scope.load_campaign();
-					$scope.reset();
-					return;
-				}
-				var firstRow = worksheet.getRow(1);
-				var firstCell = firstRow.getCell(1).value;
-				var secondCell = firstRow.getCell(2).value;
-				if(firstCell === 'studentId' && secondCell === 'subjectId'){
-					worksheet.eachRow((row, index) => {
-						if (index > 1) {
-							var student = {
-								studentId: row.getCell(1).value,
-								subjectId: row.getCell(2).value,
-								imported: {
-									importedFileName: '',
-								}
-							};
-							$scope.students.push(student);
-						}
-					});	  
-				}else{
-					alert('File excel không phù hợp. Vui lòng chọn file vắng học!');
-					$scope.load_all();
-					$scope.load_filename();
-					$scope.load_semester();
-					$scope.load_campaign();
-					$scope.reset();
-					return;
-				}
-			}else if ($scope.form.campaign.campaignId === 'CSHP') {
-				var workbook = new ExcelJS.Workbook();
-				await workbook.xlsx.load(reader.result);
-				const worksheet = workbook.getWorksheet('Sheet1');
-				// Kiểm tra xem workbook có worksheet là tên 'Sheet1' hay không
-				if(!worksheet){
-					// Không tìm thấy worksheet
-					alert('Không tìm thấy worksheet có tên "Sheet1". Vui lòng kiểm tra file Excel.');
-					$scope.load_all();
-					$scope.load_filename();
-					$scope.load_semester();
-					$scope.load_campaign();
-					$scope.reset();
-					return;
-				}
-				var firstRow = worksheet.getRow(1);
-				var firstCell = firstRow.getCell(1).value;
-				var secondCell = firstRow.getCell(2).value;
-				if (firstCell === 'studentId' && secondCell === 'totalFee'){
-					worksheet.eachRow((row, index) => {
-						if (index > 1) {
-							var student = {
-								studentId: row.getCell(1).value,
-								totalFee: row.getCell(2).value,
-								imported: {
-									importedFileName: '',
-								}
-							};
-							$scope.students.push(student);
-						}
-					});
-				}else{
-					alert('File excel không phù hợp. Vui lòng chọn file học phí!');
-					$scope.load_all();
-					$scope.load_filename();
-					$scope.load_semester();
-					$scope.load_campaign();
-					$scope.reset();
-					return;
-				}
-			}else{
-				alert('File excel không phù hợp!');
-				$scope.load_all();
-				$scope.load_filename();
-				$scope.load_semester();
-				$scope.load_campaign();
-				$scope.reset();
-				return;
-			}
-
+		//Gọi về yêu cầu xác thực user1
+		$http.get("/security/user1").then(resp => {
 			
-
-			// Lưu tên tệp vào mảng importedFileNames
-			$scope.importedFileNames.push(files[0].name);
-
-			// Cập nhật giá trị cho biến $scope.fileName
-			$scope.$apply(function() {
-				$scope.fileName = files[0].name; 
-			});
-    	};
-    	reader.readAsArrayBuffer(files[0]);
+			//Nếu đúng vai trò user1 thì tiến hành import
+			var reader = new FileReader();
+			reader.onloadend = async () => {
+				if ($scope.form.campaign.campaignId === 'CSVH') {
+					var workbook = new ExcelJS.Workbook();
+					await workbook.xlsx.load(reader.result);
+					const worksheet = workbook.getWorksheet('Sheet1');
+					// Kiểm tra xem workbook có worksheet là tên 'Sheet1' hay không
+					if(!worksheet){
+						// Không tìm thấy worksheet
+						alert('Không tìm thấy worksheet có tên "Sheet1". Vui lòng kiểm tra file Excel.');
+						$scope.load_all();
+						$scope.load_filename();
+						$scope.load_semester();
+						$scope.load_campaign();
+						$scope.reset();
+						return;
+					}
+					var firstRow = worksheet.getRow(1);
+					var firstCell = firstRow.getCell(1).value;
+					var secondCell = firstRow.getCell(2).value;
+					if(firstCell === 'studentId' && secondCell === 'subjectId'){
+						worksheet.eachRow((row, index) => {
+							if (index > 1) {
+								var student = {
+									studentId: row.getCell(1).value,
+									subjectId: row.getCell(2).value,
+									imported: {
+										importedFileName: '',
+									}
+								};
+								$scope.students.push(student);
+							}
+						});	  
+					}else{
+						alert('File excel không phù hợp. Vui lòng chọn file vắng học!');
+						$scope.load_all();
+						$scope.load_filename();
+						$scope.load_semester();
+						$scope.load_campaign();
+						$scope.reset();
+						return;
+					}
+				}else if ($scope.form.campaign.campaignId === 'CSHP') {
+					var workbook = new ExcelJS.Workbook();
+					await workbook.xlsx.load(reader.result);
+					const worksheet = workbook.getWorksheet('Sheet1');
+					// Kiểm tra xem workbook có worksheet là tên 'Sheet1' hay không
+					if(!worksheet){
+						// Không tìm thấy worksheet
+						alert('Không tìm thấy worksheet có tên "Sheet1". Vui lòng kiểm tra file Excel.');
+						$scope.load_all();
+						$scope.load_filename();
+						$scope.load_semester();
+						$scope.load_campaign();
+						$scope.reset();
+						return;
+					}
+					var firstRow = worksheet.getRow(1);
+					var firstCell = firstRow.getCell(1).value;
+					var secondCell = firstRow.getCell(2).value;
+					if (firstCell === 'studentId' && secondCell === 'totalFee'){
+						worksheet.eachRow((row, index) => {
+							if (index > 1) {
+								var student = {
+									studentId: row.getCell(1).value,
+									totalFee: row.getCell(2).value,
+									imported: {
+										importedFileName: '',
+									}
+								};
+								$scope.students.push(student);
+							}
+						});
+					}else{
+						alert('File excel không phù hợp. Vui lòng chọn file học phí!');
+						$scope.load_all();
+						$scope.load_filename();
+						$scope.load_semester();
+						$scope.load_campaign();
+						$scope.reset();
+						return;
+					}
+				}else{
+					alert('File excel không phù hợp!');
+					$scope.load_all();
+					$scope.load_filename();
+					$scope.load_semester();
+					$scope.load_campaign();
+					$scope.reset();
+					return;
+				}
+	
+				
+	
+				// Lưu tên tệp vào mảng importedFileNames
+				$scope.importedFileNames.push(files[0].name);
+	
+				// Cập nhật giá trị cho biến $scope.fileName
+				$scope.$apply(function() {
+					$scope.fileName = files[0].name; 
+				});
+	    	};
+	    	reader.readAsArrayBuffer(files[0]);
+			 
+		}).catch(error => {
+			
+			//Nếu không phải admin thì tiến hành xử lí lỗi!
+			$scope.errorHandle(error, route);
+			
+		});
+		
 	};
   
 	// Lấy tên tệp từ mảng importedFileNames khi trang tải
@@ -213,6 +225,16 @@ app.controller("ctrl-import", function($scope, $http) {
 		});	
 	};
   
+  
+  	/*-- Hàm gọi xử lí lỗi khi xác thực --*/
+    $scope.errorHandle = function(error, route){
+	
+		//Xuất ra lỗi gặp phải
+		console.log(error);
+		
+		//Load lại yêu cầu để chuyển hướng đến trang đăng nhập
+		$window.location.href = route;
+	}
   
   
 	/*--Reset form--*/
