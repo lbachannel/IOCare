@@ -213,20 +213,91 @@ app.controller("ctrl-import", function($scope, $http) {
 		});	
 	};
   
-$scope.assignStudents = function() {
-    // Lấy danh sách sinh viên chưa phân công từ tab chưa phân công
-    var unassignedStudents = $scope.tableData.filter(function(student) {
-        return !student.selected;
-    });
-
-    // Xóa danh sách sinh viên chưa phân công từ tab chưa phân công
-    $scope.tableData = $scope.tableData.filter(function(student) {
-        return student.selected;
-    });
-
-    // Thêm danh sách sinh viên chưa phân công vào tab đã phân công
-    $scope.tableDataAssigned = $scope.tableDataAssigned.concat(unassignedStudents);
+  
+$scope.sortTableDataAssigned = function() {
+  $scope.tableDataAssigned.sort(function(a, b) {
+    return a.studentId - b.studentId;
+  });
 };
+
+ $scope.tableData = []; // Mảng chứa danh sách sinh viên chưa phân công
+$scope.tableDataAssigned = []; // Mảng chứa danh sách sinh viên đã phân công
+
+// Function để phân công sinh viên từ bảng "Chưa phân công" sang bảng "Đã phân công"
+$scope.assignStudents = function() {
+  // Kiểm tra xem đã chọn mã nhân sự hay chưa
+  if (!$scope.form.selectedEmployee) {
+    // Hiển thị thông báo lỗi nếu chưa chọn mã nhân sự
+    alert("Vui lòng chọn mã nhân sự trước khi phân công!");
+    return;
+  }
+
+  // Lặp qua danh sách sinh viên trong mảng tableData
+  for (var i = $scope.tableData.length - 1; i >= 0; i--) {
+    var student = $scope.tableData[i];
+    // Kiểm tra xem sinh viên có được chọn hay không
+    if (student.selected) {
+      // Thiết lập employeeId cho sinh viên đã phân công
+      student.employeeId = $scope.form.selectedEmployee;
+      // Thêm sinh viên vào mảng tableDataAssigned
+      $scope.tableDataAssigned.push(student);
+      // Xóa sinh viên khỏi mảng tableData
+      $scope.tableData.splice(i, 1);
+    }
+  }
+  $scope.sortTableDataAssigned();
+};
+
+// Function để kiểm tra xem có sinh viên nào được chọn hay không
+$scope.hasSelectedStudents = function() {
+  return $scope.tableData.some(function(student) {
+    return student.selected;
+  });
+};
+
+// Function để cập nhật danh sách sinh viên đã được chọn
+$scope.updateSelectedStudents = function(student) {
+  // Kiểm tra xem sinh viên có được chọn hay không
+  if (student.selected) {
+    // Thêm sinh viên vào mảng tableDataAssigned
+    $scope.tableDataAssigned.push(student);
+  } else {
+    // Xóa sinh viên khỏi mảng tableDataAssigned
+    var index = $scope.tableDataAssigned.indexOf(student);
+    if (index !== -1) {
+      $scope.tableDataAssigned.splice(index, 1);
+    }
+  }
+  $scope.assignStudents = function() {
+  // Kiểm tra xem đã chọn mã nhân sự hay chưa
+  if (!$scope.form.selectedEmployee) {
+    // Hiển thị thông báo lỗi nếu chưa chọn mã nhân sự
+    alert("Vui lòng chọn mã nhân sự trước khi phân công!");
+    return;
+  }
+
+  // Lặp qua danh sách sinh viên trong mảng tableData
+  for (var i = $scope.tableData.length - 1; i >= 0; i--) {
+    var student = $scope.tableData[i];
+    // Kiểm tra xem sinh viên có được chọn hay không
+    if (student.selected) {
+      // Thiết lập employeeId cho sinh viên đã phân công
+      student.employeeId = $scope.form.selectedEmployee;
+      // Thêm sinh viên vào mảng tableDataAssigned
+      $scope.tableDataAssigned.push(student);
+      // Xóa sinh viên khỏi mảng tableData
+      $scope.tableData.splice(i, 1);
+    }
+  }
+
+  // Gọi hàm sortTableDataAssigned() để sắp xếp lại bảng "Đã phân công"
+  $scope.sortTableDataAssigned();
+};
+};
+
+
+
+
 
 
   
