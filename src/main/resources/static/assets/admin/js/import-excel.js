@@ -171,7 +171,7 @@ app.controller("ctrl-import", function($scope, $http) {
 		}).catch(error => {
 			
 			//Nếu không phải admin thì tiến hành xử lí lỗi!
-			$scope.errorHandle(error, route);
+			$scope.errorHandle(error);
 			
 		});
 		
@@ -227,13 +227,13 @@ app.controller("ctrl-import", function($scope, $http) {
   
   
   	/*-- Hàm gọi xử lí lỗi khi xác thực --*/
-    $scope.errorHandle = function(error, route){
+    $scope.errorHandle = function(error){
 	
 		//Xuất ra lỗi gặp phải
 		console.log(error);
 		
 		//Load lại yêu cầu để chuyển hướng đến trang đăng nhập
-		$window.location.href = route;
+		$window.location.href = "/security/login/form";
 	}
   
   
