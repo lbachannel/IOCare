@@ -17,6 +17,8 @@ app.controller("ctrl-import", function($scope, $http) {
 	/*--Mảng chứa danh sách sinh viên từ file excel--*/
 	$scope.tableData = [];
 	
+	$scope.tableDataAssigned = []; // Mảng chứa danh sách sinh viên đã phân công
+	
 	/*--Cập nhật tên nhân sự phụ trách cho thuộc tính của sinh viên--*/
 	$scope.update = function(){
 		var student = angular.copy($scope.form);
@@ -214,14 +216,24 @@ app.controller("ctrl-import", function($scope, $http) {
 	};
   
   
-$scope.sortTableDataAssigned = function() {
-  $scope.tableDataAssigned.sort(function(a, b) {
-    return a.studentId - b.studentId;
-  });
-};
+    
+	/*--Reset form--*/
+	$scope.reset = function() {
+		$scope.form = {};
+		$scope.students = [];
+        var inputFile = document.getElementById('file-excel');
+        inputFile.value = '';
+	}
+	$scope.load_all();
+	$scope.load_filename();
+	$scope.load_semester();
+	$scope.load_campaign();
+	$scope.load_employees();
+  
+  
+/*--Phân công form--*/
 
- $scope.tableData = []; // Mảng chứa danh sách sinh viên chưa phân công
-$scope.tableDataAssigned = []; // Mảng chứa danh sách sinh viên đã phân công
+
 
 // Function để phân công sinh viên từ bảng "Chưa phân công" sang bảng "Đã phân công"
 $scope.assignStudents = function() {
@@ -241,6 +253,7 @@ $scope.assignStudents = function() {
       student.employeeId = $scope.form.selectedEmployee;
       // Thêm sinh viên vào mảng tableDataAssigned
       $scope.tableDataAssigned.push(student);
+      alert("Phân công thành công!")
       // Xóa sinh viên khỏi mảng tableData
       $scope.tableData.splice(i, 1);
     }
@@ -296,23 +309,6 @@ $scope.updateSelectedStudents = function(student) {
 };
 
 
-
-
-
-
-  
-	/*--Reset form--*/
-	$scope.reset = function() {
-		$scope.form = {};
-		$scope.students = [];
-        var inputFile = document.getElementById('file-excel');
-        inputFile.value = '';
-	}
-	$scope.load_all();
-	$scope.load_filename();
-	$scope.load_semester();
-	$scope.load_campaign();
-	$scope.load_employees();
 	
 	// Thêm một mảng selectedStudents để lưu trạng thái chọn của sinh viên
 $scope.selectedStudents = [];
