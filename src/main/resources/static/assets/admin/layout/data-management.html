@@ -168,100 +168,122 @@
 	
 	<hr>
 	<div class="form-group col-md-3 mb-4">					
-		<label class="form-label">Tên thư mục: </label>
-		<div class="mb-3">
-				<select ng-model="selectedFileName" ng-change="showStudents()" class="form-select">
-                <option ng-repeat="x in fileExcelNames" ng-value="x.importedFileName">{{x.importedFileName}}</option>
-            </select>
-           </div>
+	<label class="form-label">Tên thư mục:</label>
+	<div class="mb-3">
+		<select ng-model="selectedFileName" ng-change="showStudents()" class="form-select">
+			<option ng-repeat="x in fileExcelNames" ng-value="x.importedFileName">{{x.importedFileName}}</option>
+		</select>
+	</div>
+</div>
 
+<div class="row">
+	<div class="col-md-6 mb-3">
+		<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+			<li class="nav-item" role="presentation">
+				<button class="btn btn-light active" id="pills-home-tab" data-bs-toggle="pill"
+					data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home"
+					aria-selected="true">Đã phân công</button>
+			</li>
+			<li class="nav-item" role="presentation">
+				<button class="btn btn-light" id="pills-profile-tab" data-bs-toggle="pill"
+					data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile"
+					aria-selected="false">Chưa phân công</button>
+			</li>
+		</ul>
 	</div>
-	<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-	    <li class="nav-item" role="presentation">
-	        <button class="btn btn-light active" id="pills-home-tab" data-bs-toggle="pill"
-	            data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home"
-	            aria-selected="true">Đã phân công</button>
-	    </li>
-	    <li class="nav-item" role="presentation">
-	        <button class="btn btn-light" id="pills-profile-tab" data-bs-toggle="pill"
-	            data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile"
-	            aria-selected="false">Chưa phân công</button>
-	    </li>
-	</ul>
 	
-	<div class="tab-content" id="pills-tabContent">
-	    <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
-	        aria-labelledby="pills-home-tab" tabindex="0">
-	        <div class="card flex-fill">
-				<table id="myTable" class="table table-hover my-0">
-					<thead>
-						<tr>
-							<th>Mã sinh viên</th>
-							<th class="d-none d-xl-table-cell">Mã học kì</th>
-							<th>Mã môn học</th>
-							<th class="d-none d-md-table-cell">Tổng học phí</th>
-							<th class="d-none d-md-table-cell">Chuyên ngành</th>
-							<th class="d-none d-md-table-cell">Mã nhân sự</th>
-							<th class="d-none d-md-table-cell">Thời gian chăm sóc</th>
-							<th class="d-none d-md-table-cell">Nguyện vọng</th>
-							<th class="d-none d-md-table-cell">Phân loại đối tượng</th>
-							<th class="d-none d-md-table-cell">Phân loại rủi ro</th>
-							<th class="d-none d-md-table-cell">Mô tả chi tiết</th>
-							<th class="d-none d-md-table-cell">Tên file excel</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-					        <td>a</td>
-					        <td class="d-none d-xl-table-cell">a</td>
-					        <td><span class="badge bg-success">Done</span></td>
-					        <td class="d-none d-md-table-cell">a</td>
-					        <td class="d-none d-md-table-cell">a</td>
-					        <td class="d-none d-md-table-cell">a</td>
-					        <td class="d-none d-md-table-cell">a</td>
-					        <td class="d-none d-md-table-cell"><button class="btn mb-3 btn-light" style="width: 100%; margin-top: 25px" >Edit</button></td>
-					     </tr>
-						
-					</tbody>
-				</table>
-				<button class="btn btn-light">Xem thêm</button>
-			</div>
-	    </div>
-	    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab"
-	        tabindex="0">
-	        <div class="card flex-fill" ng-controller="viewmore">
-				<table id="myTable" class="table table-hover my-0">
-					<thead>
-						<tr>
-							<th>Mã sinh viên</th>
-							<th class="d-none d-xl-table-cell">Mã học kì</th>
-							<th>Mã môn học</th>
-							<th class="d-none d-md-table-cell">Tổng học phí</th>
-							<th class="d-none d-md-table-cell">Mã nhân sự</th>
-							<th class="d-none d-md-table-cell">Tên file excel</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr ng-repeat="student in tableData">
-					        <td ng-model="form.student.studentId">{{ student.studentId }}</td>
-					        <td ng-model="form.student.semester.semesterId" class="d-none d-xl-table-cell">{{ student.semester.semesterId }}</td>
-					        <td ng-model="form.student.subjectId"><span class="badge bg-success">{{ student.subjectId }}</span></td>
-					        <td ng-model="form.student.totalFee" class="d-none d-md-table-cell">{{ student.totalFee}}</td>
-					        <td contenteditable="true" ng-model="student.employee.employeeId" ng-keyup="saveEmployeeId(student)" class="d-none d-md-table-cell">
-					        	<select ng-model="form.selectedEmployee" ng-change="update()" class="form-select">
-					                <option ng-repeat="x in employees" ng-value="x.employeeId">{{x.employeeId}}</option>
-					            </select>
-					        </td>
-					        <td ng-model="form.student.imported.importedFileName" class="d-none d-md-table-cell">{{ student.imported.importedFileName }}</td>
-					     </tr>
-						
-					</tbody>
-				</table>
-				<button class="btn btn-light">Xem thêm</button>
-			</div>
-	      </div>
+	<div class="col-md-6 mb-3" style="display: flex; justify-content: flex-end;">
+			<!-- Thêm nút "Phân công" -->
+			<button class="btn btn-outline-secondary" ng-click="assignStudents()" ng-disabled="!hasSelectedStudents()">Phân công</button>
 	</div>
-    
+</div>
+
+<div class="tab-content" id="pills-tabContent">
+	<div class="tab-pane fade show active" id="pills-home" role="tabpanel"
+		aria-labelledby="pills-home-tab" tabindex="0" ng-controller="viewmore">
+		<div class="card flex-fill">
+			<table id="myTable" class="table table-hover my-0">
+				<thead>
+					<tr>
+						<th>Mã sinh viên</th>
+						<th class="d-none d-xl-table-cell">Mã học kỳ</th>
+						<th>Mã môn học</th>
+						<th class="d-none d-md-table-cell">Tổng học phí</th>
+						<th class="d-none d-md-table-cell">Chuyên ngành</th>
+						<th class="d-none d-md-table-cell">Mã nhân sự</th>
+						<th class="d-none d-md-table-cell">Thời gian chăm sóc</th>
+						<th class="d-none d-md-table-cell">Nguyện vọng</th>
+						<th class="d-none d-md-table-cell">Phân loại đối tượng</th>
+						<th class="d-none d-md-table-cell">Phân loại rủi ro</th>
+						<th class="d-none d-md-table-cell">Mô tả chi tiết</th>
+						<th class="d-none d-md-table-cell">Tên file excel</th>
+						<th class="d-none d-md-table-cell">Thao tác</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="student in tableDataAssigned">
+						<td>{{ student.studentId }}</td>
+						<td class="d-none d-xl-table-cell">{{ student.semester.semesterId }}</td>
+						<td><span class="badge bg-success">{{ student.subjectId }}</span></td>
+						<td class="d-none d-md-table-cell">{{ student.totalFee }}</td>
+						<td class="d-none d-md-table-cell">{{ student.campaign.campaignId }}</td>
+						<td class="d-none d-md-table-cell">{{ student.employeeId }}</td>
+						<td class="d-none d-md-table-cell">{{ student.thoiGianChamSoc }}</td>
+						<td class="d-none d-md-table-cell">{{ student.nguyenVong }}</td>
+						<td class="d-none d-md-table-cell">{{ student.phanLoaiDoiTuong }}</td>
+						<td class="d-none d-md-table-cell">{{ student.phanLoaiRuiRo }}</td>
+						<td class="d-none d-md-table-cell">{{ student.moTaChiTiet }}</td>
+						<td class="d-none d-md-table-cell">{{ student.imported.importedFileName }}</td>
+						<td class="d-none d-md-table-cell">
+							<button class="btn mb-3 btn-light" style="width: 100%; margin-top: 25px" ng-click="editStudent(student)">Edit</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<button class="btn btn-light">Xem thêm</button>
+		</div>
+	</div>
+	
+	<div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab"
+		tabindex="0">
+		<div class="card flex-fill" ng-controller="viewmore">
+			<table id="myTable" class="table table-hover my-0">
+				<thead>
+					<tr>
+						<th></th> <!-- Thêm cột checkbox -->
+						<th>Mã sinh viên</th>
+						<th class="d-none d-xl-table-cell">Mã học kỳ</th>
+						<th>Mã môn học</th>
+						<th class="d-none d-md-table-cell">Tổng học phí</th>
+						<th class="d-none d-md-table-cell">Mã nhân sự</th>
+						<th class="d-none d-md-table-cell">Tên file excel</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="student in tableData">
+						<td>
+							<input type="checkbox" ng-model="student.selected" ng-change="updateSelectedStudents(student)">
+						</td> <!-- Thêm ô checkbox -->
+						<td ng-model="form.student.studentId">{{ student.studentId }}</td>
+						<td ng-model="form.student.semester.semesterId" class="d-none d-xl-table-cell">{{ student.semester.semesterId }}</td>
+						<td ng-model="form.student.subjectId"><span class="badge bg-success">{{ student.subjectId }}</span></td>
+						<td ng-model="form.student.totalFee" class="d-none d-md-table-cell">{{ student.totalFee }}</td>
+						<td class="d-none d-md-table-cell">
+							<select ng-model="form.selectedEmployee" ng-change="update()" class="form-select" ng-show="student.selected">
+								<option ng-repeat="x in employees" ng-value="x.employeeId">{{ x.employeeId }}</option>
+							</select>
+						</td>
+						<td ng-model="form.student.imported.importedFileName" class="d-none d-md-table-cell">{{ student.imported.importedFileName }}</td>
+					</tr>
+				</tbody>
+			</table>
+			<button class="btn btn-light">Xem thêm</button>
+		</div>
+	</div>
+</div>
+
+</div>
+</div>
 </div>
 
 
