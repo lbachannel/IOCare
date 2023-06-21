@@ -249,6 +249,10 @@ app.controller("ctrl-import", function($scope, $http) {
 	$scope.load_semester();
 	$scope.load_campaign();
 	$scope.load_employees();
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
   
 /*--Phân công form--*/
 
@@ -326,7 +330,11 @@ $scope.updateSelectedStudents = function(student) {
   $scope.sortTableDataAssigned();
 };
 };
+<<<<<<< Updated upstream
 	
+=======
+
+>>>>>>> Stashed changes
 	// Thêm một mảng selectedStudents để lưu trạng thái chọn của sinh viên
 $scope.selectedStudents = [];
 
