@@ -249,6 +249,10 @@ app.controller("ctrl-import", function($scope, $http) {
 	$scope.load_semester();
 	$scope.load_campaign();
 	$scope.load_employees();
+<<<<<<< HEAD
+=======
+  
+>>>>>>> parent of 08a169a (Merge branch 'LongKiet')
   
 /*--Phân công form--*/
 
@@ -326,6 +330,11 @@ $scope.updateSelectedStudents = function(student) {
   $scope.sortTableDataAssigned();
 };
 };
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> parent of 08a169a (Merge branch 'LongKiet')
 	
 	// Thêm một mảng selectedStudents để lưu trạng thái chọn của sinh viên
 $scope.selectedStudents = [];
