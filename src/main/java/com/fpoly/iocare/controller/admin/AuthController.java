@@ -17,7 +17,7 @@ public class AuthController {
 	
 	@GetMapping("login/form")
 	public String loginForm(Model model) {
-		model.addAttribute("message", "Vui lòng đăng nhập!");
+//		model.addAttribute("message", "Vui lòng đăng nhập!");
 		return "admin/sign-in";
 	}
 	
@@ -29,7 +29,7 @@ public class AuthController {
 	
 	@GetMapping("login/error")
 	public String loginError(Model model) {
-		model.addAttribute("message", "Sai thông tin đăng nhập!");
+//		model.addAttribute("message", "Vui lòng nhập Username!");
 		return "admin/sign-in";
 	}
 	
