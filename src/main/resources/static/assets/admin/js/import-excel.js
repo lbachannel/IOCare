@@ -226,9 +226,7 @@ app.controller("ctrl-import", function($scope, $http) {
 			$scope.fileExcelNames = resp.data;
 		});	
 	};
-  
-  
-<<<<<<< HEAD
+
   	/*-- Hàm gọi xử lí lỗi khi xác thực --*/
     $scope.errorHandle = function(error){
 	
@@ -239,10 +237,6 @@ app.controller("ctrl-import", function($scope, $http) {
 		$window.location.href = "/security/login/form";
 	}
   
-  
-=======
-    
->>>>>>> LongKiet
 	/*--Reset form--*/
 	$scope.reset = function() {
 		$scope.form = {};
@@ -255,10 +249,6 @@ app.controller("ctrl-import", function($scope, $http) {
 	$scope.load_semester();
 	$scope.load_campaign();
 	$scope.load_employees();
-<<<<<<< Updated upstream
-  
-=======
->>>>>>> Stashed changes
   
 /*--Phân công form--*/
 
@@ -336,11 +326,6 @@ $scope.updateSelectedStudents = function(student) {
   $scope.sortTableDataAssigned();
 };
 };
-<<<<<<< Updated upstream
-
-
-=======
->>>>>>> Stashed changes
 	
 	// Thêm một mảng selectedStudents để lưu trạng thái chọn của sinh viên
 $scope.selectedStudents = [];
