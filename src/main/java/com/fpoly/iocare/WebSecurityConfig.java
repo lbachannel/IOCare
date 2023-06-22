@@ -93,7 +93,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 			.failureUrl("/security/login/error");
 		
 		http.rememberMe()
-			.tokenValiditySeconds(86400);
+			//Đảm bảo rằng chỉ máy bạn mới có thể giải mã cookie và truy xuất thông tin xác định người dùng.
+			.key("uniqueAndSecret")
+			//Lưu đăng nhập 10 ngày
+			.tokenValiditySeconds(864000);
 		
 		http.exceptionHandling()
 			.accessDeniedPage("/security/unauthorized");
