@@ -35,7 +35,7 @@ public class AuthController {
 	
 	@GetMapping("unauthorized")
 	public String unauthorized(Model model) {
-		model.addAttribute("message", "Không có quyền truy xuất!");
+		model.addAttribute("message", "Không có quyền truy cập!");
 		return "admin/sign-in";
 	}
 	
