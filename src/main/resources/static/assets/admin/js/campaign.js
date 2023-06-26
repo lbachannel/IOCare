@@ -64,7 +64,7 @@ app.controller("ctrl-campaign", function($scope, $http, $filter, $timeout){
 	    return item.campaignId === campaignId;
 	  });
 	};
-
+	// Tắt eerror sau 5 giây
 	$scope.hideErrorAfterDelay = function() {
 	    $timeout(function() {
 			$scope.submitted = false;	

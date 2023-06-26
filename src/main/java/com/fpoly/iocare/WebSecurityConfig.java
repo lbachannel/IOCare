@@ -40,7 +40,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(id->{
+		auth.eraseCredentials(false).userDetailsService(id->{
 			try {
 				Employee user =  dao.findById(id);
 				String password = pe.encode(user.getEmployeePassword());
@@ -63,20 +63,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 			
 			//Các yêu cầu chỉ được cấp phép khi roleId = 1 và 2 (ADMIN, USER1)
 			.antMatchers("/security/user1").hasAnyRole("1", "2")
-			.antMatchers("/rest/imported").hasAnyRole("1","2")
+			.antMatchers("/rest/imported").hasAnyRole("1","3")
 			//.antMatchers("?").hasAnyRole("1","2")
 			
 			//Các yêu cầu chỉ được cấp phép khi roleId = 1 và 3 (ADMIN, USER2)
 	        .antMatchers("/security/user2").hasAnyRole("1", "3")
-	        //.antMatchers("?").hasAnyRole("1","3")
+	        .antMatchers("/campaign-management").hasAnyRole("1","3")
+	        .antMatchers("/data-management").hasAnyRole("1","3")
+	        .antMatchers("/rest/campaign").hasAnyRole("1","3")
 	        
 	        //Các yêu cầu chỉ được cấp phép khi roleId = 1 (ADMIN)
 			.antMatchers("/security/admin").hasRole("1")
 			.antMatchers("/authority-management").hasRole("1")
 			.antMatchers("/account-management").hasRole("1")
+			.antMatchers("/rest/authorities").hasRole("1")
+			.antMatchers("/rest/employee").hasRole("1")
 			
 			///Các yêu cầu chỉ được cấp phép khi đã đăng nhập
 			.antMatchers("/security/authenticated").authenticated()
+			.antMatchers("/rest/**").authenticated()
 			
 			//Các yêu cầu còn lại không cần cấp phép (tránh lỗi vòng lặp xác thực) 
 			.anyRequest().permitAll();
@@ -88,7 +93,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 			.failureUrl("/security/login/error");
 		
 		http.rememberMe()
-			.tokenValiditySeconds(86400);
+			//Đảm bảo rằng chỉ máy bạn mới có thể giải mã cookie và truy xuất thông tin xác định người dùng.
+			.key("uniqueAndSecret")
+			//Lưu đăng nhập 10 ngày
+			.tokenValiditySeconds(864000);
 		
 		http.exceptionHandling()
 			.accessDeniedPage("/security/unauthorized");

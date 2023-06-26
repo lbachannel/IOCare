@@ -63,7 +63,7 @@ app.controller("ctrl-import", function($scope, $http) {
 	/*--Function xử lý nhập tệp--*/
 	$scope.import = function(files) {
 		//Gọi về yêu cầu xác thực user1
-		$http.get("/security/user1").then(resp => {
+		$http.get("/security/user2").then(resp => {
 			
 			//Nếu đúng vai trò user1 thì tiến hành import
 			var reader = new FileReader();

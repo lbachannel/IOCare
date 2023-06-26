@@ -29,13 +29,13 @@ public class AuthController {
 	
 	@GetMapping("login/error")
 	public String loginError(Model model) {
-		model.addAttribute("message", "Sai thông tin đăng nhập!");
+		model.addAttribute("message", "Nhập sai Username hoặc Passwword!!");
 		return "admin/sign-in";
 	}
 	
 	@GetMapping("unauthorized")
 	public String unauthorized(Model model) {
-		model.addAttribute("message", "Không có quyền truy xuất!");
+		model.addAttribute("message", "Không có quyền truy cập!");
 		return "admin/sign-in";
 	}
 	

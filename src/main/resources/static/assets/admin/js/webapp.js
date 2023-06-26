@@ -1,9 +1,25 @@
 var app = angular.module("myapp", ["ngRoute"]);
 
-app.controller("dropdownController", function($scope, $window) {
+app.controller("dropdownController", function($scope, $window, $timeout) {
+	$scope.form = {};
 	$scope.logoff = function() {
 		$window.location.href = 'http://localhost:8080/security/logoff';
 	}
+	$scope.containsRestrictedKeywords = function(password) {
+    var restrictedKeywords = ["select", "union", "drop"];
+    for (var i = 0; i < restrictedKeywords.length; i++) {
+      if (password.toLowerCase().includes(restrictedKeywords[i])) {
+        return true;
+      }
+    }
+    return false;
+  };
+  $scope.hideErrorAfterDelay = function() {
+	    $timeout(function() {
+			$scope.submitted = false;	
+			$scope.isDuplicateCampaignId = false;
+	    },5000);
+	};
 });
 
 app.config(function($routeProvider, $locationProvider) {

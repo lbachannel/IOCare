@@ -195,7 +195,7 @@ app.controller("ctrl-semester", function($scope, $http, $filter, $timeout) {
 	
 	        if (startDate >= endDate) {
 	            $scope.myForm.startDate.$setValidity('dateComparison', false);
-$scope.myForm.endDate.$setValidity('dateComparison', false);
+				$scope.myForm.endDate.$setValidity('dateComparison', false);
 	            $timeout(function() {
 	                $scope.myForm.startDate.$setValidity('dateComparison', true);
 	            	$scope.myForm.endDate.$setValidity('dateComparison', true);

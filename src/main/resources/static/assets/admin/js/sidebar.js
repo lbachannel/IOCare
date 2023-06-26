@@ -8,7 +8,7 @@ app.controller('SidebarController', function($scope, $location, $http, $window) 
     
     $scope.setActive = function(route) {
 	
-		//Nếu trang được yêu cầu tải nằm trong danh sách này thì bắt buộc phải kiểm tra vai trò
+		//Nếu trang được yêu cầu tải nằm trong danh sách này thì bắt buộc phải kiểm tra vai trò admin
 		if(route == '/authority-management' || route == '/account-management'){
 			
 			//Gọi về yêu cầu xác thực admin
@@ -23,25 +23,21 @@ app.controller('SidebarController', function($scope, $location, $http, $window) 
 				$scope.errorHandle(error, route);
 				
 			});
+		
+		//Nếu trang được yêu cầu tải nằm trong danh sách này thì bắt buộc phải kiểm tra vai trò user2
+		}else if(route == '' || route == '/campaign-management' || route == '/data-management'){
 			
-		//Tùy chọn thêm phân quyền
-		/**
-		//Nếu trang được yêu cầu tải nằm trong danh sách này thì bắt buộc phải kiểm tra vai trò
-		 if(route == '?1' || ...){
-			
-			//Gọi về yêu cầu xác thực vai trò mong muốn (xem ở file WebSecurityConfig)
-			$http.get("?2").then(resp => {
-				
-				//Nếu đúng vai trò thì tải trang được yêu cầu
+			//Gọi về yêu cầu xác thực user2
+			$http.get("/security/user2").then(resp => {
+				//Nếu đúng vai trò user2 thì tải trang được yêu cầu
 				 $location.path(route);
 				 
 			}).catch(error => {
-				
-				//Nếu không đúng thì tiến hành xử lí lỗi!
+				//Nếu không phải user2 thì tiến hành xử lí lỗi!
 				$scope.errorHandle(error, route);
 				
 			});
-		*/
+			
 			
 		//Nếu không nằm trong danh sách trên	
 		}else{
