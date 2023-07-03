@@ -46,4 +46,8 @@ public class Semester implements Serializable{
 	@JsonIgnore
 	@OneToMany(mappedBy = "semester")
 	private List<Student> students = new ArrayList<>();
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "semester")
+	private List<JoinCampaigns> joinCampains = new ArrayList<>();
 }

@@ -39,4 +39,8 @@ public class Campaign implements Serializable{
 	@JsonIgnore
 	@OneToMany(mappedBy = "campaign")
 	private List<ImportedData> importedDatas = new ArrayList<>();
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "campaign")
+	private List<Student> students = new ArrayList<>();
 }

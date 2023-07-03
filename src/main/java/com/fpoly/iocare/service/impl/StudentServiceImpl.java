@@ -32,6 +32,12 @@ public class StudentServiceImpl implements IStudentService{
 	public List<Student> findAll(String importFileName) {
 		return dao.findAll(importFileName);
 	}
+	
+	/*--Hiển thị tất cả sinh viên đã được phân công nhân sự--*/
+	@Override
+	public List<Student> findByEmployeeId(String employeeId) {
+		return dao.findByEmployeeId(employeeId);
+	}
 
 	/*--Cập nhật student (phân công nhân sự)--*/
 	@Override

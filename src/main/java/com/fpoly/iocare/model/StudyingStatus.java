@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,7 +19,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "StudyingStatus")
+@Table(name = "Studyingstatus")
 public class StudyingStatus {
 	@Id
 	@Column(name = "Studyingstatusid")
@@ -26,6 +28,7 @@ public class StudyingStatus {
 	@Column (name = "Studyingstatusname")
 	private String studyingStatusName;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "studyingStatus")
 	private List<JoinCampaigns> joinCampains = new ArrayList<>();
 }

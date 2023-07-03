@@ -250,6 +250,10 @@ app.controller("ctrl-import", function($scope, $http) {
 	$scope.load_campaign();
 	$scope.load_employees();
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 =======
 
 >>>>>>> Stashed changes
@@ -331,7 +335,11 @@ $scope.updateSelectedStudents = function(student) {
 };
 };
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 	
+=======
+
+>>>>>>> Stashed changes
 =======
 
 >>>>>>> Stashed changes

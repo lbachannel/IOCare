@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,7 +21,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "ReasonAbsenteeisms")
+@Table(name = "Reasonabsenteeisms")
 public class ReasonAbsenteeism {
     @Id
     @Column(name = "Reasonabsenteeismid")
@@ -29,6 +31,7 @@ public class ReasonAbsenteeism {
     @Column(name = "Reasonabsenteeismname")
     private String reasonAbsenteeismName;
     
+    @JsonIgnore
     @OneToMany(mappedBy = "reasonAbsenteeisms")
     private List<JoinCampaigns> joinCampains = new ArrayList<>();
 }
