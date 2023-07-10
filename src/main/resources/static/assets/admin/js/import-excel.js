@@ -262,21 +262,43 @@ $scope.assignStudents = function() {
           return item.studentId == student.studentId;
         });
         console.log("Cập nhật student thành công", resp);
-        alert("Phân công thành công!");
         $scope.showStudents();
         $scope.showStudents2();
+        $scope.disableAssignButton = true;
       }).catch(function(error) {
         console.log("Cập nhật student thất bại", error);
         alert("Phân công thất bại!");
       });
     }
   }
-	
+  alert("Phân công thành công!");
   $scope.selectedStudents = []; // Xóa danh sách sinh viên đã chọn
   $scope.selectAll = false; // Đặt lại trạng thái chọn tất cả checkbox
 };
 
-
+// Cập nhật lại mã nhân sự = null
+$scope.deleteStudent = function(student) {
+  var xacNhan = confirm("Bạn có muốn xóa không?");
+  if (xacNhan) {
+	  var url = `/rest/student/` + student.studentId;
+	  student.employee = null; // Cập nhật mã nhân sự thành null
+	  $http.put(url, student).then(function(resp) {
+	    var index = $scope.tableDataAssigned.findIndex(function(item) {
+	      return item.studentId == student.studentId;
+	    });
+	    console.log("Xóa sinh viên thành công", resp);
+	    $scope.showStudents();
+        $scope.showStudents2();
+	  }).catch(function(error) {
+	    console.log("Xóa sinh viên thất bại", error);
+	    alert("Xóa sinh viên thất bại!");
+	    alert("Xóa thất bại !");
+	  });
+  }else{
+	  // Người dùng chọn "Cancel", không thực hiện xóa
+	console.log("Xóa bị hủy");
+  }
+};
 
 // Function để kiểm tra xem có sinh viên nào được chọn hay không
 $scope.hasSelectedStudents = function() {
@@ -326,8 +348,50 @@ $scope.updateSelectedEmployees = function() {
 };
 
 
-// Cập nhật trạng thái chọn của sinh viên khi thay đổi danh sách sinh viên
+$scope.selectedStudentsAssigned = [];
+$scope.selectAllAssigned = false; // Khởi tạo giá trị ban đầu
 
+// Hàm cập nhật danh sách sinh viên đã chọn (đã phân công)
+$scope.updateSelectedStudentsAssigned = function(student) {
+  if (!student.selectedAssigned && $scope.selectAllAssigned) {
+    $scope.selectAllAssigned = false;
+  } else if (student.selectedAssigned) {
+    $scope.selectedStudentsAssigned.push(student);
+  } else {
+    var index = $scope.selectedStudentsAssigned.findIndex(function(selectedStudent) {
+      return selectedStudent.studentId === student.studentId;
+    });
+    $scope.selectedStudentsAssigned.splice(index, 1);
+  }
+};
 
+// Hàm xóa danh sách sinh viên đã chọn (đã phân công)
+$scope.deleteSelectedStudents = function() {
+  var confirmDelete = confirm("Bạn có chắc chắn muốn xóa danh sách sinh viên đã chọn?");
+  if (confirmDelete) {
+    $scope.selectedStudentsAssigned.forEach(function(student) {
+      var url = `/rest/student/` + student.studentId;
+      student.employee = null; // Cập nhật mã nhân sự thành null
+      $http.put(url, student).then(function(resp) {
+        var index = $scope.tableDataAssigned.findIndex(function(item) {
+          return item.studentId == student.studentId;
+        });
+        console.log("Xóa danh sách sinh viên đã chọn thành công", resp);
+        $scope.showStudents2();
+      }).catch(function(error) {
+        console.log("Xóa danh sách sinh viên đã chọn thất bại", error);
+        alert("Xóa danh sách sinh viên đã chọn thất bại!");
+      });
+    });
+    $scope.selectedStudentsAssigned = []; // Reset danh sách sinh viên đã chọn
+    $scope.selectAllAssigned = false; // Đặt lại trạng thái chọn tất cả checkbox
+  }
+};
+
+$scope.toggleSelectAllAssigned = function() {
+  $scope.tableDataAssigned.forEach(function(student) {
+    student.selectedAssigned = $scope.selectAllAssigned;
+  });
+};
 	
 });
