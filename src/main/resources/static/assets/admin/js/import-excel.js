@@ -229,17 +229,13 @@ app.controller("ctrl-import", function($scope, $http) {
 	$scope.load_semester();
 	$scope.load_campaign();
 	$scope.load_employees();
-<<<<<<< Updated upstream
   
-=======
->>>>>>> Stashed changes
   
-/*--Phân công form--*/
-
+/*--Phân công form--*/	
 
 
 // Function để phân công sinh viên từ bảng "Chưa phân công" sang bảng "Đã phân công"
-$scope.assignStudents = function() {
+ $scope.assignStudents = function() {
   // Kiểm tra xem đã chọn mã nhân sự hay chưa
   if (!$scope.form.selectedEmployee) {
     // Hiển thị thông báo lỗi nếu chưa chọn mã nhân sự
@@ -247,22 +243,27 @@ $scope.assignStudents = function() {
     return;
   }
 
-  // Lặp qua danh sách sinh viên trong mảng tableData
-  for (var i = $scope.tableData.length - 1; i >= 0; i--) {
-    var student = $scope.tableData[i];
-    // Kiểm tra xem sinh viên có được chọn hay không
-    if (student.selected) {
-      // Thiết lập employeeId cho sinh viên đã phân công
-      student.employeeId = $scope.form.selectedEmployee;
-      // Thêm sinh viên vào mảng tableDataAssigned
-      $scope.tableDataAssigned.push(student);
-      alert("Phân công thành công!")
-      // Xóa sinh viên khỏi mảng tableData
-      $scope.tableData.splice(i, 1);
-    }
-  }
-  $scope.sortTableDataAssigned();
+  // Lặp qua danh sách sinh viên được chọn trong mảng selectedStudents
+  $scope.selectedStudents.forEach(function(student) {
+    student.employeeId = $scope.form.selectedEmployee;
+    var updatedStudent = angular.copy(student);
+    var url = `/rest/student/` + student.studentId; // Giả sử studentId là giá trị duy nhất để xác định sinh viên
+    $http.put(url, updatedStudent).then(resp => {
+      var index = $scope.tableData.findIndex(item => item.studentId == student.studentId);
+      $scope.tableData.splice(index, 1); // Xóa sinh viên khỏi bảng "Chưa phân công"
+      $scope.tableDataAssigned.push(student); // Thêm sinh viên vào bảng "Đã phân công"
+      alert("Phân công sinh viên thành công");
+    }).catch(error => {
+      console.log("Update failed.", error);
+      alert("Phân công sinh viên thất bại");
+    });
+  });
+
+  // Xóa danh sách sinh viên đã chọn trong mảng selectedStudents
+  $scope.selectedStudents = [];
 };
+
+
 
 // Function để kiểm tra xem có sinh viên nào được chọn hay không
 $scope.hasSelectedStudents = function() {
@@ -310,50 +311,68 @@ $scope.updateSelectedStudents = function(student) {
   $scope.sortTableDataAssigned();
 };
 };
-<<<<<<< Updated upstream
 
 
-=======
->>>>>>> Stashed changes
 	
 	// Thêm một mảng selectedStudents để lưu trạng thái chọn của sinh viên
 $scope.selectedStudents = [];
 
+$scope.selectAll = false; // Thêm biến $scope.allSelected
+$scope.allSelected = false; // Khởi tạo giá trị ban đầu
+
+// Hàm cập nhật trạng thái của các checkbox trong phần body dựa trên giá trị của $scope.selectAll
+  $scope.toggleSelectAll = function() {
+    $scope.tableData.forEach(function(student) {
+      student.selected = $scope.selectAll;
+    });
+    $scope.updateSelectedEmployees(); // Cập nhật trạng thái mã nhân sự khi chọn tất cả checkbox
+  };
+
 // Hàm cập nhật danh sách sinh viên được chọn
 $scope.updateSelectedStudents = function(student) {
-    if (student.selected) {
-        $scope.selectedStudents.push(student);
-    } else {
-        var index = $scope.selectedStudents.findIndex(function(selectedStudent) {
-            return selectedStudent.studentId === student.studentId;
-        });
-        $scope.selectedStudents.splice(index, 1);
-    }
+  if (!student.selected && $scope.selectAll) {
+    $scope.selectAll = false;
+  } else if (student.selected) {
+    $scope.selectedStudents.push(student);
+  } else {
+    var index = $scope.selectedStudents.findIndex(function(selectedStudent) {
+      return selectedStudent.studentId === student.studentId;
+    });
+    $scope.selectedStudents.splice(index, 1);
+  }
+  $scope.updateSelectedEmployees(); // Cập nhật trạng thái mã nhân sự khi chọn từng checkbox
 };
 
 // Hàm cập nhật mã nhân sự cho các sinh viên được chọn
 $scope.updateSelectedEmployees = function() {
-    var selectedEmployeeId = $scope.form.selectedEmployee;
-    $scope.selectedStudents.forEach(function(student) {
-        student.employee.employeeId = selectedEmployeeId;
-    });
+  var selectedStudentsCount = $scope.selectedStudents.length;
+  $scope.allSelected = (selectedStudentsCount === $scope.tableData.length);
+  var selectedEmployeeId = $scope.form.selectedEmployee;
+  $scope.selectedStudents.forEach(function(student) {
+    if (student.employee) {
+      student.employee.employeeId = selectedEmployeeId;
+    }
+  });
 };
 
-// Cập nhật danh sách sinh viên được chọn khi chọn mã nhân sự
-$scope.update = function() {
-    $scope.updateSelectedEmployees();
+$scope.update2 = function() {
+  $scope.updateSelectedEmployees();
 };
+
 
 // Cập nhật trạng thái chọn của sinh viên khi thay đổi danh sách sinh viên
 $scope.$watch('tableData', function(newTableData, oldTableData) {
-    if (newTableData !== oldTableData) {
-        newTableData.forEach(function(student) {
-            var isSelected = $scope.selectedStudents.some(function(selectedStudent) {
-                return selectedStudent.studentId === student.studentId;
-            });
-            student.selected = isSelected;
-        });
-    }
+  if (newTableData !== oldTableData) {
+    newTableData.forEach(function(student) {
+      var isSelected = $scope.selectedStudents.some(function(selectedStudent) {
+        return selectedStudent.studentId === student.studentId;
+      });
+      student.selected = isSelected;
+    });
+    $scope.allSelected = (newTableData.length > 0 && newTableData.every(function(student) {
+      return student.selected;
+    }));
+  }
 }, true);
 
 	
