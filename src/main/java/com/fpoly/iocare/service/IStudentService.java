@@ -14,6 +14,8 @@ public interface IStudentService {
 	/*--Lấy tất cả sinh viên--*/
 	List<Student> findAll(String importFileName);
 	
+	List<Student> findNotNull();
+	
 	/*--Cập nhật student (phân công nhân sự)--*/
 	Student update(Student student);
 }

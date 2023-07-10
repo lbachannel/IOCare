@@ -44,6 +44,15 @@ public class StudentRestController {
 		return ResponseEntity.ok(students);
 	}
 	
+	@GetMapping("/rest/student2")
+	public ResponseEntity<List<Student>> findNotNull(){
+		List<Student> students = studentService.findNotNull();
+		if(students.isEmpty()) {
+			return ResponseEntity.noContent().build();
+		}
+		return ResponseEntity.ok(students);
+	}
+	
 	/*--Cập nhật student (phân công nhân sự)--*/
 	@PutMapping("/rest/student/{studentId}")
 	public ResponseEntity<Student> update (@PathVariable("studentId") String studentId, @RequestBody Student student){

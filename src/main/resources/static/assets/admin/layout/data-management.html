@@ -194,7 +194,7 @@
 	
 	<div class="col-md-6 mb-3" style="display: flex; justify-content: flex-end;">
 			<!-- Thêm nút "Phân công" -->
-			<button class="btn btn-outline-secondary" ng-click="assignStudents()">Phân công</button>
+		<button class="btn btn-outline-secondary"ng-click="assignStudents()">Phân công</button>	
 	</div>
 </div>
 
@@ -227,7 +227,7 @@
 						<td><span class="badge bg-success">{{ student.subjectId }}</span></td>
 						<td class="d-none d-md-table-cell">{{ student.totalFee }}</td>
 						<td class="d-none d-md-table-cell">{{ student.campaign.campaignId }}</td>
-						<td class="d-none d-md-table-cell">{{ student.employeeId }}</td>
+						<td class="d-none d-md-table-cell">{{ student.employee.employeeId }}</td>
 						<td class="d-none d-md-table-cell">{{ student.thoiGianChamSoc }}</td>
 						<td class="d-none d-md-table-cell">{{ student.nguyenVong }}</td>
 						<td class="d-none d-md-table-cell">{{ student.phanLoaiDoiTuong }}</td>
@@ -275,16 +275,16 @@
 							<td ng-model="form.student.totalFee"
 								class="d-none d-md-table-cell">{{ student.totalFee }}</td>
 							<td class="d-none d-md-table-cell"><select
-								ng-model="form.selectedEmployee" ng-change="update2()"
-								class="form-select" ng-show="selectAll || student.selected">
-									<option ng-repeat="x in employees" ng-value="x.employeeId">{{
+								ng-model="form.employees.employeeId" 
+								class="form-select" ng-show="selectAll || student.selected" >
+									<option ng-repeat="x in employees" value="{{x}}">{{
 										x.employeeId }}</option>
 							</select></td>
 
 							<td ng-model="form.student.imported.importedFileName"
 								class="d-none d-md-table-cell">{{
 								student.imported.importedFileName }}</td>
-						</tr>
+						</tr>			
 					</tbody>
 				</table>
 				<button class="btn btn-light">Xem thêm</button>

@@ -39,5 +39,10 @@ public class StudentServiceImpl implements IStudentService{
 		return dao.save(student);
 	}
 
+	@Override
+	public List<Student> findNotNull() {
+		return dao.findNotNull();
+	}
+
 	
 }

@@ -9,6 +9,9 @@ import com.fpoly.iocare.model.Student;
 
 public interface IStudentDAO extends JpaRepository<Student, String>{
 	/*--Lấy tất cả sinh viên--*/
-	@Query(value = "select * from Students where ImportedFileName = ?1", nativeQuery = true)
+	@Query(value = "select * from Students where ImportedFileName = ?1 AND Employeeid IS NULL", nativeQuery = true)
 	List<Student> findAll(String importFileName);
+	
+	@Query(value = "select * from Students where Employeeid IS NOT NULL", nativeQuery = true)
+	List<Student> findNotNull();
 }
