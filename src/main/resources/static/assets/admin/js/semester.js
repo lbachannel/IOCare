@@ -1,7 +1,11 @@
 let pathSemester = "http://localhost:8080/rest";
+let pathStudent = "http://localhost:8080/rest";
+let pathHistoryStudent = "http://localhost:8080/rest";
 app.controller("ctrl-semester", function($scope, $http, $filter, $timeout) {
 	$scope.form = {};
 	$scope.items = [];
+	$scope.items2 = [];
+	$scope.items3 = [];
 	$scope.startTime = null;
 	$scope.endTime = null;
 
@@ -231,4 +235,143 @@ $scope.myForm.endDate.$setValidity('dateComparison', false);
 	
 	/*--Gọi hàm hiển thị tất cả học kỳ--*/
 	$scope.findAll();
+	
+	/*======================================================================================================================*/
+	
+	$scope.semesters = [];
+	$scope.campaigns = [];
+	$scope.imported = [];
+	$scope.aspiration = [];
+	$scope.objclassification = [];
+	$scope.riskclassification = [];
+
+
+	/*--Lấy tất cả học kỳ vào select box--*/
+	$scope.loadSemester = function() {
+		$http.get("/rest/semester").then(resp => {
+			$scope.semesters = resp.data;
+		});
+	};
+	/*--Lấy tất cả chiến dịch vào select box--*/
+	$scope.loadCampaign = function() {
+		$http.get("/rest/campaign").then(resp => {
+			$scope.campaigns = resp.data;
+		});
+	};
+	/*--Lấy tất cả chiến dịch vào select box--*/
+	$scope.loadImport = function() {
+		$http.get("/rest/imported").then(resp => {
+			$scope.imported = resp.data;
+		});
+	};
+
+	/*--Lấy tất cả nguyện vọng vào select box--*/
+	$scope.loadAspiration = function() {
+		$http.get("/rest/aspiration").then(resp => {
+			$scope.aspiration = resp.data;
+		});
+	};
+
+	/*--Lấy tất cả phân loại đối tượng vào select box--*/
+	$scope.loadObjClassification = function() {
+		$http.get("/rest/objclassification").then(resp => {
+			$scope.objclassification = resp.data;
+		});
+	};
+
+	/*--Lấy tất cả phân loại rủi ro vào select box--*/
+	$scope.loadRiskClassification = function() {
+		$http.get("/rest/riskclassification").then(resp => {
+			$scope.riskclassification = resp.data;
+		});
+	};
+
+
+	/*--Lấy tất cả sinh viên đã được phân công nhân sự--*/
+	$scope.load_all = function() {
+		var url = `${pathStudent}/studentforem/User1`;
+		$http.get(url).then(resp => {
+			$scope.items2 = resp.data;
+			console.log($scope.items2)
+			console.log("Success sinh viên", resp)
+		}).catch(errors => {
+			console.log("Error sinh viên", errors)
+		});
+	};
+
+	/*--Hiển thị sinh viên lên form--*/
+	$scope.editsv = function(studentId) {
+		angular.forEach($scope.items2, function(value) {
+			if (value.studentId == studentId) {
+				$scope.form = value;
+				console.log($scope.form);
+			}
+
+		});
+	};
+
+	/*--Cập nhật sinh viên từ form-- */
+	$scope.updatesv = function() {
+		var item = angular.copy($scope.form);
+
+		$http
+			.put(`${pathStudent}/student/${item.studentId}`, item)
+			.then((resp) => {
+				var index = $scope.items2.findIndex((p) => p.studentId == item.studentId);
+				$scope.items2[index] = resp.data;
+				console.log("Cập nhật sinh viên thành công!!!", resp);
+				alert("Cập nhật sinh viên thành công!");
+			})
+			.catch((error) => {
+				console.log("Lỗi khi cập nhật sinh viên!!!", error);
+				alert("Lỗi khi cập nhật sinh viên!");
+			});
+	};
+
+	$scope.load_all();
+	$scope.loadSemester();
+	$scope.loadCampaign();
+	$scope.loadImport();
+	$scope.loadAspiration();
+	$scope.loadObjClassification();
+	$scope.loadRiskClassification();
+
+	/*=====================================================================================================*/
+
+	/*--Hiển thị tất cả lịch sử sinh viên--*/
+	$scope.findAllHistory = function() {
+		var url = `${pathHistoryStudent}/historystudent`;
+		$http.get(url).then(resp => {
+			$scope.items3 = resp.data;
+			console.log("Find History Success", resp)
+		}).catch(errors => {
+			console.log("Find History Error", errors)
+		});
+	}
+
+	/*--tạo mới lịch sử sinh viên--*/
+	$scope.createhistory = function() {
+		/*var item = angular.copy($scope.form);*/
+		var item = {
+			"student": $scope.form,
+			"semester": $scope.form.semester,
+			"campaign": $scope.form.campaign,
+			"employee": $scope.form.employee,
+			"reason": $scope.form.reason
+		};
+
+		var url = `${pathHistoryStudent}/historystudent`;
+		$http.post(url, item).then(resp => {
+			$scope.items3.push(item);
+			console.log("Insert value to History Successfully!", resp);
+		}).catch(error => {
+			console.log("History Error", error);
+		});
+		console.log(item)
+
+	}
+
+
+	$scope.findAllHistory();
+	
 });

@@ -12,6 +12,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,7 +25,6 @@ import lombok.NoArgsConstructor;
 @Table(name = "Employees")
 public class Employee implements Serializable{
 	private static final long serialVersionUID = 1L;
-
 
 	@Id
 	@Column(name = "Employeeid")

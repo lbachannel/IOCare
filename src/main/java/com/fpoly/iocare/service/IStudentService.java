@@ -16,6 +16,9 @@ public interface IStudentService {
 	
 	List<Student> findNotNull();
 	
+	/*--Lấy tất cả sinh viên đã được phân công nhân sự--*/
+	List<Student> findByEmployeeId(String employeeId);
+	
 	/*--Cập nhật student (phân công nhân sự)--*/
 	Student update(Student student);
 }
