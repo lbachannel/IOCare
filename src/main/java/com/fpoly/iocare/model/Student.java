@@ -73,7 +73,7 @@ public class Student implements Serializable{
 	@JoinColumn(name = "Riskclassificationid")
 	private RiskClassification riskClassifications;
 	
-	@Column(name = "Descriptiondetails")
+	@Column(name = "Descriptiondetailsid")
 	private String DescriptionDetailsId;
 	
 	@ManyToOne
