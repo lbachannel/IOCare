@@ -35,14 +35,22 @@ public class Student implements Serializable{
 	@JoinColumn(name = "Semesterid")
 	private Semester semester;
 	
+	@ManyToOne
+	@JoinColumn(name = "Campaignid")
+	private Campaign campaign;
+	
 	@Column(name = "Subjectid")
 	private String subjectId;
+	
+	@Column(name = "Studentname")
+	private String studentName;
 	
 	@Column(name = "Totalfee")
 	private Double totalFee;
 	
 	@Column(name = "Major")
 	private String major;
+	
 	
 	@ManyToOne
 	@JoinColumn(name = "Employeeid")
@@ -51,14 +59,20 @@ public class Student implements Serializable{
 	@Column(name = "Takecaretime")
 	private LocalDate takeCareTime;
 	
+	@Column(name = "Reason")
+	private String reason;
+	
+
 	@ManyToOne
 	@JoinColumn(name = "Aspirationid")
 	private Aspiration aspirations;
 	
+
 	@ManyToOne
 	@JoinColumn(name = "Objclassificationid")
 	private ObjClassification objClassifications;
 	
+
 	@ManyToOne
 	@JoinColumn(name = "Riskclassificationid")
 	private RiskClassification riskClassifications;

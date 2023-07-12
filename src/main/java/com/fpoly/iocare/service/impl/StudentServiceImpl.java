@@ -39,5 +39,15 @@ public class StudentServiceImpl implements IStudentService{
 		return dao.save(student);
 	}
 
+	@Override
+	public List<Student> findNotNull() {
+		return dao.findNotNull();
+	}
+	
+	/*--Hiển thị tất cả sinh viên đã được phân công nhân sự--*/
+	@Override
+	public List<Student> findByEmployeeId(String employeeId) {
+		return dao.findByEmployeeId(employeeId);
+	}
 	
 }

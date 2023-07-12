@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "ReasonFees")
+@Table(name = "Reasonfees")
 public class ReasonFee {
     @Id
     @Column(name = "Reasonfeeid")

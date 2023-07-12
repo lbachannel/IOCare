@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -30,6 +32,7 @@ public class RiskClassification {
 	@Column(name = "Riskclassificationdes")
 	private String riskClassificationDes;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "riskClassifications")
 	private List<Student> student = new ArrayList<>();
 }

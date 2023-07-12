@@ -44,6 +44,26 @@ public class StudentRestController {
 		return ResponseEntity.ok(students);
 	}
 	
+	@GetMapping("/rest/student2")
+	public ResponseEntity<List<Student>> findNotNull(){
+		List<Student> students = studentService.findNotNull();
+		if(students.isEmpty()) {
+			return ResponseEntity.noContent().build();
+		}
+		return ResponseEntity.ok(students);
+	}
+	
+	/*--Lấy tất cả sinh viên theo nhân sự--*/
+	@GetMapping("/rest/studentforem/{employeeId}")
+	public ResponseEntity<List<Student>> findByEmployeeId(@PathVariable("employeeId") String employeeId) {
+		
+		List<Student> students = studentService.findByEmployeeId(employeeId);
+		if (students.isEmpty()) {
+			return ResponseEntity.noContent().build();
+		}
+		return ResponseEntity.ok(students);
+	}
+	
 	/*--Cập nhật student (phân công nhân sự)--*/
 	@PutMapping("/rest/student/{studentId}")
 	public ResponseEntity<Student> update (@PathVariable("studentId") String studentId, @RequestBody Student student){

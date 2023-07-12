@@ -22,7 +22,7 @@ app.controller("ctrl-import", function($scope, $http) {
 	/*--Cập nhật tên nhân sự phụ trách cho thuộc tính của sinh viên--*/
 	$scope.update = function(){
 		var student = angular.copy($scope.form);
-		var url = `/rest/student/` + $scope.form.selectedEmployee;
+		var url = `/rest/student/` + $scope.form.employees.employeeId;
 		$http.put(url, student).then(resp => {
 			var index = $scope.items.findIndex(item => item.studentId == student.studentId);
 			$scope.items[index] = resp.data;
@@ -37,6 +37,12 @@ app.controller("ctrl-import", function($scope, $http) {
 	$scope.showStudents = function() {
 		$http.get(`/rest/student/` + $scope.selectedFileName).then(resp =>{
 			$scope.tableData = resp.data;
+		});
+	};
+	
+	$scope.showStudents2 = function() {
+		$http.get(`/rest/student2`).then(resp =>{
+			$scope.tableDataAssigned = resp.data;
 		});
 	};
 	
@@ -62,94 +68,16 @@ app.controller("ctrl-import", function($scope, $http) {
 	};
 	/*--Function xử lý nhập tệp--*/
 	$scope.import = function(files) {
-		//Gọi về yêu cầu xác thực user1
-		$http.get("/security/user2").then(resp => {
-			
-			//Nếu đúng vai trò user1 thì tiến hành import
-			var reader = new FileReader();
-			reader.onloadend = async () => {
-				if ($scope.form.campaign.campaignId === 'CSVH') {
-					var workbook = new ExcelJS.Workbook();
-					await workbook.xlsx.load(reader.result);
-					const worksheet = workbook.getWorksheet('Sheet1');
-					// Kiểm tra xem workbook có worksheet là tên 'Sheet1' hay không
-					if(!worksheet){
-						// Không tìm thấy worksheet
-						alert('Không tìm thấy worksheet có tên "Sheet1". Vui lòng kiểm tra file Excel.');
-						$scope.load_all();
-						$scope.load_filename();
-						$scope.load_semester();
-						$scope.load_campaign();
-						$scope.reset();
-						return;
-					}
-					var firstRow = worksheet.getRow(1);
-					var firstCell = firstRow.getCell(1).value;
-					var secondCell = firstRow.getCell(2).value;
-					if(firstCell === 'studentId' && secondCell === 'subjectId'){
-						worksheet.eachRow((row, index) => {
-							if (index > 1) {
-								var student = {
-									studentId: row.getCell(1).value,
-									subjectId: row.getCell(2).value,
-									imported: {
-										importedFileName: '',
-									}
-								};
-								$scope.students.push(student);
-							}
-						});	  
-					}else{
-						alert('File excel không phù hợp. Vui lòng chọn file vắng học!');
-						$scope.load_all();
-						$scope.load_filename();
-						$scope.load_semester();
-						$scope.load_campaign();
-						$scope.reset();
-						return;
-					}
-				}else if ($scope.form.campaign.campaignId === 'CSHP') {
-					var workbook = new ExcelJS.Workbook();
-					await workbook.xlsx.load(reader.result);
-					const worksheet = workbook.getWorksheet('Sheet1');
-					// Kiểm tra xem workbook có worksheet là tên 'Sheet1' hay không
-					if(!worksheet){
-						// Không tìm thấy worksheet
-						alert('Không tìm thấy worksheet có tên "Sheet1". Vui lòng kiểm tra file Excel.');
-						$scope.load_all();
-						$scope.load_filename();
-						$scope.load_semester();
-						$scope.load_campaign();
-						$scope.reset();
-						return;
-					}
-					var firstRow = worksheet.getRow(1);
-					var firstCell = firstRow.getCell(1).value;
-					var secondCell = firstRow.getCell(2).value;
-					if (firstCell === 'studentId' && secondCell === 'totalFee'){
-						worksheet.eachRow((row, index) => {
-							if (index > 1) {
-								var student = {
-									studentId: row.getCell(1).value,
-									totalFee: row.getCell(2).value,
-									imported: {
-										importedFileName: '',
-									}
-								};
-								$scope.students.push(student);
-							}
-						});
-					}else{
-						alert('File excel không phù hợp. Vui lòng chọn file học phí!');
-						$scope.load_all();
-						$scope.load_filename();
-						$scope.load_semester();
-						$scope.load_campaign();
-						$scope.reset();
-						return;
-					}
-				}else{
-					alert('File excel không phù hợp!');
+		var reader = new FileReader();
+		reader.onloadend = async () => {
+			if ($scope.form.campaign.campaignId === 'CSVH') {
+				var workbook = new ExcelJS.Workbook();
+				await workbook.xlsx.load(reader.result);
+				const worksheet = workbook.getWorksheet('Sheet1');
+				// Kiểm tra xem workbook có worksheet là tên 'Sheet1' hay không
+				if(!worksheet){
+					// Không tìm thấy worksheet
+					alert('Không tìm thấy worksheet có tên "Sheet1". Vui lòng kiểm tra file Excel.');
 					$scope.load_all();
 					$scope.load_filename();
 					$scope.load_semester();
@@ -157,26 +85,92 @@ app.controller("ctrl-import", function($scope, $http) {
 					$scope.reset();
 					return;
 				}
-	
-				
-	
-				// Lưu tên tệp vào mảng importedFileNames
-				$scope.importedFileNames.push(files[0].name);
-	
-				// Cập nhật giá trị cho biến $scope.fileName
-				$scope.$apply(function() {
-					$scope.fileName = files[0].name; 
-				});
-	    	};
-	    	reader.readAsArrayBuffer(files[0]);
-			 
-		}).catch(error => {
+				var firstRow = worksheet.getRow(1);
+				var firstCell = firstRow.getCell(1).value;
+				var secondCell = firstRow.getCell(2).value;
+				if(firstCell === 'studentId' && secondCell === 'subjectId'){
+					worksheet.eachRow((row, index) => {
+						if (index > 1) {
+							var student = {
+								studentId: row.getCell(1).value,
+								subjectId: row.getCell(2).value,
+								imported: {
+									importedFileName: '',
+								}
+							};
+							$scope.students.push(student);
+						}
+					});	  
+				}else{
+					alert('File excel không phù hợp. Vui lòng chọn file vắng học!');
+					$scope.load_all();
+					$scope.load_filename();
+					$scope.load_semester();
+					$scope.load_campaign();
+					$scope.reset();
+					return;
+				}
+			}else if ($scope.form.campaign.campaignId === 'CSHP') {
+				var workbook = new ExcelJS.Workbook();
+				await workbook.xlsx.load(reader.result);
+				const worksheet = workbook.getWorksheet('Sheet1');
+				// Kiểm tra xem workbook có worksheet là tên 'Sheet1' hay không
+				if(!worksheet){
+					// Không tìm thấy worksheet
+					alert('Không tìm thấy worksheet có tên "Sheet1". Vui lòng kiểm tra file Excel.');
+					$scope.load_all();
+					$scope.load_filename();
+					$scope.load_semester();
+					$scope.load_campaign();
+					$scope.reset();
+					return;
+				}
+				var firstRow = worksheet.getRow(1);
+				var firstCell = firstRow.getCell(1).value;
+				var secondCell = firstRow.getCell(2).value;
+				if (firstCell === 'studentId' && secondCell === 'totalFee'){
+					worksheet.eachRow((row, index) => {
+						if (index > 1) {
+							var student = {
+								studentId: row.getCell(1).value,
+								totalFee: row.getCell(2).value,
+								imported: {
+									importedFileName: '',
+								}
+							};
+							$scope.students.push(student);
+						}
+					});
+				}else{
+					alert('File excel không phù hợp. Vui lòng chọn file học phí!');
+					$scope.load_all();
+					$scope.load_filename();
+					$scope.load_semester();
+					$scope.load_campaign();
+					$scope.reset();
+					return;
+				}
+			}else{
+				alert('File excel không phù hợp!');
+				$scope.load_all();
+				$scope.load_filename();
+				$scope.load_semester();
+				$scope.load_campaign();
+				$scope.reset();
+				return;
+			}
+
 			
-			//Nếu không phải admin thì tiến hành xử lí lỗi!
-			$scope.errorHandle(error);
-			
-		});
-		
+
+			// Lưu tên tệp vào mảng importedFileNames
+			$scope.importedFileNames.push(files[0].name);
+
+			// Cập nhật giá trị cho biến $scope.fileName
+			$scope.$apply(function() {
+				$scope.fileName = files[0].name; 
+			});
+    	};
+    	reader.readAsArrayBuffer(files[0]);
 	};
   
 	// Lấy tên tệp từ mảng importedFileNames khi trang tải
@@ -226,17 +220,9 @@ app.controller("ctrl-import", function($scope, $http) {
 			$scope.fileExcelNames = resp.data;
 		});	
 	};
-
-  	/*-- Hàm gọi xử lí lỗi khi xác thực --*/
-    $scope.errorHandle = function(error){
-	
-		//Xuất ra lỗi gặp phải
-		console.log(error);
-		
-		//Load lại yêu cầu để chuyển hướng đến trang đăng nhập
-		$window.location.href = "/security/login/form";
-	}
   
+  
+    
 	/*--Reset form--*/
 	$scope.reset = function() {
 		$scope.form = {};
@@ -249,19 +235,15 @@ app.controller("ctrl-import", function($scope, $http) {
 	$scope.load_semester();
 	$scope.load_campaign();
 	$scope.load_employees();
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
+  	$scope.showStudents2();
   
-/*--Phân công form--*/
-
+/*--Phân công form--*/	
 
 
 // Function để phân công sinh viên từ bảng "Chưa phân công" sang bảng "Đã phân công"
 $scope.assignStudents = function() {
   // Kiểm tra xem đã chọn mã nhân sự hay chưa
-  if (!$scope.form.selectedEmployee) {
+  if (!$scope.form.employees.employeeId) {
     // Hiển thị thông báo lỗi nếu chưa chọn mã nhân sự
     alert("Vui lòng chọn mã nhân sự trước khi phân công!");
     return;
@@ -273,15 +255,49 @@ $scope.assignStudents = function() {
     // Kiểm tra xem sinh viên có được chọn hay không
     if (student.selected) {
       // Thiết lập employeeId cho sinh viên đã phân công
-      student.employeeId = $scope.form.selectedEmployee;
-      // Thêm sinh viên vào mảng tableDataAssigned
-      $scope.tableDataAssigned.push(student);
-      alert("Phân công thành công!")
-      // Xóa sinh viên khỏi mảng tableData
-      $scope.tableData.splice(i, 1);
+      student.employee = JSON.parse($scope.form.employees.employeeId);
+      var url = `/rest/student/` + student.studentId;
+      $http.put(url, student).then(function(resp) {
+        var index = $scope.tableData.findIndex(function(item) {
+          return item.studentId == student.studentId;
+        });
+        console.log("Cập nhật student thành công", resp);
+        $scope.showStudents();
+        $scope.showStudents2();
+        $scope.disableAssignButton = true;
+      }).catch(function(error) {
+        console.log("Cập nhật student thất bại", error);
+        alert("Phân công thất bại!");
+      });
     }
   }
-  $scope.sortTableDataAssigned();
+  alert("Phân công thành công!");
+  $scope.selectedStudents = []; // Xóa danh sách sinh viên đã chọn
+  $scope.selectAll = false; // Đặt lại trạng thái chọn tất cả checkbox
+};
+
+// Cập nhật lại mã nhân sự = null
+$scope.deleteStudent = function(student) {
+  var xacNhan = confirm("Bạn có muốn xóa không?");
+  if (xacNhan) {
+	  var url = `/rest/student/` + student.studentId;
+	  student.employee = null; // Cập nhật mã nhân sự thành null
+	  $http.put(url, student).then(function(resp) {
+	    var index = $scope.tableDataAssigned.findIndex(function(item) {
+	      return item.studentId == student.studentId;
+	    });
+	    console.log("Xóa sinh viên thành công", resp);
+	    $scope.showStudents();
+        $scope.showStudents2();
+	  }).catch(function(error) {
+	    console.log("Xóa sinh viên thất bại", error);
+	    alert("Xóa sinh viên thất bại!");
+	    alert("Xóa thất bại !");
+	  });
+  }else{
+	  // Người dùng chọn "Cancel", không thực hiện xóa
+	console.log("Xóa bị hủy");
+  }
 };
 
 // Function để kiểm tra xem có sinh viên nào được chọn hay không
@@ -290,90 +306,92 @@ $scope.hasSelectedStudents = function() {
     return student.selected;
   });
 };
-
-// Function để cập nhật danh sách sinh viên đã được chọn
-$scope.updateSelectedStudents = function(student) {
-  // Kiểm tra xem sinh viên có được chọn hay không
-  if (student.selected) {
-    // Thêm sinh viên vào mảng tableDataAssigned
-    $scope.tableDataAssigned.push(student);
-  } else {
-    // Xóa sinh viên khỏi mảng tableDataAssigned
-    var index = $scope.tableDataAssigned.indexOf(student);
-    if (index !== -1) {
-      $scope.tableDataAssigned.splice(index, 1);
-    }
-  }
-  $scope.assignStudents = function() {
-  // Kiểm tra xem đã chọn mã nhân sự hay chưa
-  if (!$scope.form.selectedEmployee) {
-    // Hiển thị thông báo lỗi nếu chưa chọn mã nhân sự
-    alert("Vui lòng chọn mã nhân sự trước khi phân công!");
-    return;
-  }
-
-  // Lặp qua danh sách sinh viên trong mảng tableData
-  for (var i = $scope.tableData.length - 1; i >= 0; i--) {
-    var student = $scope.tableData[i];
-    // Kiểm tra xem sinh viên có được chọn hay không
-    if (student.selected) {
-      // Thiết lập employeeId cho sinh viên đã phân công
-      student.employeeId = $scope.form.selectedEmployee;
-      // Thêm sinh viên vào mảng tableDataAssigned
-      $scope.tableDataAssigned.push(student);
-      // Xóa sinh viên khỏi mảng tableData
-      $scope.tableData.splice(i, 1);
-    }
-  }
-
-  // Gọi hàm sortTableDataAssigned() để sắp xếp lại bảng "Đã phân công"
-  $scope.sortTableDataAssigned();
-};
-};
-<<<<<<< Updated upstream
-	
-=======
-
->>>>>>> Stashed changes
 	// Thêm một mảng selectedStudents để lưu trạng thái chọn của sinh viên
 $scope.selectedStudents = [];
 
+$scope.selectAll = false; // Thêm biến $scope.allSelected
+$scope.allSelected = false; // Khởi tạo giá trị ban đầu
+
+// Hàm cập nhật trạng thái của các checkbox trong phần body dựa trên giá trị của $scope.selectAll
+  $scope.toggleSelectAll = function() {
+    $scope.tableData.forEach(function(student) {
+      student.selected = $scope.selectAll;
+    });
+    $scope.updateSelectedEmployees(); // Cập nhật trạng thái mã nhân sự khi chọn tất cả checkbox
+  };
+
 // Hàm cập nhật danh sách sinh viên được chọn
 $scope.updateSelectedStudents = function(student) {
-    if (student.selected) {
-        $scope.selectedStudents.push(student);
-    } else {
-        var index = $scope.selectedStudents.findIndex(function(selectedStudent) {
-            return selectedStudent.studentId === student.studentId;
-        });
-        $scope.selectedStudents.splice(index, 1);
-    }
+  if (!student.selected && $scope.selectAll) {
+    $scope.selectAll = false;
+  } else if (student.selected) {
+    $scope.selectedStudents.push(student);
+  } else {
+    var index = $scope.selectedStudents.findIndex(function(selectedStudent) {
+      return selectedStudent.studentId === student.studentId;
+    });
+    $scope.selectedStudents.splice(index, 1);
+  }
+  $scope.updateSelectedEmployees(); // Cập nhật trạng thái mã nhân sự khi chọn từng checkbox
 };
 
 // Hàm cập nhật mã nhân sự cho các sinh viên được chọn
 $scope.updateSelectedEmployees = function() {
-    var selectedEmployeeId = $scope.form.selectedEmployee;
-    $scope.selectedStudents.forEach(function(student) {
-        student.employee.employeeId = selectedEmployeeId;
-    });
-};
-
-// Cập nhật danh sách sinh viên được chọn khi chọn mã nhân sự
-$scope.update = function() {
-    $scope.updateSelectedEmployees();
-};
-
-// Cập nhật trạng thái chọn của sinh viên khi thay đổi danh sách sinh viên
-$scope.$watch('tableData', function(newTableData, oldTableData) {
-    if (newTableData !== oldTableData) {
-        newTableData.forEach(function(student) {
-            var isSelected = $scope.selectedStudents.some(function(selectedStudent) {
-                return selectedStudent.studentId === student.studentId;
-            });
-            student.selected = isSelected;
-        });
+  var selectedStudentsCount = $scope.selectedStudents.length;
+  $scope.allSelected = (selectedStudentsCount === $scope.tableData.length);
+  var selectedEmployeeId = $scope.form.employees.employeeId;
+  $scope.selectedStudents.forEach(function(student) {
+    if (student.employee) {
+      student.employee.employeeId = selectedEmployeeId;
     }
-}, true);
+  });
+};
 
+
+$scope.selectedStudentsAssigned = [];
+$scope.selectAllAssigned = false; // Khởi tạo giá trị ban đầu
+
+// Hàm cập nhật danh sách sinh viên đã chọn (đã phân công)
+$scope.updateSelectedStudentsAssigned = function(student) {
+  if (!student.selectedAssigned && $scope.selectAllAssigned) {
+    $scope.selectAllAssigned = false;
+  } else if (student.selectedAssigned) {
+    $scope.selectedStudentsAssigned.push(student);
+  } else {
+    var index = $scope.selectedStudentsAssigned.findIndex(function(selectedStudent) {
+      return selectedStudent.studentId === student.studentId;
+    });
+    $scope.selectedStudentsAssigned.splice(index, 1);
+  }
+};
+
+// Hàm xóa danh sách sinh viên đã chọn (đã phân công)
+$scope.deleteSelectedStudents = function() {
+  var confirmDelete = confirm("Bạn có chắc chắn muốn xóa danh sách sinh viên đã chọn?");
+  if (confirmDelete) {
+    $scope.selectedStudentsAssigned.forEach(function(student) {
+      var url = `/rest/student/` + student.studentId;
+      student.employee = null; // Cập nhật mã nhân sự thành null
+      $http.put(url, student).then(function(resp) {
+        var index = $scope.tableDataAssigned.findIndex(function(item) {
+          return item.studentId == student.studentId;
+        });
+        console.log("Xóa danh sách sinh viên đã chọn thành công", resp);
+        $scope.showStudents2();
+      }).catch(function(error) {
+        console.log("Xóa danh sách sinh viên đã chọn thất bại", error);
+        alert("Xóa danh sách sinh viên đã chọn thất bại!");
+      });
+    });
+    $scope.selectedStudentsAssigned = []; // Reset danh sách sinh viên đã chọn
+    $scope.selectAllAssigned = false; // Đặt lại trạng thái chọn tất cả checkbox
+  }
+};
+
+$scope.toggleSelectAllAssigned = function() {
+  $scope.tableDataAssigned.forEach(function(student) {
+    student.selectedAssigned = $scope.selectAllAssigned;
+  });
+};
 	
 });

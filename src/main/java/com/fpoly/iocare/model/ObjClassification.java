@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,7 +21,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "ObjClassification")
+@Table(name = "Objclassification")
 public class ObjClassification {
 	@Id
 	@Column(name = "Objclassificationid")
@@ -29,6 +31,7 @@ public class ObjClassification {
 	@Column(name = "Objclassificationdes")
 	private String objClassificationDes;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "objClassifications")
 	private List<Student> student = new ArrayList<>();
 }
