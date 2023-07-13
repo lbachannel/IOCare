@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -51,6 +52,7 @@ public class Employee implements Serializable{
 	private List<ImportedData> importedDatas  = new ArrayList<>();
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "employee")
-	private List<Authority> authorities  = new ArrayList<>();
+	@OneToMany(mappedBy = "employee", fetch = FetchType.EAGER)
+	List<Authority> authorities;
+	
 }

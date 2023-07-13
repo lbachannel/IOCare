@@ -12,38 +12,46 @@ import com.fpoly.iocare.model.Authority;
 import com.fpoly.iocare.model.Employee;
 import com.fpoly.iocare.service.IAuthorityService;
 
-
 @Service
 public class AuthorityServiceImpl implements IAuthorityService{
 	
-	@Autowired
-	IAuthorityDAO dao;
-
-	@Autowired
-	IEmployeeDAO iEmployeeDAO;
-	
-	@Autowired
-	BCryptPasswordEncoder pe;
-	
-	@Override
-	public List<Authority> findAll(){
-		return dao.findAll();
-	}
-	
-	@Override
-	public Authority create(Authority authority) {
-		return dao.save(authority);
-	}
-	
-	@Override
-	public void delete(Integer id) {
-		dao.deleteById(id);
-	}
-
+	@Autowired private IAuthorityDAO authdao;
+	@Autowired private IEmployeeDAO accdao;
+	@Autowired BCryptPasswordEncoder pe;
 	@Override
 	public List<Authority> findAuthoritiesOfAdministrators() {
-		List<Employee> employees = iEmployeeDAO.getAdministrators();
-		return dao.authoritiesOf(employees);
+		List<Employee> Employees = accdao.getAdministrators();
+		return authdao.authoritiesOf(Employees);
+	}
+
+	@Override
+	public List<Authority> findAll() {
+		return authdao.findAll();
+	}
+
+	@Override
+	public Authority create(Authority auth) {
+		return authdao.save(auth);
+	}
+
+	@Override
+	public void delete(Integer id) {
+		authdao.deleteById(id);
+	}
+
+	@Override
+	public List<Authority> getOneByRole(String username) {
+		return authdao.getOneByRole(username);
+	}
+
+	@Override
+	public void deleteById(String username) {
+		authdao.deleteById(username);
+	}
+
+	@Override
+	public Long getTotalCustomer() {
+		return authdao.findAll().stream().filter(e->e.getRole().getRoleName().equals("Customers")).count();
 	}
 	
 }

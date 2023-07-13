@@ -2,21 +2,27 @@ package com.fpoly.iocare.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.fpoly.iocare.model.Employee;
 
-public interface IEmployeeService {
-	/*--Thêm mới nhân sự--*/
-	Employee create(Employee employee);
-	
-	/*--Kiểm tra mã nhân sự có tồn tại hay chưa--*/
-	boolean existsById(String id);
 
-	boolean findByEmail(String email);
+@Service
+public interface IEmployeeService {
+	Employee findById(String username);
+	
+	boolean existsById(String id);
+	
+	Employee findByEmail(String email);
 
 	List<Employee> getAdministrators();
-	
-	/*--Hiển thị tất cả nhân sự--*/
+
 	List<Employee> findAll();
-	
-//	Employee resetPassword(String email);
+
+	Employee create(Employee Employee);
+
+	Employee update(Employee Employee);
+
+	Long getTotalEmployee();
+
 }

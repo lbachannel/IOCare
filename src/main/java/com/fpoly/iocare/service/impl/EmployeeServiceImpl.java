@@ -1,65 +1,59 @@
 package com.fpoly.iocare.service.impl;
 
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.fpoly.iocare.dao.IEmployeeDAO;
 import com.fpoly.iocare.model.Employee;
 import com.fpoly.iocare.service.IEmployeeService;
 
-
 @Service
 public class EmployeeServiceImpl implements IEmployeeService{
-	
-	@Autowired
-	IEmployeeDAO dao;
+	@Autowired private IEmployeeDAO accDao;
 
-	@Autowired
-	BCryptPasswordEncoder pe;
 	@Override
-	public Employee create(Employee employee) {
-		return dao.save(employee);
-	}
-	
-	/*--Kiểm tra mã nhân sự có tồn tại hay chưa--*/
-	@Override
-	public boolean existsById(String id) {
-		if(dao.existsById(id)) 
-			return true;
-		return false;
+	public Employee findById(String username) {
+		return accDao.findById(username).get();
 	}
 	
 	@Override
-	public boolean findByEmail(String email) {
-		if(dao.findByEmail(email))
-			return true;
-		return false;
+	public Employee findByEmail(String email) {
+		return accDao.findByEmail(email);
 	}
-	
-	/*--Hiển thị tất cả nhân sự--*/
-	@Override
-	public List<Employee> findAll() {
-		return dao.findAll();
-	}
-	
+
 	@Override
 	public List<Employee> getAdministrators() {
-		return dao.getAdministrators();
+		return accDao.getAdministrators();
 	}
+
+	@Override
+	public List<Employee> findAll() {
+		return accDao.findAll();
+	}
+
+	@Override
+	public Employee create(Employee Employee) {
+		return accDao.save(Employee);
+	}
+
+	@Override
+	public Employee update(Employee Employee) {
+		return accDao.save(Employee);
+	}
+	/*Summary*/
+
+	@Override
+	public Long getTotalEmployee() {
+		return accDao.count();
+	}
+	@Override
+	public boolean existsById(String id) {
+		if(accDao.existsById(id)) 
+			return true;
+		return false;
+	}
+
 	
-//	@Override
-//	public Employee resetPassword(String email) {
-//		Employee existAccount = dao.findByEmail(email);
-//		if(existAccount != null) {
-//			// random 4 số | 1000 - 9999 | công thức: (Math.random()) * ((max - min) + 1)) + min
-//			String newPass = String.valueOf((int)(Math.random() * ((9999 - 1000) + 1)) + 1000);
-//			existAccount.setEmployeePassword(newPass); // set password cho user
-//			return dao.save(existAccount); // gọi xuống dao
-//		}
-//		return null;
-//	}
 }
