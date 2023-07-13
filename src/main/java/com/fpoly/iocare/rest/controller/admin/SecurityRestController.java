@@ -10,11 +10,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fpoly.iocare.dao.IEmployeeDAO;
-import com.fpoly.iocare.model.Employee;
 
 @CrossOrigin("*")
 @RestController
 public class SecurityRestController {
+	
+	@Autowired
+	IEmployeeDAO dao;
+	
 	//Xác thực đăng nhập
 	@GetMapping("security/authenticated")
 	public Boolean authenticated(HttpSession session){
