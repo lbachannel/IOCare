@@ -341,7 +341,8 @@ app.controller("ctrl-semester", function($scope, $http, $filter, $timeout) {
 
 	/*--Hiển thị tất cả lịch sử sinh viên--*/
 	$scope.findAllHistory = function() {
-		var url = `${pathHistoryStudent}/historystudent`;
+		var user = document.querySelector('.nav-link #username').innerText.trim();
+		var url = `${pathHistoryStudent}/historystudent/${user}`;
 		$http.get(url).then(resp => {
 			$scope.items3 = resp.data;
 			console.log("Find History Success", resp)
