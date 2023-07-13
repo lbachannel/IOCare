@@ -25,11 +25,8 @@ public class HistoryStudentRestController {
 	/*--Lấy tất cả lịch sử sinh viên--*/
 	@GetMapping("/rest/historystudent/{employeeId}")
 	public ResponseEntity<List<HistoryStudent>> findAll(@PathVariable("employeeId") String employeeId) {
-//	public ResponseEntity<String> findAll() {
-		
 		try {
 			List<HistoryStudent> history = historyStudentService.findById(employeeId);
-//			System.out.println(history.size());	
 			if (history.isEmpty()) {
 				return ResponseEntity.noContent().build();
 			}
@@ -37,7 +34,6 @@ public class HistoryStudentRestController {
 		} catch (Exception e) {
 			return ResponseEntity.noContent().build();
 		}
-//		List<HistoryStudent> history = new ArrayList<>();
 		
 	}
 

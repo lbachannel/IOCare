@@ -314,11 +314,19 @@ $scope.allSelected = false; // Khởi tạo giá trị ban đầu
 
 // Hàm cập nhật trạng thái của các checkbox trong phần body dựa trên giá trị của $scope.selectAll
   $scope.toggleSelectAll = function() {
-    $scope.tableData.forEach(function(student) {
-      student.selected = $scope.selectAll;
-    });
+  $scope.selectAll = !$scope.selectAll;
+  $scope.tableData.forEach(function(student) {
+    student.selected = $scope.selectAll;
+  });
     $scope.updateSelectedEmployees(); // Cập nhật trạng thái mã nhân sự khi chọn tất cả checkbox
   };
+  
+  
+  $scope.checkSelectAll = function() {
+  $scope.selectAll = $scope.tableData.every(function(student) {
+    return student.selected;
+  });
+};
 
 // Hàm cập nhật danh sách sinh viên được chọn
 $scope.updateSelectedStudents = function(student) {
@@ -333,6 +341,8 @@ $scope.updateSelectedStudents = function(student) {
     $scope.selectedStudents.splice(index, 1);
   }
   $scope.updateSelectedEmployees(); // Cập nhật trạng thái mã nhân sự khi chọn từng checkbox
+    $scope.checkSelectAll(); // Gọi hàm để kiểm tra trạng thái chọn tất cả
+
 };
 
 // Hàm cập nhật mã nhân sự cho các sinh viên được chọn
@@ -389,9 +399,18 @@ $scope.deleteSelectedStudents = function() {
 };
 
 $scope.toggleSelectAllAssigned = function() {
+  var allSelected = $scope.tableDataAssigned.every(function(student) {
+    return student.selectedAssigned;
+  });
+
+  $scope.selectAllAssigned = !allSelected;
+
   $scope.tableDataAssigned.forEach(function(student) {
-    student.selectedAssigned = $scope.selectAllAssigned;
+    student.selectedAssigned = !$scope.selectAllAssigned;
+    $scope.updateSelectedStudentsAssigned(student); // Cập nhật danh sách sinh viên đã chọn
   });
 };
+
+
 	
 });

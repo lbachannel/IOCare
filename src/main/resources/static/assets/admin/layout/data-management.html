@@ -224,7 +224,7 @@
 				</thead>
 				<tbody>
 					<tr ng-repeat="student in tableDataAssigned">
-						<td><input type="checkbox" ng-model="student.selectedAssigned" ng-change="updateSelectedStudentsAssigned(student)" ng-checked="selectAllAssigned"></td>
+						<td><input type="checkbox" ng-model="student.selectedAssigned" ng-change="updateSelectedStudentsAssigned(student)"  ng-checked="selectAllAssigned"></td>
 						<td>{{ student.studentId }}</td>
 						<td class="d-none d-xl-table-cell">{{ student.semester.semesterId }}</td>
 						<td><span class="badge bg-success">{{ student.subjectId }}</span></td>

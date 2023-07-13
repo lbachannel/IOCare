@@ -35,4 +35,10 @@ public class HistoryStudentServiceImpl implements IHistoryStudentService{
 		return dao.findById(employeeId);
 	}
 	
+	@Override
+	public List<HistoryStudent> findById(String employeeId) {
+		// TODO Auto-generated method stub
+		return dao.findById(employeeId);
+	}
+	
 }
