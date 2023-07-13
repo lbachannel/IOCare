@@ -2,6 +2,8 @@ package com.fpoly.iocare.service.impl;
 
 import java.util.List;
 
+import javax.mail.search.AddressStringTerm;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +27,12 @@ public class HistoryStudentServiceImpl implements IHistoryStudentService{
 	@Override
 	public List<HistoryStudent> findAll() {
 		return dao.findAll();
+	}
+
+	@Override
+	public List<HistoryStudent> findById(String employeeId) {
+		// TODO Auto-generated method stub
+		return dao.findById(employeeId);
 	}
 	
 }

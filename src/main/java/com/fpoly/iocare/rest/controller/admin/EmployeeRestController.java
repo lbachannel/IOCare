@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -61,6 +62,11 @@ public class EmployeeRestController {
 		
 		authorityService.create(authority);
 		return ResponseEntity.ok(employee);
+	}
+	
+	@GetMapping("/rest/employee/{employeeId}")
+	public Employee getEmployee(@PathVariable("employeeId") String employeeId){
+		return employeeService.findById(employeeId);
 	}
 	
 }

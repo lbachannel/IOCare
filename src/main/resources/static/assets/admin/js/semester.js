@@ -289,7 +289,8 @@ app.controller("ctrl-semester", function($scope, $http, $filter, $timeout) {
 
 	/*--Lấy tất cả sinh viên đã được phân công nhân sự--*/
 	$scope.load_all = function() {
-		var url = `${pathStudent}/studentforem/User1`;
+		//login chưa trả về id nên bỏ thẳng vào để test
+		var url = `${pathStudent}/studentforem/test`;
 		$http.get(url).then(resp => {
 			$scope.items2 = resp.data;
 			console.log($scope.items2)
@@ -340,7 +341,8 @@ app.controller("ctrl-semester", function($scope, $http, $filter, $timeout) {
 
 	/*--Hiển thị tất cả lịch sử sinh viên--*/
 	$scope.findAllHistory = function() {
-		var url = `${pathHistoryStudent}/historystudent`;
+		//login chưa trả về id nên bỏ thẳng vào để test
+		var url = `${pathHistoryStudent}/historystudent/test`;
 		$http.get(url).then(resp => {
 			$scope.items3 = resp.data;
 			console.log("Find History Success", resp)

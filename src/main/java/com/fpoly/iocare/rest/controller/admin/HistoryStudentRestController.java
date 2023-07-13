@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,12 +23,12 @@ public class HistoryStudentRestController {
 	IHistoryStudentService historyStudentService;
 
 	/*--Lấy tất cả lịch sử sinh viên--*/
-	@GetMapping("/rest/historystudent")
-	public ResponseEntity<List<HistoryStudent>> findAll() {
+	@GetMapping("/rest/historystudent/{employeeId}")
+	public ResponseEntity<List<HistoryStudent>> findAll(@PathVariable("employeeId") String employeeId) {
 //	public ResponseEntity<String> findAll() {
 		
 		try {
-			List<HistoryStudent> history = historyStudentService.findAll();
+			List<HistoryStudent> history = historyStudentService.findById(employeeId);
 //			System.out.println(history.size());	
 			if (history.isEmpty()) {
 				return ResponseEntity.noContent().build();
