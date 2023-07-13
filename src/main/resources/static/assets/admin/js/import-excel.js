@@ -399,9 +399,18 @@ $scope.deleteSelectedStudents = function() {
 };
 
 $scope.toggleSelectAllAssigned = function() {
+  var allSelected = $scope.tableDataAssigned.every(function(student) {
+    return student.selectedAssigned;
+  });
+
+  $scope.selectAllAssigned = !allSelected;
+
   $scope.tableDataAssigned.forEach(function(student) {
-    student.selectedAssigned = $scope.selectAllAssigned;
+    student.selectedAssigned = !$scope.selectAllAssigned;
+    $scope.updateSelectedStudentsAssigned(student); // Cập nhật danh sách sinh viên đã chọn
   });
 };
+
+
 	
 });
