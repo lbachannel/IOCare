@@ -15,10 +15,6 @@ import com.fpoly.iocare.model.Employee;
 @CrossOrigin("*")
 @RestController
 public class SecurityRestController {
-	
-	@Autowired
-	IEmployeeDAO dao;
-	
 	//Xác thực đăng nhập
 	@GetMapping("security/authenticated")
 	public Boolean authenticated(HttpSession session){
