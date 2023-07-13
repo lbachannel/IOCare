@@ -289,7 +289,8 @@ app.controller("ctrl-semester", function($scope, $http, $filter, $timeout) {
 
 	/*--Lấy tất cả sinh viên đã được phân công nhân sự--*/
 	$scope.load_all = function() {
-		var url = `${pathStudent}/studentforem/User1`;
+		var user = document.querySelector('.nav-link #username').innerText.trim();
+		var url = `${pathStudent}/studentforem/${user}`;
 		$http.get(url).then(resp => {
 			$scope.items2 = resp.data;
 			console.log($scope.items2)
