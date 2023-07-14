@@ -37,6 +37,7 @@ app.controller("ctrl-campaign", function($scope, $http, $filter, $timeout){
 		$http.get(url).then(resp => {
 			$scope.isDisabled = false;
 			$scope.isIdDisabled = true;
+			$scope.formChanges = true;
 			$scope.form = resp.data;
 			console.log("Success", resp);
 		}).catch(errors => {
