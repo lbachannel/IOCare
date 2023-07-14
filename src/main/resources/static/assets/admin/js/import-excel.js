@@ -312,6 +312,8 @@ $scope.selectedStudents = [];
 $scope.selectAll = false; // Thêm biến $scope.allSelected
 $scope.allSelected = false; // Khởi tạo giá trị ban đầu
 
+
+
 // Hàm cập nhật trạng thái của các checkbox trong phần body dựa trên giá trị của $scope.selectAll
   $scope.toggleSelectAll = function() {
   $scope.selectAll = !$scope.selectAll;
@@ -387,6 +389,7 @@ $scope.deleteSelectedStudents = function() {
           return item.studentId == student.studentId;
         });
         console.log("Xóa danh sách sinh viên đã chọn thành công", resp);
+        $scope.showStudents();
         $scope.showStudents2();
       }).catch(function(error) {
         console.log("Xóa danh sách sinh viên đã chọn thất bại", error);
