@@ -239,8 +239,9 @@ app.controller("ctrl-import", function($scope, $http) {
   
 /*--Phân công form--*/	
 
+$scope.disableAssignButton = false;
 
-// Function để phân công sinh viên từ bảng "Chưa phân công" sang bảng "Đã phân công"
+
 $scope.assignStudents = function() {
   // Kiểm tra xem đã chọn mã nhân sự hay chưa
   if (!$scope.form.employees.employeeId) {
@@ -264,7 +265,9 @@ $scope.assignStudents = function() {
         console.log("Cập nhật student thành công", resp);
         $scope.showStudents();
         $scope.showStudents2();
-        $scope.disableAssignButton = true;
+        $scope.selectAll = false; // Thiết lập checkbox selectAll thành không được chọn
+  		$scope.selectedStudents = []; // Xóa danh sách sinh viên đã chọn
+
       }).catch(function(error) {
         console.log("Cập nhật student thất bại", error);
         alert("Phân công thất bại!");
@@ -272,8 +275,6 @@ $scope.assignStudents = function() {
     }
   }
   alert("Phân công thành công!");
-  $scope.selectedStudents = []; // Xóa danh sách sinh viên đã chọn
-  $scope.selectAll = false; // Đặt lại trạng thái chọn tất cả checkbox
 };
 
 // Cập nhật lại mã nhân sự = null
@@ -300,12 +301,16 @@ $scope.deleteStudent = function(student) {
   }
 };
 
-// Function để kiểm tra xem có sinh viên nào được chọn hay không
+// Hàm để kiểm tra xem có sinh viên nào được chọn hay không
 $scope.hasSelectedStudents = function() {
-  return $scope.tableData.some(function(student) {
-    return student.selected;
-  });
+  if (Array.isArray($scope.tableData)) { // Kiểm tra xem tableData có phải là một mảng hay không
+    return $scope.tableData.some(function(student) {
+      return student.selected;
+    });
+  }
+  return false; // Trả về false nếu tableData không phải là một mảng
 };
+
 	// Thêm một mảng selectedStudents để lưu trạng thái chọn của sinh viên
 $scope.selectedStudents = [];
 
@@ -315,13 +320,17 @@ $scope.allSelected = false; // Khởi tạo giá trị ban đầu
 
 
 // Hàm cập nhật trạng thái của các checkbox trong phần body dựa trên giá trị của $scope.selectAll
-  $scope.toggleSelectAll = function() {
+$scope.toggleSelectAll = function() {
   $scope.selectAll = !$scope.selectAll;
-  $scope.tableData.forEach(function(student) {
-    student.selected = $scope.selectAll;
-  });
+  if (Array.isArray($scope.tableData)) { // Kiểm tra xem tableData có phải là một mảng hay không
+    $scope.tableData.forEach(function(student) {
+      student.selected = $scope.selectAll;
+    });
     $scope.updateSelectedEmployees(); // Cập nhật trạng thái mã nhân sự khi chọn tất cả checkbox
-  };
+    $scope.checkSelectAll(); // Kiểm tra trạng thái chọn tất cả
+  }
+};
+
   
   
   $scope.checkSelectAll = function() {
@@ -351,7 +360,7 @@ $scope.updateSelectedStudents = function(student) {
 $scope.updateSelectedEmployees = function() {
   var selectedStudentsCount = $scope.selectedStudents.length;
   $scope.allSelected = (selectedStudentsCount === $scope.tableData.length);
-  var selectedEmployeeId = $scope.form.employees.employeeId;
+  var selectedEmployeeId = $scope.form.employees && $scope.form.employees.employeeId; // Kiểm tra tồn tại của employees.employeeId
   $scope.selectedStudents.forEach(function(student) {
     if (student.employee) {
       student.employee.employeeId = selectedEmployeeId;
@@ -402,18 +411,18 @@ $scope.deleteSelectedStudents = function() {
 };
 
 $scope.toggleSelectAllAssigned = function() {
-  var allSelected = $scope.tableDataAssigned.every(function(student) {
-    return student.selectedAssigned;
-  });
+  if (Array.isArray($scope.tableDataAssigned)) { // Kiểm tra xem tableDataAssigned có phải là một mảng hay không
+    var allSelected = $scope.tableDataAssigned.every(function(student) {
+      return student.selectedAssigned;
+    });
 
-  $scope.selectAllAssigned = !allSelected;
+    $scope.selectAllAssigned = !allSelected;
 
-  $scope.tableDataAssigned.forEach(function(student) {
-    student.selectedAssigned = !$scope.selectAllAssigned;
-    $scope.updateSelectedStudentsAssigned(student); // Cập nhật danh sách sinh viên đã chọn
-  });
+    $scope.tableDataAssigned.forEach(function(student) {
+      student.selectedAssigned = !$scope.selectAllAssigned;
+      $scope.updateSelectedStudentsAssigned(student); // Cập nhật danh sách sinh viên đã chọn
+    });
+  }
 };
-
-
 	
 });
