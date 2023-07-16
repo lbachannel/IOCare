@@ -32,25 +32,25 @@ app.controller("ctrl-semester", function($scope, $http, $filter, $timeout) {
 
 
 	$scope.formatDate = function(dateString) {
-	  if (!dateString) return null;
-	  var date = new Date(dateString);
-	  var formattedDate = moment(date).format('YYYY-MM-DD');
-	  return formattedDate;
+		if (!dateString) return null;
+		var date = new Date(dateString);
+		var formattedDate = moment(date).format('YYYY-MM-DD');
+		return formattedDate;
 	};
 	/*--Hiển thị học kỳ lên form--*/
 	$scope.edit = function(semesterId) {
-	    var url = `${pathSemester}/semester/${semesterId}`;
-	
-	    $http.get(url).then(resp => {
+		var url = `${pathSemester}/semester/${semesterId}`;
+
+		$http.get(url).then(resp => {
 			$scope.isIdDisabled = true;
-	        $scope.form = resp.data;
-	        $scope.form.startTime = new Date(resp.data.startTime);
-	        $scope.form.endTime = new Date(resp.data.endTime);
-	        console.log("Success", resp);
-	        $scope.isDisabled = true;
-	    }).catch(errors => {
-	        console.log("Error", errors);
-	    });
+			$scope.form = resp.data;
+			$scope.form.startTime = new Date(resp.data.startTime);
+			$scope.form.endTime = new Date(resp.data.endTime);
+			console.log("Success", resp);
+			$scope.isDisabled = true;
+		}).catch(errors => {
+			console.log("Error", errors);
+		});
 	}
 
 
@@ -85,93 +85,93 @@ app.controller("ctrl-semester", function($scope, $http, $filter, $timeout) {
 
 	/*--Gọi API Backend tạo mới học kỳ--*/
 	$scope.create = function() {
-	    if ($scope.myForm.$valid) {
-	        var item = angular.copy($scope.form);
-	        var url = `${pathSemester}/semester`;
-	
-	        if (item.semesterId.length > 5) {
+		if ($scope.myForm.$valid) {
+			var item = angular.copy($scope.form);
+			var url = `${pathSemester}/semester`;
+
+			if (item.semesterId.length > 5) {
 				$scope.isIdDisabled = false; // Cho phép chỉnh sửa mã chiến dịch
-	            $scope.myForm.semesterId.$setValidity('length', false);
-	            $timeout(function() {
-	                $scope.myForm.semesterId.$setValidity('length', true);
-	            }, 5000);
-	            return;
-	        }
-	
-	        // Check duplicate semesterId
-	        var duplicate = $scope.items.some(function(existingItem) {
-			return existingItem.semesterId === item.semesterId;
-	        });
-	
-	        if (duplicate) {
-	            $scope.myForm.semesterId.$setValidity('duplicate', false);
-	            $timeout(function() {
-	                $scope.myForm.semesterId.$setValidity('duplicate', true);
-	            }, 5000);
-	            return;
-	        }
-			
-			if (/[a-z]/.test(item.semesterId)) {
-			  $scope.isLowercaseError = true; // Hiển thị thông báo lỗi mã học kì viết thường
-			
-			  setTimeout(function() {
-			    $scope.isLowercaseError = false; // Ẩn thông báo lỗi sau 5 giây
-			    $scope.$apply(); // Áp dụng các thay đổi vào $scope (nếu cần)
-			  }, 5000); // 5 giây (5000 milliseconds)
-			
-			  return;
+				$scope.myForm.semesterId.$setValidity('length', false);
+				$timeout(function() {
+					$scope.myForm.semesterId.$setValidity('length', true);
+				}, 5000);
+				return;
 			}
-	        // Kiểm tra ngày bắt đầu và ngày kết thúc
-	        var startDate = new Date(item.startTime);
-	        var endDate = new Date(item.endTime);
-	
-	        if (startDate >= endDate) {
-	            $scope.myForm.startDate.$setValidity('dateComparison', false);
-	            $scope.myForm.endDate.$setValidity('dateComparison', false);
-	            $timeout(function() {
-	                $scope.myForm.startDate.$setValidity('dateComparison', true);
-	            	$scope.myForm.endDate.$setValidity('dateComparison', true);
-	            }, 5000);
-	            return;
-	        }
-	
-	        $http.post(url, item).then(resp => {
-	            $scope.items.push(item);
-	            console.log("Insert value to Semester Successfully!", resp);
-	            alert("Thêm mới thành công!");
-	
-	            $scope.submitted = false;
-	            $scope.reset();
-	        }).catch(error => {
-	            console.log("Adding new encountered an error. Please check again.", error);
-	            alert("Đã xảy ra lỗi khi thêm mới học kì. Vui lòng kiểm tra lại.");
-	            $scope.hideErrorAfterDelay();
-	        });
-	    } else {
-	        $scope.submitted = true;
-	        $scope.myForm.startDate.$setValidity('dateComparison', true);
-	        $scope.myForm.endDate.$setValidity('dateComparison', true);
-	    }
-	    $scope.hideErrorAfterDelay();
+
+			// Check duplicate semesterId
+			var duplicate = $scope.items.some(function(existingItem) {
+				return existingItem.semesterId === item.semesterId;
+			});
+
+			if (duplicate) {
+				$scope.myForm.semesterId.$setValidity('duplicate', false);
+				$timeout(function() {
+					$scope.myForm.semesterId.$setValidity('duplicate', true);
+				}, 5000);
+				return;
+			}
+
+			if (/[a-z]/.test(item.semesterId)) {
+				$scope.isLowercaseError = true; // Hiển thị thông báo lỗi mã học kì viết thường
+
+				setTimeout(function() {
+					$scope.isLowercaseError = false; // Ẩn thông báo lỗi sau 5 giây
+					$scope.$apply(); // Áp dụng các thay đổi vào $scope (nếu cần)
+				}, 5000); // 5 giây (5000 milliseconds)
+
+				return;
+			}
+			// Kiểm tra ngày bắt đầu và ngày kết thúc
+			var startDate = new Date(item.startTime);
+			var endDate = new Date(item.endTime);
+
+			if (startDate >= endDate) {
+				$scope.myForm.startDate.$setValidity('dateComparison', false);
+				$scope.myForm.endDate.$setValidity('dateComparison', false);
+				$timeout(function() {
+					$scope.myForm.startDate.$setValidity('dateComparison', true);
+					$scope.myForm.endDate.$setValidity('dateComparison', true);
+				}, 5000);
+				return;
+			}
+
+			$http.post(url, item).then(resp => {
+				$scope.items.push(item);
+				console.log("Insert value to Semester Successfully!", resp);
+				alert("Thêm mới thành công!");
+
+				$scope.submitted = false;
+				$scope.reset();
+			}).catch(error => {
+				console.log("Adding new encountered an error. Please check again.", error);
+				alert("Đã xảy ra lỗi khi thêm mới học kì. Vui lòng kiểm tra lại.");
+				$scope.hideErrorAfterDelay();
+			});
+		} else {
+			$scope.submitted = true;
+			$scope.myForm.startDate.$setValidity('dateComparison', true);
+			$scope.myForm.endDate.$setValidity('dateComparison', true);
+		}
+		$scope.hideErrorAfterDelay();
 	};
-		//resetform//
+	//resetform//
 	$scope.reset = function() {
-	    $scope.form = {};
-	    $scope.startTime = null;
-	    $scope.endTime = null;
+		$scope.form = {};
+		$scope.startTime = null;
+		$scope.endTime = null;
 		$scope.isDisabled = false;
-	    $scope.isIdDisabled = false;
-	    $scope.formChanges = false;
+		$scope.isIdDisabled = false;
+		$scope.formChanges = false;
 		$scope.submitted = false;
 		$scope.isLowercaseError = false;
-	    if ($scope.myForm) {
-	        $scope.myForm.semesterId.$setValidity('duplicate', true);
-	        $scope.myForm.semesterId.$setValidity('length', true);
-	        $scope.myForm.startDate.$setValidity('dateComparison', true); // Thêm dòng này
-	        $scope.myForm.endDate.$setValidity('dateComparison', true); // Thêm dòng này
-	        $scope.myForm.$setPristine();
-	        $scope.myForm.$setUntouched();
-	    }
+		if ($scope.myForm) {
+			$scope.myForm.semesterId.$setValidity('duplicate', true);
+			$scope.myForm.semesterId.$setValidity('length', true);
+			$scope.myForm.startDate.$setValidity('dateComparison', true); // Thêm dòng này
+			$scope.myForm.endDate.$setValidity('dateComparison', true); // Thêm dòng này
+			$scope.myForm.$setPristine();
+			$scope.myForm.$setUntouched();
+		}
 	};
 
 
@@ -181,63 +181,63 @@ app.controller("ctrl-semester", function($scope, $http, $filter, $timeout) {
 	$scope.formChanges = false;
 
 	$scope.checkFormChanges = function() {
-	  $scope.formChanges = true;
+		$scope.formChanges = true;
 	}
 	//Update form
 	$scope.update = function() {
 		if (!$scope.formChanges) {
-	    // Không có sự thay đổi, không thực hiện cập nhật
-	   		return;
-	  	}
-	  	
+			// Không có sự thay đổi, không thực hiện cập nhật
+			return;
+		}
+
 		if ($scope.myForm.$valid) {
-			
+
 			var item = angular.copy($scope.form);
-			
+
 			var startDate = new Date(item.startTime);
-	        var endDate = new Date(item.endTime);
-	
-	        if (startDate >= endDate) {
-	            $scope.myForm.startDate.$setValidity('dateComparison', false);
+			var endDate = new Date(item.endTime);
+
+			if (startDate >= endDate) {
+				$scope.myForm.startDate.$setValidity('dateComparison', false);
 				$scope.myForm.endDate.$setValidity('dateComparison', false);
-	            $timeout(function() {
-	                $scope.myForm.startDate.$setValidity('dateComparison', true);
-	            	$scope.myForm.endDate.$setValidity('dateComparison', true);
-	            }, 5000);
-	            return;
-	        }
-	        $http
-	        .put(`${pathSemester}/semester/${item.semesterId}`, item)
-	        .then((resp) => {
-	            var index = $scope.items.findIndex((p) => p.semesterId == item.semesterId);
-	            $scope.items[index] = resp.data;
-	            console.log("Cập nhật học kì thành công!", resp);
-	            $scope.findAll();
-				$scope.reset();
-	            alert("Cập nhật học kì thành công!");
-	            
-	        })
-	        .catch((error) => {
-	            console.log("Lỗi khi cập nhật học kì!", error);
-	            $scope.reset();
-	            alert("Lỗi khi cập nhật học kì!");
-	        });
-		}else {
-	        $scope.submitted = true;
-	        $scope.myForm.startDate.$setValidity('dateComparison', true);
-	        $scope.myForm.endDate.$setValidity('dateComparison', true);
-	    }
-	    $scope.hideErrorAfterDelay();
+				$timeout(function() {
+					$scope.myForm.startDate.$setValidity('dateComparison', true);
+					$scope.myForm.endDate.$setValidity('dateComparison', true);
+				}, 5000);
+				return;
+			}
+			$http
+				.put(`${pathSemester}/semester/${item.semesterId}`, item)
+				.then((resp) => {
+					var index = $scope.items.findIndex((p) => p.semesterId == item.semesterId);
+					$scope.items[index] = resp.data;
+					console.log("Cập nhật học kì thành công!", resp);
+					$scope.findAll();
+					$scope.reset();
+					alert("Cập nhật học kì thành công!");
+
+				})
+				.catch((error) => {
+					console.log("Lỗi khi cập nhật học kì!", error);
+					$scope.reset();
+					alert("Lỗi khi cập nhật học kì!");
+				});
+		} else {
+			$scope.submitted = true;
+			$scope.myForm.startDate.$setValidity('dateComparison', true);
+			$scope.myForm.endDate.$setValidity('dateComparison', true);
+		}
+		$scope.hideErrorAfterDelay();
 	};
-	
+
 	/*--Gọi hàm reset--*/
 	$scope.reset();
-	
+
 	/*--Gọi hàm hiển thị tất cả học kỳ--*/
 	$scope.findAll();
-	
+
 	/*======================================================================================================================*/
-	
+
 	$scope.semesters = [];
 	$scope.campaigns = [];
 	$scope.imported = [];
@@ -314,12 +314,12 @@ app.controller("ctrl-semester", function($scope, $http, $filter, $timeout) {
 	/*--Cập nhật sinh viên từ form-- */
 	$scope.updatesv = function() {
 		var item = angular.copy($scope.form);
-
 		$http
 			.put(`${pathStudent}/student/${item.studentId}`, item)
 			.then((resp) => {
 				var index = $scope.items2.findIndex((p) => p.studentId == item.studentId);
 				$scope.items2[index] = resp.data;
+				$scope.load_all();
 				console.log("Cập nhật sinh viên thành công!!!", resp);
 				alert("Cập nhật sinh viên thành công!");
 			})
@@ -361,19 +361,47 @@ app.controller("ctrl-semester", function($scope, $http, $filter, $timeout) {
 			"employee": $scope.form.employee,
 			"reason": $scope.form.reason
 		};
+		console.log("item đây nè", item)
+		console.log("items đây nè", $scope.items3)
+		var checklist = false;
+		var histoId;
+		for (let i = 0; i < $scope.items3.length; i++) {
+			if ($scope.items3[i].student.studentId == item.student.studentId) {
+				checklist = true;
+				histoId = $scope.items3[i].historyStudentId;
+				break;
+			} else {
+				checklist = false;
+			}
+		}
 
-		var url = `${pathHistoryStudent}/historystudent`;
-		$http.post(url, item).then(resp => {
-			$scope.items3.push(item);
-			console.log("Insert value to History Successfully!", resp);
-		}).catch(error => {
-			console.log("History Error", error);
-		});
-		console.log(item)
+		if (!checklist) {
+			var url = `${pathHistoryStudent}/historystudent`;
+			$http.post(url, item).then(resp => {
+				$scope.items3.push(item);
+				$scope.findAllHistory();
+				console.log("Insert value to History Successfully!", resp);
+			}).catch(error => {
+				console.log("History Error", error);
+			});
+			console.log(item)
+		} else {
+			var url = `${pathHistoryStudent}/historystu/${histoId}`;
+			$http.put(url, item).then((resp) => {
+				var index = $scope.items3.findIndex((p) => p.student.studentId == item.student.studentId);
+				$scope.items3[index] = resp.data;
+				$scope.findAllHistory();
+				console.log("Update value to History Successfully!", resp);
+			})
+				.catch((error) => {
+					console.log("History Update Error", error);
+				});
+			console.log(item)
+		}
 
 	}
 
 
 	$scope.findAllHistory();
-	
+
 });

@@ -81,7 +81,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 			
 			///Các yêu cầu chỉ được cấp phép khi đã đăng nhập
 			.antMatchers("/security/authenticated").authenticated()
-			.antMatchers("/rest/**").authenticated()
+//			.antMatchers("/rest/**").authenticated()
 			
 			//Các yêu cầu còn lại không cần cấp phép (tránh lỗi vòng lặp xác thực) 
 			.anyRequest().permitAll();

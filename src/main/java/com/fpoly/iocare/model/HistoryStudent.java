@@ -48,7 +48,7 @@ public class HistoryStudent implements Serializable {
 	private Employee employee;
 
 	@Column(name = "Takecaretime")
-	private Date takeCareTime;
+	private LocalDate takeCareTime = LocalDate.now();
 
 	@Column(name = "Reason")
 	private String reason;
