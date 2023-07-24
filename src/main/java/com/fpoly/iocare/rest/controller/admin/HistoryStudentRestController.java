@@ -23,6 +23,12 @@ import com.fpoly.iocare.service.IHistoryStudentService;
 public class HistoryStudentRestController {
 	@Autowired
 	IHistoryStudentService historyStudentService;
+	
+	@GetMapping("/rest/historystudent")
+	public ResponseEntity<List<HistoryStudent>> getAll(){
+		List<HistoryStudent> history = historyStudentService.findAll();
+		return ResponseEntity.ok(history);
+	}
 
 	/*--Lấy tất cả lịch sử sinh viên--*/
 	@GetMapping("/rest/historystudent/{employeeId}")

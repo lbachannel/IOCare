@@ -8,7 +8,7 @@ app.controller("ctrl-semester", function($scope, $http, $filter, $timeout) {
 	$scope.items3 = [];
 	$scope.startTime = null;
 	$scope.endTime = null;
-	
+
 	/*--Xóa học kỳ--*/
 	$scope.delete = function(semesterId) {
 		var xacNhan = confirm("Bạn có muốn xóa không?");
@@ -401,31 +401,6 @@ app.controller("ctrl-semester", function($scope, $http, $filter, $timeout) {
 		}
 
 	}
-		/*--Xuất file Excel--*/
-	$scope.exportToExcel = async function() {
-    		var fileName = await prompt("Please enter the file name", "students");
-
-    	    if (!fileName) {
-    	        return; // Ngừng tiếp tục nếu người dùng không nhập tên file
-    	    }
-
-    	    if (!fileName.endsWith(".xlsx")) {
-    	        fileName += ".xlsx";
-    	    }
-    	    try {
-    	        var response = await $http.get('/api/export-excel', { responseType: 'arraybuffer' });
-    	        var contentDispositionHeader = response.headers('content-disposition');
-    	        var responseFileName = contentDispositionHeader.split(';')[1].trim().split('=')[1].replace(/"/g, '');
-    	        var blob = new Blob([response.data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-    	        var downloadLink = document.createElement('a');
-    	        console.log("loi tren0: ",response);
-    	        downloadLink.href = URL.createObjectURL(blob);
-    	        downloadLink.download = fileName;
-    	        downloadLink.click();
-    	    } catch (error) {
-    	        console.log("loi: ",error);
-    	    }
-        };
 
 
 	$scope.findAllHistory();

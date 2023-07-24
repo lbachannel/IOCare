@@ -19,4 +19,5 @@ public interface IHistoryStudentService {
 	/*--Cập nhật lịch sử sinh viên--*/
 	HistoryStudent update(HistoryStudent historyStudent);
 	
+	List<HistoryStudent> getAll();
 }

@@ -15,4 +15,5 @@ public interface IHistoryStudentDAO extends JpaRepository<HistoryStudent, Intege
 	/*--Lấy tất cả sinh viên đã được phân công nhân sự--*/
 	@Query(value = "select * from Historystudent where EmployeeId = ?1", nativeQuery = true)
 	List<HistoryStudent> findByEmployeeId(String employeeId);
+
 }

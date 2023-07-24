@@ -1,4 +1,4 @@
-<div class="container-fluid p-0">
+<div class="container-fluid p-0" ng-controller="ctrl-semester">
 	<h5 class="mb-3"><strong>Bộ lọc</strong></h5>
 	<div class="row">
 		<div class="col-md-12 col-lg-12">
@@ -71,7 +71,7 @@
 					</div>
 					
 					<div class="form-group col-md-4 mb-3">
-						<button class="btn mb-3 btn-light" style="width: 55%; margin-top: 20px">
+						<button class="btn mb-3 btn-light" style="width: 55%; margin-top: 20px" ng-click="exportToExcel()">
 							 Xuất excel
 						</button>
 					</div>
@@ -83,39 +83,36 @@
 	</div>
 
 	<h1 class="h3 mb-3"><strong>Lịch sử</strong> chăm sóc</h1>
-	<div class="row" >
-		<div class="col-12 d-flex">
-			<div class="card flex-fill" ng-controller="viewmore">
-				<table id="myTable" class="table table-hover my-0">
-					<thead>
-						<tr>
-							<th>Loại chiến dịch</th>
-							<th class="d-none d-xl-table-cell">Mã số sinh viên</th>
-							<th>Lý do</th>
-							<th class="d-none d-md-table-cell">Diễn giải chi tiết</th>
-							<th class="d-none d-md-table-cell">Phân loại đánh giá</th>
-							<th class="d-none d-md-table-cell">Nhân sự</th>
-							<th class="d-none d-md-table-cell">Thời gian chăm sóc</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr ng-repeat="item in items | limitTo: visibleItems">
-					        <td>{{ item.loaiChiendich }}</td>
-					        <td class="d-none d-xl-table-cell">{{ item.maSinhVien }}</td>
-					        <td><span class="badge bg-success">Done</span></td>
-					        <td class="d-none d-md-table-cell">{{ item.dienGiai }}</td>
-					        <td class="d-none d-md-table-cell">{{ item.phanLoai }}</td>
-					        <td class="d-none d-md-table-cell">{{ item.nhanSu }}</td>
-					        <td class="d-none d-md-table-cell">{{ item.thoiGianChamSoc }}</td>
-					     </tr>
-						
-					</tbody>
-				</table>
-				<button class="btn btn-light" ng-show="visibleItems < items.length" ng-click="showMore()">Xem thêm</button>
-			</div>
-		</div>
-
-	</div>
+	<div class="row">
+					<div class="col-12 d-flex">
+						<div class="card flex-fill">
+							<table class="table table-hover my-0">
+								<thead>
+									<tr>
+										<th>Loại chiến dịch</th>
+										<th class="d-none d-md-table-cell">Học kì</th>
+										<th class="d-none d-xl-table-cell">Mã số sinh viên</th>
+										<th class="d-none d-xl-table-cell">Họ và tên</th>
+										<th>Lý do</th>
+										<th class="d-none d-md-table-cell">Người chăm sóc</th>
+										<th class="d-none d-md-table-cell">Thời gian chăm sóc</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="history in items3">
+										<td>{{ history.campaign.campaignId}}</td>
+										<td class="d-none d-xl-table-cell">{{ history.semester.semesterId }}</td>
+										<td><span class="badge bg-success">{{ history.student.studentId }}</span></td>
+										<td class="d-none d-xl-table-cell">{{ history.student.studentName }}</td>
+										<td class="d-none d-md-table-cell">{{ history.reason}}</td>
+										<td class="d-none d-md-table-cell">{{ history.employee.employeeId}}</td>
+										<td class="d-none d-md-table-cell">{{ history.takeCareTime}}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
 
 </div>
 

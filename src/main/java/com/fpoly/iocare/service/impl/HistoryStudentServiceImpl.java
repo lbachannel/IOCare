@@ -29,6 +29,11 @@ public class HistoryStudentServiceImpl implements IHistoryStudentService{
 	public List<HistoryStudent> findAll() {
 		return dao.findAll();
 	}
+	
+	@Override
+	public List<HistoryStudent> getAll() {
+		return dao.findAll();
+	}
 
 	@Override
 	public List<HistoryStudent> findByEmployeeId(String employeeId) {
