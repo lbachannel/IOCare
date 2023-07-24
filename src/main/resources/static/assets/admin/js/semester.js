@@ -320,6 +320,7 @@ app.controller("ctrl-semester", function($scope, $http, $filter, $timeout) {
 				var index = $scope.items2.findIndex((p) => p.studentId == item.studentId);
 				$scope.items2[index] = resp.data;
 				$scope.load_all();
+				$scope.findAllHistory();
 				console.log("Cập nhật sinh viên thành công!!!", resp);
 				alert("Cập nhật sinh viên thành công!");
 			})

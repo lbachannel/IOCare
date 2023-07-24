@@ -21,6 +21,7 @@ public class ImportedDataServiceImpl implements IImportedDataService{
 		imp.setImportedFileName(importedData.getImportedFileName());
 		imp.setSemester(importedData.getSemester());
 		imp.setCampaign(importedData.getCampaign());
+		imp.setEmployee(importedData.getEmployee());
 		return dao.save(imp);
 	}
 

@@ -5,7 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fpoly.iocare.dao.IListStudentDAO;
+import com.fpoly.iocare.dao.IObjClassificationDAO;
+import com.fpoly.iocare.dao.ISemesterDAO;
 import com.fpoly.iocare.dao.IStudentDAO;
+import com.fpoly.iocare.model.ListStudent;
+import com.fpoly.iocare.model.ObjClassification;
 import com.fpoly.iocare.model.Student;
 import com.fpoly.iocare.service.IStudentService;
 
@@ -14,9 +19,22 @@ public class StudentServiceImpl implements IStudentService{
 	
 	@Autowired
 	IStudentDAO dao;
+	
+	@Autowired
+	IListStudentDAO listStudentDao;
+	
+	@Autowired
+	IObjClassificationDAO objDao;
+	
+	@Autowired
+	ISemesterDAO semesterDao;
 
 	@Override
 	public Student create(Student student) {
+		ListStudent listStudent = listStudentDao.findById(student.getStudentId()).get();
+		student.setStudentName(listStudent.getFullname());
+		ObjClassification obj = objDao.findById(1).get();	
+		student.setObjClassifications(obj);
 		return dao.save(student);
 	}
 

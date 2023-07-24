@@ -43,6 +43,9 @@ app.config(function($routeProvider, $locationProvider) {
 		.when("/authority-management", {
 			templateUrl: "/assets/admin/layout/authority-management.html"
 		})
+		.when("/list-student", {
+			templateUrl: "/assets/admin/layout/list-student.html"
+		})
 		.otherwise({
 			redirectTo: "/"
 		});

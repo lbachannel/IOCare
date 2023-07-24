@@ -46,4 +46,10 @@ public class HomeAdminController {
 	public String authorityManagement() {
 		return "admin/index";
 	}
+	
+	/*--url: Quản lý danh sách sinh viên--*/
+	@RequestMapping("/list-student")
+	public String getListStudentPage() {
+		return "admin/index";
+	}
 }

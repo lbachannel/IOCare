@@ -307,10 +307,9 @@
 								<tbody>
 									<tr ng-repeat="history in items3">
 										<td>{{ history.campaign.campaignId}}</td>
-										<td class="d-none d-xl-table-cell">{{ history.semester.semesterId}}</td>
-										<td><span class="badge bg-success">{{ history.student.studentId}}</span>
-										</td>
-										<td class="d-none d-xl-table-cell">{{ history.student.studentName}}</td>
+										<td class="d-none d-xl-table-cell">{{ history.semester.semesterId }}</td>
+										<td><span class="badge bg-success">{{ history.student.studentId }}</span></td>
+										<td class="d-none d-xl-table-cell">{{ history.student.studentName }}</td>
 										<td class="d-none d-md-table-cell">{{ history.reason}}</td>
 										<td class="d-none d-md-table-cell">{{ history.employee.employeeId}}</td>
 										<td class="d-none d-md-table-cell">{{ history.takeCareTime}}</td>
@@ -485,9 +484,9 @@
 
 								<div class="form-group col-md-12 col-lg-12">
 									<button class="btn mb-3 btn-light" ng-click="submitted = true; create2()"
-										ng-disabled="isDisabled">Tạo chiến dịch</button>
+										>Tạo chiến dịch</button>
 									<button class="btn mb-3 btn-light" ng-click="update2()"
-										ng-disabled="!formChanges">Cập nhật</button>
+										>Cập nhật</button>
 									<button class="btn mb-3 btn-light" ng-click="reset2()">Làm
 										mới</button>
 								</div>

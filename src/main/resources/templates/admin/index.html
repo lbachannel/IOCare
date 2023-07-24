@@ -59,6 +59,13 @@
               				<span class="align-middle">Quản lý chiến dịch</span>
             			</a>
 					</li>
+					
+					<li class="sidebar-item" ng-class="{ active: isActive('/list-student')}">
+						<a class="sidebar-link" href="/list-student" ng-click="setActive('/list-student')">
+              				<i class="align-middle" data-feather="sliders"></i>
+              				<span class="align-middle">Danh sách sinh viên tổng</span>
+            			</a>
+					</li>
 				
 					<li class="sidebar-header">
 						Quản lý tài khoản
@@ -145,6 +152,7 @@
 	<script src="/assets/admin/js/semester.js"></script>
 	<script src="/assets/admin/js/campaign.js"></script>
 	<script src="/assets/admin/js/import-excel.js"></script>
+	<script src="/assets/admin/js/import-excel-list-student.js"></script>
 	<script src="/assets/admin/js/authority-ctrl.js"></script>
 	<script src="/assets/admin/js/employee.js"></script>
 </body>
